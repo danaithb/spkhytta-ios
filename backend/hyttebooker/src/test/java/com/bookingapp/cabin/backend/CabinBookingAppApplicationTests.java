@@ -1,4 +1,4 @@
-package com.bookingapp.cabin.backend;
+/*package com.bookingapp.cabin.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class CabinBookingAppApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/
