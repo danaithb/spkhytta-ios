@@ -3,7 +3,6 @@
 // booking
 //
 // Created by Mariana and Abigail on 21/02/2025.
-//bytt låsen till button ikke texfield.
 
 import SwiftUI
 import Firebase

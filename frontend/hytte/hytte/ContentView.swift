@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var isActive = UserDefaults.standard.bool(forKey: "isActive")
-                                                    var body: some View {
+var body: some View {
         if isActive {
             LoginView()//skicka till den sida du vill ha den till. vi har login view.
         } else {
@@ -18,14 +18,6 @@ struct ContentView: View {
                 isActive = true
             }
         }
-        
-//        VStack {
-//            Image(systemName: "globe")
-//                .imageScale(.large)
-//                .foregroundStyle(.tint)
-//            Text("Hello, world!")
-//        }
-//        .padding()
     }
 }
 
