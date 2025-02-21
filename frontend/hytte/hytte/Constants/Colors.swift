@@ -11,5 +11,6 @@ import SwiftUI
 extension Color{
     
     static let buttons_blue = Color("buttons_blue")
+    static let splashScreen_blue = Color("splashScreen_blue")
 }
 
