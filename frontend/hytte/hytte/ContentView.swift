@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  hytte
 //
-//  Created by Jana Carlsson on 19/02/2025.
+//  Created by Mariana and Abigail on 19/02/2025.
 //
 
 import SwiftUI
