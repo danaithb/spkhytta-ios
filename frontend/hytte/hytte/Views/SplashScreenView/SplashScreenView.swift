@@ -2,39 +2,53 @@
 //  SplashScreenView.swift
 //  hytte
 //
-//  Created by Mariana and Abigail on 21/02/2025.
-//Fråga Elin om hon vill ha en annan font på denna. 
+//  Created by Jana Carlsson on 21/02/2025.
+//
+
+//
+//  SplasView.swift
+//  News App
+//
+//  Created by Anonym on 21/11/2024.
+//
+//with color red green yellow and blue
+//techer has cart animation in cartView.
+
+
+
+
 
 import SwiftUI
 
 struct SplashScreenView: View {
-    @State private var isActive = false
+    
+    var onAnimationComplete: () -> Void
     var body: some View {
-        if isActive {
-            LoginView()//skicka till den sida du vill ha den till. vi har login view.
-        } else {
-           
-                ZStack {
-                    Color.splashScreen_blue
-                        .ignoresSafeArea()
-                    
-                    Text("Hytte-Portalen")
-                        .foregroundColor(.white)
-                        .font(.system(size: 36, weight:.bold))
+        ZStack {
+            //set whole screen to black
+            //set this back to just black. only one splash screen som this wont be needed. just to test and learn how to change colors.
+            Color(.splashScreenBlue)
+                .ignoresSafeArea()
+            VStack {
+               
                 
-            }
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        self.isActive = true
+                Text("Hytte-Portalen")
+                                        .foregroundColor(.white)
+                                        .font(.custom("Poppins-Italic", size: 40))
+                }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0)
+                    {
+                        onAnimationComplete()
                     }
                 }
-                .fullScreenCover(isPresented: $isActive) {LoginView()}
-           
         }
     }
-       
 }
 
 #Preview {
-    SplashScreenView()
+    SplashScreenView{
+        print("Animation Completed")
+        }
 }
+

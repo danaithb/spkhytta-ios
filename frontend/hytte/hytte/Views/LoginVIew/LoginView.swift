@@ -3,7 +3,7 @@
 // booking
 //
 // Created by Mariana and Abigail on 21/02/2025.
-//
+//bytt låsen till button ikke texfield.
 
 import SwiftUI
 import Firebase
@@ -53,17 +53,15 @@ struct LoginView: View {
                     .font(.subheadline)
                     .padding(.top, 8)
                 HStack {
-                    Image(systemName: "lock")
-                        .foregroundColor(.gray)
-                        .padding(.leading, 10)
+//                    Image(systemName: "lock")
+//                        .foregroundColor(.gray)
+//                        .padding(.leading, 10)
                     SecureField("", text: $viewModel.password)
                         .textFieldStyle(.plain)
                         .padding(.vertical, 10)
+                        .background(RoundedRectangle(cornerRadius: 6)
+                            .stroke(Color.black, lineWidth: (1.5)))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.black, lineWidth: 1.5)
-                )
             }
             .padding(.horizontal)
             
@@ -73,21 +71,28 @@ struct LoginView: View {
                     .font(.caption)
             }
             
-            Button(action: viewModel.login) {
-                Text("Logg inn")
-                    .frame(width: 120, height: 44)
-                    .padding(.vertical, 0)
-                    .background(Color.buttons_blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(6)
-            }
-            .padding(.top, 8)
-            
             Spacer()
-        }
+                .frame(height: 10)
+           
+                Button(action: viewModel.login) {
+                        HStack {
+                            Image(systemName: "lock")
+                                .foregroundStyle(.white)
+                            Text("Logg inn")
+                        }
+                       
+                            .frame(width: 150, height: 50)
+                        //.padding(.vertical, 0)
+                            .background(Color.buttons_blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(6)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    Spacer()
+                }
         .background(Color.white)
         .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            //CalendarView() //kommentera ut den när vi vill directa till en sida. här blir det min sida eller kalendern?
+            //CalendarView() //kommentera ut den när vi vill directa till en sida. här blir det min sida eller kalendern? Den ska till kalendetn
         }
     }
 }

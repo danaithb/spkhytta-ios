@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    @State var isActive = UserDefaults.standard.bool(forKey: "isActive")
+                                                    var body: some View {
+        if isActive {
+            LoginView()//skicka till den sida du vill ha den till. vi har login view.
+        } else {
+           SplashScreenView {
+                UserDefaults.standard.set(true, forKey: "isActive")
+                isActive = true
+            }
         }
-        .padding()
+        
+//        VStack {
+//            Image(systemName: "globe")
+//                .imageScale(.large)
+//                .foregroundStyle(.tint)
+//            Text("Hello, world!")
+//        }
+//        .padding()
     }
 }
 

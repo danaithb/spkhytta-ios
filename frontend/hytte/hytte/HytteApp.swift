@@ -25,7 +25,7 @@ struct hytteApp: App {
         WindowGroup {
             NavigationStack {  // Lägg till denna
            
-                SplashScreenView()
+                ContentView()
             }
         }
     }
