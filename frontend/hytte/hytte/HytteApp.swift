@@ -24,7 +24,8 @@ struct hytteApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {  // Lägg till denna
-                LoginView()
+           
+                SplashScreenView()
             }
         }
     }

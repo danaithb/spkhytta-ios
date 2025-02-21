@@ -8,18 +8,31 @@
 import SwiftUI
 
 struct SplashScreenView: View {
+    @State private var isActive = false
     var body: some View {
-        VStack {
-            ZStack {
-                Color.splashScreen_blue
-                    .ignoresSafeArea()
+        if isActive {
+            LoginView()//skicka till den sida du vill ha den till. vi har login view.
+        } else {
+           
+                ZStack {
+                    Color.splashScreen_blue
+                        .ignoresSafeArea()
+                    
+                    Text("Hytte-Portalen")
+                        .foregroundColor(.white)
+                        .font(.system(size: 36, weight:.bold))
                 
-                Text("Hytte-Portalen")
-                    .foregroundColor(.white)
-                    .font(.system(size: 36, weight:.bold))
             }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.isActive = true
+                    }
+                }
+                .fullScreenCover(isPresented: $isActive) {LoginView()}
+           
         }
     }
+       
 }
 
 #Preview {
