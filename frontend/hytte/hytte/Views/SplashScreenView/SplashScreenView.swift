@@ -3,7 +3,7 @@
 //  hytte
 //
 //  Created by Mariana and Abigail on 21/02/2025.
-//
+//Fråga Elin om hon vill ha en annan font på denna. 
 
 import SwiftUI
 
