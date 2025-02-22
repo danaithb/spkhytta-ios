@@ -2,8 +2,8 @@
 //  authAPI.swift
 //  hytte
 //
-//  Created by Jana Carlsson on 22/02/2025.
-//
+//  Created by Mariana och Abigail on 22/02/2025.
+//skicka user id till backend
 
 import Foundation
 
@@ -14,9 +14,9 @@ func authAPI(authViewModel: AuthViewModel) {
     }
     
     print("User logged in as: \(userId)")
-    let url = URL (string: "https://api.example.com/api/auth/login")!
+    let url = URL (string: "https://api.example.com/api/auth/login")!//byt epi.example.com till, api/auth/login följer backend koden domännamn
     var request = URLRequest(url: url)
-    request.httpMethod = "POST"
+    request.httpMethod = "POST"//ingen kan se
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     let body: [String: String] = ["userId": userId]
     request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -49,5 +49,8 @@ func authAPI(authViewModel: AuthViewModel) {
     }
     
 }
-//connect kalla från view för testing. 
+//connect kalla från view för testing.
+//applikationen på servern så kan vi testa denna.
+//om inte den ska va på serbern så måste jag iaf ha domännamn
+//bara
 
