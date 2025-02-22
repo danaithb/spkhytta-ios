@@ -13,7 +13,7 @@ struct SplashScreenView: View {
     
     var body: some View {
         ZStack {
-            Color(.blue)
+            Color.splashScreen_blue
                 .ignoresSafeArea()
             VStack {
                Text("Hytte-Portalen")
