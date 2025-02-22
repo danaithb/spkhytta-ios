@@ -2,45 +2,32 @@
 //  SplashScreenView.swift
 //  hytte
 //
-//  Created by Jana Carlsson on 21/02/2025.
+//  Created Mariana and Abigail on 21/02/2025.
 //
-
-//
-//  SplasView.swift
-//  News App
-//
-//  Created by Anonym on 21/11/2024.
-//
-//with color red green yellow and blue
-//techer has cart animation in cartView.
-
-
-
 
 
 import SwiftUI
 
 struct SplashScreenView: View {
+    var animationDuration: () -> Void
     
-    var onAnimationComplete: () -> Void
     var body: some View {
         ZStack {
-     
-            Color(.splashScreenBlue)
+            Color(.blue)
                 .ignoresSafeArea()
             VStack {
-               
-                
-                Text("Hytte-Portalen")
-                                        .foregroundColor(.white)
-                                        .font(.custom("Poppins-Italic", size: 40))
+               Text("Hytte-Portalen")
+                    .foregroundColor(.white)
+                    .font(.system(.largeTitle))
                 }
             .onAppear {
+                print("Spalsh visas")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0)
                     {
-                        onAnimationComplete()
+                        print("timer har kört")
+                        animationDuration()
                     }
-                }
+            }
         }
     }
 }

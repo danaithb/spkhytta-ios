@@ -8,18 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var isActive = UserDefaults.standard.bool(forKey: "isActive")
+    @State var isActive = false
+    
     var body: some View {
-        if isActive {
-            LoginView()//skicka till den sida du vill ha den till. vi har login view.
-        } else {
-            SplashScreenView {
-                UserDefaults.standard.set(true, forKey: "isActive")
-                isActive = true
+        ZStack {
+            if isActive {
+                LoginView()//skicka till den sida du vill ha den till. vi har login view.
+            } else {
+                SplashScreenView(animationDuration: {
+                    withAnimation {
+                        UserDefaults.standard.set(true, forKey: "isActive")
+                        isActive = true
+                    }
+                })
             }
         }
+        .onAppear {
+            isActive = false
+            UserDefaults.standard.set(false, forKey: "isActive")
+        }
     }
-
 }
 
 #Preview {
