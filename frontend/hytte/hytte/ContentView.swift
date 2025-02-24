@@ -3,7 +3,10 @@
 //  hytte
 //
 //  Created by Mariana and Abigail on 19/02/2025.
-//user details will be saved in fb. not in the database. if we want the auth in database we will need to put encryption by our selves. need extra code for encryption. 
+//user details will be saved in fb. not in the database. if we want the auth in database we will need to put encryption by our selves. need extra code for encryption.
+
+
+
 
 import SwiftUI
 

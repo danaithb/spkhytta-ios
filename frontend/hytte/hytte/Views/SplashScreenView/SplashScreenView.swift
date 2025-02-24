@@ -21,10 +21,10 @@ struct SplashScreenView: View {
                     .font(.system(.largeTitle))
                 }
             .onAppear {
-                print("Spalsh visas")
+                //print("Spalsh visas")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0)
                     {
-                        print("timer har kört")
+                        //print("timer har kört")
                         animationDuration()
                     }
             }
@@ -34,7 +34,7 @@ struct SplashScreenView: View {
 
 #Preview {
     SplashScreenView{
-        print("Animation Completed")
+        //print("Animation Completed")
         }
 }
 
