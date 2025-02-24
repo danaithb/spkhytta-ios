@@ -15,11 +15,15 @@ struct SplashScreenView: View {
         ZStack {
             Color.splashScreen_blue
                 .ignoresSafeArea()
-            VStack {
-               Text("Hytte-Portalen")
+            HStack(spacing: 0) {
+               Text("HYTTE")
                     .foregroundColor(.white)
-                    .font(.system(.largeTitle))
+                    .font(.custom("Poppins-Regular", size: 40))
+                Text("PORTALEN")
+                     .foregroundColor(.white)
+                     .font(.custom("Poppins-Bold", size: 40))
                 }
+            
             .onAppear {
                 //print("Spalsh visas")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0)
