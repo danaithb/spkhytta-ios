@@ -21,7 +21,7 @@ struct SplashScreenView: View {
                     .font(.custom("Poppins-Regular", size: 40))
                 Text("PORTALEN")
                      .foregroundColor(.white)
-                     .font(.custom("Poppins-Bold", size: 40))
+                     .font(.custom("Poppins-SemiBold", size: 40))
                 }
             
             .onAppear {

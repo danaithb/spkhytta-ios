@@ -3,7 +3,9 @@
 // booking
 //
 // Created by Mariana and Abigail on 21/02/2025.
-//man ska kunna fortsätta att vara inloggad med sin brukare även om man stänger ner appen. inte "" varje gång.
+//man ska kunna fortsätta att vara inloggad med sin brukare även om man stänger ner appen. inte "" varje gång. 
+
+//For Elin. Log Out button
 
 import SwiftUI
 import Firebase
