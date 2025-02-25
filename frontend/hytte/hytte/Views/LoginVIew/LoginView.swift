@@ -1,11 +1,9 @@
-//
 // LoginView.swift
 // booking
 //
 // Created by Mariana and Abigail on 21/02/2025.
-//man ska kunna fortsätta att vara inloggad med sin brukare även om man stänger ner appen. inte "" varje gång. 
-
-//For Elin. Log Out button
+//bytt låsen till button ikke texfield.
+//man ska kunna fortsätta att vara inloggad med sin brukare även om man stänger ner appen. inte "" varje gång.
 
 import SwiftUI
 import Firebase
@@ -13,7 +11,8 @@ import FirebaseAuth
 import FirebaseCore
 
 struct LoginView: View {
-    @ObservedObject private var viewModel = AuthViewModel()
+    @ObservedObject var viewModel: AuthViewModel
+    @Binding var isLoggedIn: Bool
     
     var body: some View {
         VStack(spacing: 20) {
@@ -54,16 +53,11 @@ struct LoginView: View {
                 Text("Passord")
                     .font(.subheadline)
                     .padding(.top, 8)
-                HStack {
-//                    Image(systemName: "lock")
-//                        .foregroundColor(.gray)
-//                        .padding(.leading, 10)
-                    SecureField("", text: $viewModel.password)
-                        .textFieldStyle(.plain)
-                        .padding(.vertical, 10)
-                        .background(RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color.black, lineWidth: (1.5)))
-                }
+                SecureField("", text: $viewModel.password)
+                    .textFieldStyle(.plain)
+                    .padding(10)
+                    .background(RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color.black, lineWidth: (1.5)))
             }
             .padding(.horizontal)
             
@@ -76,30 +70,29 @@ struct LoginView: View {
             Spacer()
                 .frame(height: 10)
            
-                Button(action: viewModel.login) {
-                        HStack {
-                            Image(systemName: "lock")
-                                .foregroundStyle(.white)
-                            Text("Logg inn")
-                        }
-                       
-                            .frame(width: 150, height: 50)
-                        //.padding(.vertical, 0)
-                            .background(Color.buttons_blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(6)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    Spacer()
+            Button(action: {
+                viewModel.login()
+                if viewModel.isAuthenticated {
+                    isLoggedIn = true
                 }
+            }) {
+                HStack {
+                    Image(systemName: "lock")
+                        .foregroundStyle(.white)
+                    Text("Logg inn")
+                }
+                .frame(width: 150, height: 50)
+                //.padding(.vertical, 0)
+                .background(Color.buttons_blue)
+                .foregroundColor(.white)
+                .cornerRadius(6)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            Spacer()
+        }
         .background(Color.white)
-        .navigationDestination(isPresented: $viewModel.isAuthenticated) {
-            //CalendarView() //kommentera ut den när vi vill directa till en sida. här blir det min sida eller kalendern? Den ska till kalendetn
+        .onChange(of: viewModel.isAuthenticated) {
+            isLoggedIn = viewModel.isAuthenticated
         }
     }
 }
-
-#Preview {
-    LoginView()
-}
-

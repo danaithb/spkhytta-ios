@@ -1,4 +1,3 @@
-//
 //  AuthViewModel.swift
 //  BookingApp
 //
@@ -17,6 +16,18 @@ class AuthViewModel: ObservableObject {
     @Published var isAuthenticated = false
     @Published var userId = ""
     
+    init() {
+        // är användare redan inoggad?
+        checkAuthState()
+    }
+    
+    func checkAuthState() {
+        if let currentUser = Auth.auth().currentUser {
+            self.isAuthenticated = true
+            self.userId = currentUser.uid
+        }
+    }
+    
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
@@ -28,9 +39,22 @@ class AuthViewModel: ObservableObject {
             }//user id till backend lägg till i db. gör api swiftUI. func send user id to bakckend, java backend kan requesta det api använd folder name. call function.
         }
     }
+    
+    func logout() {
+        do {
+            try Auth.auth().signOut()
+            self.isAuthenticated = false
+            self.userId = ""
+            self.email = ""
+            self.password = ""
+        } catch {
+            self.errorMessage = "Error signing out"
+        }
+    }
+    
     //den här retunerar user id for API
-    func getFirebaseUserId()-> String? {
-        return (Auth.auth().currentUser?.uid)!
+    func getFirebaseUserId() -> String? {
+        return Auth.auth().currentUser?.uid
     }
 }
 

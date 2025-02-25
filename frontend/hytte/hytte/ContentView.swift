@@ -1,4 +1,3 @@
-//
 //  ContentView.swift
 //  hytte
 //
@@ -14,15 +13,22 @@ struct ContentView: View {
     @State var isActive = false
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
     @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+    @StateObject private var authViewModel = AuthViewModel()
     
     var body: some View {
         if isFirstLaunch {
-            SplashScreenView(animationDuration: {
+            SplashScreenView {
                 withAnimation {
-                    UserDefaults.standard.set(true, forKey: "isActive")
+                    isActive = true
                     isFirstLaunch = false
+                    // är användare auth i fb koll
+                    isLoggedIn = authViewModel.isAuthenticated
                 }
-            })
+            }
+        } else if !isLoggedIn {
+            // bug error vill inte ha parameter.
+            LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
         } else {
             TabView {
                 //Kalender
@@ -45,22 +51,18 @@ struct ContentView: View {
                 
                 //settings
                 NavigationStack {
-                    SettingsView(isDarkMode: $isDarkMode)
+                    SettingsView(isDarkMode: $isDarkMode, isLoggedIn: $isLoggedIn, authViewModel: authViewModel)
                 }
                 .tabItem {
                     Image(systemName: "gear")
-                    Text("Setings")
+                    Text("Settings")
                 }
-                .preferredColorScheme(isDarkMode ? .dark : .light)
             }
-            .onAppear {
-                isActive = false
-                UserDefaults.standard.set(false, forKey: "isActive")
-            }
+            .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }
 
 #Preview {
     ContentView()
-}
+} // de här ska hänga ihop och visa splashview sen direkta till login.
