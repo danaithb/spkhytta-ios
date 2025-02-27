@@ -52,10 +52,11 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    //den här retunerar user id for API
-    func getFirebaseUserId() -> String? {
-        return Auth.auth().currentUser?.uid
-    }
+    //testat api som fungerar. ta bort denna till final code.
+//    //den här retunerar user id for API
+//    func getFirebaseUserId() -> String? {
+//        return Auth.auth().currentUser?.uid
+//    }
 }
 
 

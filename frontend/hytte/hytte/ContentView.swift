@@ -17,17 +17,29 @@ struct ContentView: View {
     @StateObject private var authViewModel = AuthViewModel()
     
     var body: some View {
-        if isFirstLaunch {
-            SplashScreenView {
-                withAnimation {
-                    isActive = true
-                    isFirstLaunch = false
-                    // är användare auth i fb koll
-                    isLoggedIn = authViewModel.isAuthenticated
+        if !isActive {
+            //nested loop för att se om man är inloggad?
+            if !authViewModel.isAuthenticated {
+                SplashScreenView {
+                    withAnimation {
+                        isActive = true
+                        isFirstLaunch = false
+                        // är användare auth i fb koll
+                        //--måste ämdra något här så att den visas även om användare är auth. splash sla visas oavsett.
+                        isLoggedIn = authViewModel.isAuthenticated
+                    }
                 }
+            } else {
+                // Om användaren redan är autentiserad, hoppa över splash och sätt status direkt
+                Color.clear
+                    .onAppear {
+                        isActive = true
+                        isFirstLaunch = false
+                        isLoggedIn = true
+                    }
             }
         } else if !isLoggedIn {
-            // bug error vill inte ha parameter.
+            // bug error vill inte ha parameter.--fixed
             LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
         } else {
             TabView {

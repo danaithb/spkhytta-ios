@@ -19,7 +19,7 @@ struct SettingsView: View {
                 }
                 
                 //filtrerings settings här
-                
+                //logg ut.
                 Section(header: Text("Konto")) {
                     Button("Logg ut") {
                         authViewModel.logout()
