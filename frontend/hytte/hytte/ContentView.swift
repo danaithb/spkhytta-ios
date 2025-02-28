@@ -6,7 +6,7 @@
 //--Darkmode klar--
 //filtrerings settings i settings view på vilken sorts hytter man skulle vilja ha.
 
-//Lagt till Tab eftersom .tabItem kommer bli deprecated. Fråga Danial vad man bör ha här. Tab måste vara Swift 5.9 eller senare. Om vi ska ha Tab clean build projektet och radera derived data(tab ligger kommenterad).
+//Lagt till Tab eftersom .tabItem kommer bli deprecated. Fråga Danial vad man bör ha här. Tab måste vara Swift 5.9 eller senare. Om vi ska ha Tab: clean build projektet och radera derived data(tab ligger kommenterad).
 
 import SwiftUI
 import SwiftData
