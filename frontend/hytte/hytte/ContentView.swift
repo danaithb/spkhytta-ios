@@ -6,6 +6,8 @@
 //--Darkmode klar--
 //filtrerings settings i settings view på vilken sorts hytter man skulle vilja ha.
 
+//Lagt till Tab eftersom .tabItem kommer bli deprecated. Fråga Danial vad man bör ha här. Tab måste vara Swift 5.9 eller senare. Om vi ska ha Tab clean build projektet och radera derived data(tab ligger kommenterad).
+
 import SwiftUI
 import SwiftData
 
@@ -17,7 +19,7 @@ struct ContentView: View {
     @StateObject private var authViewModel = AuthViewModel()
     
     var body: some View {
-        if !isActive && !authViewModel.isAuthenticated { //ordnade hierarki o mina loopar
+        if !isActive && !authViewModel.isAuthenticated { //ordnade hierarki o mina loopar, nested var ingen bra ide. det blev rotigt.
             SplashScreenView {
                 withAnimation {
                     isActive = true
@@ -49,6 +51,9 @@ struct ContentView: View {
                     Image(systemName: "calendar.circle")
                     Text("Kalender")
                 }
+//                Tab("Kalender", systemImage: "calendar.circle") {
+//                     CalendarView()
+//                }
                 
                 //min sida
                 NavigationStack {
@@ -58,6 +63,9 @@ struct ContentView: View {
                     Image(systemName: "person.circle")
                     Text("Min Side")
                 }
+//                Tab("Min Side", systemImage: "person.circle") {
+//                     CalendarView()
+//                }
                 
                 //settings
                 NavigationStack {
@@ -67,6 +75,9 @@ struct ContentView: View {
                     Image(systemName: "gear")
                     Text("Settings")
                 }
+//                Tab("Setting", systemImage: "gear") {
+//                     CalendarView()
+//                }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
         }
