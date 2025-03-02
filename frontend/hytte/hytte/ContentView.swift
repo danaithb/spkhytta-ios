@@ -66,6 +66,7 @@ struct ContentView: View {
 //                Tab("Min Side", systemImage: "person.circle") {
 //                     CalendarView()
 //                }
+            //    .badge("Här kan man lägga tex eller siffra") för att visa om det är någon uppdatering på sidan. Nil döljer badge. för att se om det är några nya uppdateringar så gör en @State variabel för unreadMessages som sen sätts till 0 när användaren loggar in på sin sida (detta kan bara göras med Tab).
                 
                 //settings
                 NavigationStack {
