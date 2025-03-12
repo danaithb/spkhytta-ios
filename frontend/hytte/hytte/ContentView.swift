@@ -79,8 +79,13 @@ struct ContentView: View {
 //                Tab("Setting", systemImage: "gear") {
 //                     CalendarView()
 //                }
-            }
+                
+                }
+//            .background(Color.pink.ignoresSafeArea()) // Rosa bakgrund för hela TabView
+//            .toolbarBackground(Color.pink, for: .tabBar)
+//            .toolbarBackground(.visible, for: .tabBar)
             .preferredColorScheme(isDarkMode ? .dark : .light)
+            .padding()
         }
     }
 }
@@ -88,3 +93,6 @@ struct ContentView: View {
 #Preview {
     ContentView()
 } // de här ska hänga ihop och visa splashview sen direkta till login.
+
+
+
