@@ -14,7 +14,6 @@
 		9FFD96952D9C02B70025E7FB /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96942D9C02B70025E7FB /* FirebaseMessaging */; };
 		9FFD96972D9C02B70025E7FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96962D9C02B70025E7FB /* FirebaseStorage */; };
 		9FFD96992D9C05B90025E7FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD96982D9C05B90025E7FB /* GoogleService-Info.plist */; };
-		EF0EF9832D9C691A00A6D4FC /* .gitignore in Sources */ = {isa = PBXBuildFile; fileRef = EF0EF9822D9C691400A6D4FC /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +38,6 @@
 		9FFD958B2D9BF8DF0025E7FB /* Spkhytta-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD95952D9BF8DF0025E7FB /* Spkhytta-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD96982D9C05B90025E7FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EF0EF9822D9C691400A6D4FC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -94,7 +92,6 @@
 		9FFD95722D9BF8DE0025E7FB = {
 			isa = PBXGroup;
 			children = (
-				EF0EF9822D9C691400A6D4FC /* .gitignore */,
 				9FFD957D2D9BF8DE0025E7FB /* Spkhytta-iOS */,
 				9FFD958E2D9BF8DF0025E7FB /* Spkhytta-iOSTests */,
 				9FFD95982D9BF8DF0025E7FB /* Spkhytta-iOSUITests */,
@@ -267,7 +264,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0EF9832D9C691A00A6D4FC /* .gitignore in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,7 +436,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "no.spk.hytte.Spkhytta-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = no.spk.hytte;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -468,7 +464,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "no.spk.hytte.Spkhytta-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = no.spk.hytte;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
