@@ -55,6 +55,7 @@ struct BookingView: View {
                 }
                 ]
             )
+            .padding(.top, 30)
             // ---------- Valda datum ----------
             if endDate != nil && startDate != nil {
                 BookingContentView(
@@ -156,7 +157,7 @@ struct BookingView: View {
             }
             
             .font(.subheadline)
-            //.padding()
+            .padding(.bottom, 20)//bra höjd för att man ska kunna trycka med tummen på knappen.
         }
     
 }

@@ -79,7 +79,7 @@ struct ButtonView: View {
 //                }
 //            }
             .padding(.horizontal, 40)
-            .padding(.bottom, 30)
+            .padding(.bottom, 50)
     }
 }
 

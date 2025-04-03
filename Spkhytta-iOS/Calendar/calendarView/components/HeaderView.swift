@@ -11,9 +11,10 @@ struct HeaderView: View {
     var body: some View {
         // Titel
         Text("Kalenderoversikt")
-            .font(.largeTitle)
+            .font(.title)
             .fontWeight(.bold)
-            .padding(.top, 30)
+            .padding(.top, 40)
+            //.padding(.bottom, 15)
 
         // Undertext
         Text("Velg dato du ønsker å booke")

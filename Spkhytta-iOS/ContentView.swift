@@ -8,6 +8,8 @@
 
 //Lagt till Tab eftersom .tabItem kommer bli deprecated. Fråga Danial vad man bör ha här. Tab måste vara Swift 5.9 eller senare. Om vi ska ha Tab: clean build projektet och radera derived data(tab ligger kommenterad).
 
+//.symbolRenderingMode(.hierarchical) fungerar inte på tab, så symbolerna kommer att vara fyllda när de är i tab.
+
 import SwiftUI
 import SwiftData
 
@@ -43,49 +45,38 @@ struct ContentView: View {
             LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
         } else {
             TabView {
-                //Kalender
-                NavigationStack {
-                    CalendarView()
+           //Kalender
+                Tab("Kalender", systemImage: "calendar.circle") {
+                    NavigationStack {
+                        CalendarView()
+                    }
                 }
-                .tabItem {
-                    Image(systemName: "calendar.circle")
-                    Text("Kalender")
-                }
-//                Tab("Kalender", systemImage: "calendar.circle") {
-//                     CalendarView()
-//                }
+                
                 
                 //min sida
-                NavigationStack {
-                    ProfileView()
+                
+                Tab("Min Side", systemImage: "person.circle") {
+                    NavigationStack {
+                        CalendarView()
+                    }
                 }
-                .tabItem {
-                    Image(systemName: "person.circle")
-                    Text("Min Side")
-                }
-//                Tab("Min Side", systemImage: "person.circle") {
-//                     CalendarView()
-//                }
             //    .badge("Här kan man lägga tex eller siffra") för att visa om det är någon uppdatering på sidan. Nil döljer badge. för att se om det är några nya uppdateringar så gör en @State variabel för unreadMessages som sen sätts till 0 när användaren loggar in på sin sida (detta kan bara göras med Tab).
                 
                 //settings
-                NavigationStack {
-                    SettingsView(isDarkMode: $isDarkMode, isLoggedIn: $isLoggedIn, authViewModel: authViewModel)
+               
+                Tab("Setting", systemImage: "gear") {
+                    NavigationStack {
+                        SettingsView(
+                            isDarkMode: $isDarkMode, isLoggedIn: $isLoggedIn, authViewModel: authViewModel
+                            )
+                        
+                    }
+                     
                 }
-                .tabItem {
-                    Image(systemName: "gear")
-                    Text("Settings")
-                }
-//                Tab("Setting", systemImage: "gear") {
-//                     CalendarView()
-//                }
                 
-                }
-//            .background(Color.pink.ignoresSafeArea()) // Rosa bakgrund för hela TabView
-//            .toolbarBackground(Color.pink, for: .tabBar)
-//            .toolbarBackground(.visible, for: .tabBar)
+            }
             .preferredColorScheme(isDarkMode ? .dark : .light)
-            .padding()
+            //.padding()får kalendern att bli längre från kkanten. knappen blir mindre. 
         }
     }
 }

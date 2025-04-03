@@ -31,14 +31,12 @@ struct SettingsView: View {
             //byt den här till version två. den ska vara vanlig navigationTitle enligt iOS standard. inte med inline som är sekundär överskrift.
             //The .inline option shows small titles, which are useful for secondary, tertiary, or subsequent views in your navigation stack.
             //https://www.hackingwithswift.com/articles/216/complete-guide-to-navigationview-in-swiftui
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Instillinger")
-                        .font(.largeTitle.bold())
-                        .accessibilityAddTraits(.isHeader)
-                }
-            }
+            .listStyle(.insetGrouped)
+                        .background(Color(.systemGroupedBackground))
+                        .navigationTitle("Innstillinger")
+                        .navigationBarTitleDisplayMode(.automatic)
+                
+            
         }
     }
 }

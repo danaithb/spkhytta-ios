@@ -66,7 +66,7 @@ struct CalendarView: View {
                 )
                 .padding(.horizontal)
                 
-                Spacer()
+                //Spacer()
                 
                 InfoView()
                 
@@ -84,6 +84,8 @@ struct CalendarView: View {
                             navigationPath.append("BookingDestination")
                         }
                     }
+               
+//                    .padding(.bottom, 20)
             }
             .task {
                 if viewModel.holidays.isEmpty {
