@@ -2,7 +2,7 @@
 //  CalendarButton.swift
 //  Calendar
 //
-//  Created by Jana Carlsson on 17/03/2025.
+//  Created by Mariana och Abigail on 17/03/2025.
 //
 
 // TODO
@@ -10,42 +10,7 @@
 // 2. Lägga till onTapGesture och action-hantering igen
 // 3. Integrera med start och slutdatum
 
-//import SwiftUI
-//
-//struct ButtonView: View {
-//    var text:String
-//    var startDate: Date?
-//    var endDate: Date?
-//    var action: () -> Void
-//    var alertAction: (String) -> Void
-//
-//    var body: some View {
-//        Button(action: {
-//            if startDate == nil {
-//                alertAction("Velg minst en dato for å booke.")
-//            } else {
-//                action()
-//            }
-//        }) {
-//            Text(text)
-//                .font(.headline)
-//                .foregroundColor(.white)
-//                .frame(maxWidth: .infinity)
-//                .padding()
-//                .background(
-//                    RoundedRectangle(cornerRadius: 10)
-//                        .fill(Color.blue)
-//                )
-//        }
-//        .padding(.horizontal, 40)
-//        .padding(.bottom, 30)
-//    }
-//}
 
-
-//#Preview {
-//    ButtonView()
-//}
 
 // ---------- Knapp för bokning ----------
 import SwiftUI

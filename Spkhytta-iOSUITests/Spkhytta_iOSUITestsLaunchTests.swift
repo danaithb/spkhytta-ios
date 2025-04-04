@@ -2,7 +2,7 @@
 //  Spkhytta_iOSUITestsLaunchTests.swift
 //  Spkhytta-iOSUITests
 //
-//  Created by Abigail Budu-Quaye on 01/04/2025.
+//  Created by Mariana och Abigail on 01/04/2025.
 //
 
 import XCTest

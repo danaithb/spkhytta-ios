@@ -1,7 +1,7 @@
 // CalendarGridHelpers.swift
 //  Calendar
 //
-// Created by Jana Carlsson (datum)
+// Created by Mariana och Abigail 23/03/2025
 
 // TODO
 // 1. bättre färger för olika tillstånd i kalendern

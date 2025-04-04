@@ -3,6 +3,11 @@
 //
 //  Created by Mariana and Abigail on 21/02/2025.
 //ändra authID?
+// TODO
+// hämta in en access token från Firebase
+// sänd en bearer token till backend i header. detta ska inte göras i den här filen utan en API kall
+// backend verifierar att det är rätt användare
+//ska vi spara token till andra dekar av appen?
 
 import SwiftUI
 import Firebase
@@ -27,7 +32,7 @@ class AuthViewModel: ObservableObject {
             self.userId = currentUser.uid
         }
     }
-    
+    //TODO lägg in hämta token här i funktionen.
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
@@ -35,6 +40,7 @@ class AuthViewModel: ObservableObject {
             } else {
                 self.isAuthenticated = true
                 self.userId = (Auth.auth().currentUser?.uid)!
+                //hämta in token här frpn FB.
                 print(self.userId)//log out user id ska bli reset till empty igen.
             }//user id till backend lägg till i db. gör api swiftUI. func send user id to bakckend, java backend kan requesta det api använd folder name. call function.
         }

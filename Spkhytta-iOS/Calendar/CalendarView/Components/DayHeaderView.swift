@@ -2,7 +2,7 @@
 //  DayHeaderView.swift
 //  Calendar
 //
-//  Created by Jana Carlsson on 18/03/2025.
+//  Created by Mariana och Abigail on 18/03/2025.
 //
 
 import SwiftUI

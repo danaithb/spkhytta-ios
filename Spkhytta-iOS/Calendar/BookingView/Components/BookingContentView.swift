@@ -1,7 +1,6 @@
 // BookingContentView.swift
 // Calendar
-//
-// Created by Jana Carlsson on 27/03/2025.
+//Created by Mariana och Abigail  on 27/03/2025.
 //
 
 import Foundation

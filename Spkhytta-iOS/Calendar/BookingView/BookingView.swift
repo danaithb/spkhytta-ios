@@ -1,7 +1,7 @@
 //  BookingView.swift
 // Calendar
 //
-// Created by Jana Carlsson on 23/03/2025.
+// Created by Mariana och Abigail on 23/03/2025.
 //
 
 // TODO

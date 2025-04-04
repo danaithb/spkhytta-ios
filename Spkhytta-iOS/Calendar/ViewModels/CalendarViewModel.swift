@@ -1,6 +1,8 @@
+//CalendarViewModel.swift
 
-//TODO: se över så att det visas errpr om man har inte har tryckt på en knapp, fungerade förut. men inte nu, varför?
+//Created by Mariana och Abigail on 12/03/2025
 
+//Todo se över s¨att det visas erroe om man inte har tryckt på en knapp. Fungerade föru, men inte nu.
 
 import Foundation
 import SwiftUI

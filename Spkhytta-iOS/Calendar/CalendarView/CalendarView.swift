@@ -1,5 +1,9 @@
-//// TODO
-//// 1. lägg till så vi kan tryck på tex 5 som startdatum och 8 som slutdatum och alla får markeringar. Svep? eller hur gör du om du vill bara boka 5 och 8. Toggle (i inställnignar) om vi vill ha flera dager av eller på. Prata med grupppen om vilket alternaitv.
+//
+//CalendarView.swift
+
+//Created by Mariana and Abigail on 28/02/2025
+// TODO
+// 1. lägg till så vi kan tryck på tex 5 som startdatum och 8 som slutdatum och alla får markeringar. Svep? eller hur gör du om du vill bara boka 5 och 8. Toggle (i inställnignar) om vi vill ha flera dager av eller på. Prata med grupppen om vilket alternaitv.
 //// 2. gråmarkera daum som har passerat i kalendern. API --fixat
 //// 3. läg till en blå cirkel runt dagens datum. --fixat
 //// 4. lägg till onTapGesture där kommentarar säger i koden, default flera dager. kan huka av en och en på toggle i settings.

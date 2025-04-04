@@ -1,7 +1,7 @@
 //  CalendarGridView.swift
 //  Calendar
 //
-//  Created by Jana Carlsson on 18/03/2025.
+//  Created by Mariana och Abigail on 18/03/2025.
 //
 // BUG: Problem med dagens datum som blev otillgängligt fast det inte var bokat.
 // Jämförelserna med unavailableDates fungerade inte som tänkt eftersom

@@ -1,8 +1,7 @@
 //
-// APIClient.swift
-//booking
-//
-//  Created by Jana Carlsson on 05/02/2025.
+// PublicHolidaysAPIClient.swift
+
+// Created by Mariana och Abigail on 05/02/2025.
 //
 //ÄNDRA GLBALA KONSTANTER
 // TODO

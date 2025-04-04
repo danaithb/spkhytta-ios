@@ -1,21 +1,13 @@
 //
-//  CalandarApi.swift
+//  PublicHolidaysAPIEndpoint.swift
 //  booking
 //
-//  Created by Jana Carlsson on 03/02/2025.
+//  Created by Mariana och Abigail on 03/02/2025.
 //
 
-import Foundation
-    
 //ska bara få in holidays en gång så ska de sparas i en databas. sen ska holidays hämtas från databsen. (kolla if they are avalible from the database or not. if not. get them.)
 //backend kan hämta röda dagar översikten.
 
-//
-//  CalandarApi.swift
-//  booking
-//
-//  Created by Jana Carlsson on 03/02/2025.
-//
 
 // TODO
 // 1. Spara helgdagar i lokal databas efter första hämtningen
