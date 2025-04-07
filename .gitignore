@@ -34,6 +34,7 @@ fastlane/test_output
 # Firebase
 GoogleService-Info.plist
 
+
 # Temporary files
 *.swp
 *.xcuserstate
