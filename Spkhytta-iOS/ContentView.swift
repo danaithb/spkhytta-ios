@@ -45,10 +45,11 @@ struct ContentView: View {
             LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
         } else {
             TabView {
+                
                 // Hjem
                 Tab("Hjem", systemImage: "house") {
                     NavigationStack {
-                        CalendarView()
+                        HomeView()
                     }
                 }
                 
