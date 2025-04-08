@@ -2,7 +2,7 @@
 //  ProfileView.swift
 //  hytte
 //
-//  Created by Mariana and Abigail on 24/02/2025.
+//  Created by Mariana and Abigail on 24/02/2025....
 //
 
 import SwiftUI
