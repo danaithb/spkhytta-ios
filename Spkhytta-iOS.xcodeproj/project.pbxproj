@@ -13,7 +13,9 @@
 		9FFD96932D9C02B70025E7FB /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96922D9C02B70025E7FB /* FirebaseCrashlytics */; };
 		9FFD96952D9C02B70025E7FB /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96942D9C02B70025E7FB /* FirebaseMessaging */; };
 		9FFD96972D9C02B70025E7FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96962D9C02B70025E7FB /* FirebaseStorage */; };
-		9FFD96992D9C05B90025E7FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9FFD96982D9C05B90025E7FB /* GoogleService-Info.plist */; };
+		EFCDCF0B2DA53B9900723F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFCDCF0A2DA53B9900723F88 /* GoogleService-Info.plist */; };
+		EFCDCF0C2DA53B9900723F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFCDCF0A2DA53B9900723F88 /* GoogleService-Info.plist */; };
+		EFCDCF0D2DA53B9900723F88 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EFCDCF0A2DA53B9900723F88 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +39,7 @@
 		9FFD957B2D9BF8DE0025E7FB /* Spkhytta-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spkhytta-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD958B2D9BF8DF0025E7FB /* Spkhytta-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD95952D9BF8DF0025E7FB /* Spkhytta-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FFD96982D9C05B90025E7FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EFCDCF0A2DA53B9900723F88 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -96,7 +98,7 @@
 				9FFD958E2D9BF8DF0025E7FB /* Spkhytta-iOSTests */,
 				9FFD95982D9BF8DF0025E7FB /* Spkhytta-iOSUITests */,
 				9FFD957C2D9BF8DE0025E7FB /* Products */,
-				9FFD96982D9C05B90025E7FB /* GoogleService-Info.plist */,
+				EFCDCF0A2DA53B9900723F88 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -239,7 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FFD96992D9C05B90025E7FB /* GoogleService-Info.plist in Resources */,
+				EFCDCF0B2DA53B9900723F88 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFCDCF0D2DA53B9900723F88 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFCDCF0C2DA53B9900723F88 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
