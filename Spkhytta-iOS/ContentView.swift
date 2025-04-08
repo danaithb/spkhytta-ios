@@ -45,6 +45,13 @@ struct ContentView: View {
             LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
         } else {
             TabView {
+                // Hjem
+                Tab("Hjem", systemImage: "house") {
+                    NavigationStack {
+                        CalendarView()
+                    }
+                }
+                
            //Kalender
                 Tab("Kalender", systemImage: "calendar.circle") {
                     NavigationStack {
@@ -57,7 +64,7 @@ struct ContentView: View {
                 
                 Tab("Min Side", systemImage: "person.circle") {
                     NavigationStack {
-                        CalendarView()
+                        ProfileView()
                     }
                 }
             //    .badge("Här kan man lägga tex eller siffra") för att visa om det är någon uppdatering på sidan. Nil döljer badge. för att se om det är några nya uppdateringar så gör en @State variabel för unreadMessages som sen sätts till 0 när användaren loggar in på sin sida (detta kan bara göras med Tab).

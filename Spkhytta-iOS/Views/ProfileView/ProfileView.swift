@@ -9,7 +9,74 @@ import SwiftUI
 
 struct ProfileView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack(spacing: 16) {
+                // Prfile Side
+                Text("Min side")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.top)
+
+                // Profil Bilder
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                        .frame(width: 180, height: 180)
+
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .foregroundColor(.gray)
+                        .frame(width: 100, height: 100)
+                }
+
+                // Navn og  Jobb Title
+                VStack(spacing: 4) {
+                    Text("Ola Norman")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+
+                    Text("It-Utvikler")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+
+                // Booking Seksjon
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Mine bookinger")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            Text("**Dato:** 03–06-2025")
+                            Spacer()
+                            Text("**Antall personer:** 4")
+                        }
+
+                        VStack(spacing: 8) {
+                            Text("Status på booking:")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+
+                            HStack(spacing: 8) {
+                                Text("Bekreftet")
+                                Circle()
+                                    .fill(Color.green)
+                                    .frame(width: 14, height: 14)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.5))
+                    )
+                }
+                .padding(.horizontal)
+            }
+            .padding()
+        }
     }
 }
 
