@@ -11,7 +11,7 @@
 
 //lägg till guard på login
 
-//till danial. bör vi tex ha en api manager för api request även om det bara ska användas här när det gäller tokem?
+//till danial. bör vi tex ha en auth manager för api request även om det bara ska användas här när det gäller tokem? ska lägga överallt när man gör kall till backend för att verifiera.
 
 import SwiftUI
 import Firebase
@@ -48,7 +48,7 @@ class AuthViewModel: ObservableObject {
                 Auth.auth().currentUser?.getIDToken(completion: { token, error in
                     if let token = token {
                         print("ID Token: \(token)")
-                        // Send this token to your backend (in a secure way)
+                        // skicka säkert till backend.
                         self.sendTokenToBackend()
                     }
                 })
@@ -78,7 +78,7 @@ class AuthViewModel: ObservableObject {
             }
 
             var request = URLRequest(url: URL(string: "https://8514654f-9b3f-452a-921b-b5d95dcb862b.mock.pstmn.io/auth")!)
-            request.httpMethod = "POST"//borde det inte vara post här för security?
+            request.httpMethod = "POST"//borde det inte vara post här för security, ändrat från GET.
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
             URLSession.shared.dataTask(with: request) { data, response, error in
