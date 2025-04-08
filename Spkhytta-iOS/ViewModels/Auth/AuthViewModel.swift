@@ -11,7 +11,7 @@
 
 //lägg till guard på login
 
-//till danial. bör vi tex ha en auth manager för api request även om det bara ska användas här när det gäller tokem? ska lägga överallt när man gör kall till backend för att verifiera.
+//till danial. bör vi tex ha en auth manager för api request även om det bara ska användas här när det gäller token? ska lägga överallt när man gör kall till backend för att verifiera.
 
 import SwiftUI
 import Firebase
