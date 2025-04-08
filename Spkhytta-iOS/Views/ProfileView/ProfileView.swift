@@ -7,82 +7,78 @@
 
 import SwiftUI
 
-
 struct ProfileView: View {
     var body: some View {
-        ScrollView{
-            VStack{
-                // Profil Side
-                Text("Min Side")
+        ScrollView {
+            VStack(spacing: 16) {
+                // Prfile Side
+                Text("Min side")
                     .font(.largeTitle)
                     .bold()
                     .padding(.top)
-                
-                VStack{
-                    //Profil Bilder og Navn
-                    Image(systemName:"person.circle")
+
+                // Profil Bilder
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                        .frame(width: 180, height: 180)
+
+                    Image(systemName: "person.circle.fill")
                         .resizable()
-                        .frame(width: 150, height: 150)
-                        .clipShape(Circle())
-                        .padding()
+                        .foregroundColor(.gray)
+                        .frame(width: 100, height: 100)
                 }
-                
-                VStack  {
-                    Text("Ola Nordaman")
-                        .font(.title)
+
+                // Navn og  Jobb Title
+                VStack(spacing: 4) {
+                    Text("Ola Norman")
+                        .font(.title2)
                         .fontWeight(.semibold)
-                    
+
                     Text("It-Utvikler")
-                        .font(.caption)
+                        .font(.subheadline)
                         .foregroundColor(.gray)
                 }
-                .padding()
-                
-                VStack{
-                    Text("Mine Booking")
-                        .font(.title)
+
+                // Booking Seksjon
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Mine bookinger")
+                        .font(.title3)
                         .fontWeight(.semibold)
-                        .padding()
-                    
-                    
-                }
-                        
-                HStack{
-                    Text("Dato: 01.01.205")
-                    Spacer()
-                    Text("Anatall personer: 4")
-                }
-                .padding()
-                
-                VStack{
-                    HStack{
-                        Text("Status på Booking")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
+
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            Text("**Dato:** 03–06-2025")
+                            Spacer()
+                            Text("**Antall personer:** 4")
+                        }
+
+                        VStack(spacing: 8) {
+                            Text("Status på booking:")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+
+                            HStack(spacing: 8) {
+                                Text("Bekreftet")
+                                Circle()
+                                    .fill(Color.green)
+                                    .frame(width: 14, height: 14)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
                     }
                     .padding()
-                    
-                    HStack{
-                        Text("Bekreftet")
-                        Circle()
-                            .fill(Color.green)
-                            .frame(width: 10, height: 10)
-                    } 
-                    
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.5))
+                    )
                 }
+                .padding(.horizontal)
             }
+            .padding()
         }
-                    
     }
 }
-
-
-
-
-
-
-
-
 
 #Preview {
     ProfileView()
