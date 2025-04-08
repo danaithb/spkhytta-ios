@@ -11,6 +11,8 @@
 
 //lägg till guard på login
 
+//till danial. bör vi tex ha en api manager för api request även om det bara ska användas här när det gäller tokem?
+
 import SwiftUI
 import Firebase
 import FirebaseAuth
@@ -75,8 +77,8 @@ class AuthViewModel: ObservableObject {
                 return
             }
 
-            var request = URLRequest(url: URL(string: "http://localhost:8888 /api/secure-endpoint")!)
-            request.httpMethod = "GET"
+            var request = URLRequest(url: URL(string: "https://8514654f-9b3f-452a-921b-b5d95dcb862b.mock.pstmn.io/auth")!)
+            request.httpMethod = "POST"//borde det inte vara post här för security?
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
             URLSession.shared.dataTask(with: request) { data, response, error in
