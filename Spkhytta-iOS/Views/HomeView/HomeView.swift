@@ -6,7 +6,7 @@
 //
 
 
-// Deler de opp så at i sitt respektiv mappe for å gjøre koden litt mer ryddig
+// Deler de opp så at i sitt respektiv mappe for å gjøre koden litt mer ryddig........
 
 import SwiftUI
 
