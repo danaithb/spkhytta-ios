@@ -2,17 +2,19 @@
 //  BookingApp
 //
 //  Created by Mariana and Abigail on 21/02/2025.
-//ändra authID?
+//
+
 // TODO
-// hämta in en access token från Firebase
-// sänd en bearer token till backend i header. detta ska inte göras i den här filen utan en API kall
-// backend verifierar att det är rätt användare
-//ska vi spara token till andra dekar av appen?
+// 1. hämta in en access token från Firebase --fixat
+// 2. sänd en bearer token till backend i header. detta ska inte göras i den här filen utan en API kall --fixat
+// 3. backend verifierar att det är rätt användare
+// 4. ska vi spara token till andra dekar av appen? --fixat med getToken
+// 5. lägg till guard på login
 
-//lägg till guard på login
+// till danial. bör vi tex ha en auth manager för api request? ska lägga överallt när man gör kall till backend för att verifiera. --fixat
 
-//till danial. bör vi tex ha en auth manager för api request? ska lägga överallt när man gör kall till backend för att verifiera.
-//added to try
+// send auth och personal detaljer om vem som bokar in header, resten ska skickas i body.
+// send in JSON format? --fixat
 
 import SwiftUI
 import Firebase
@@ -37,15 +39,15 @@ class AuthViewModel: ObservableObject {
             self.userId = currentUser.uid
         }
     }
-    //TODO lägg in hämta token här i funktionen.
+    //lägg till en guard här
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 self.errorMessage = error.localizedDescription
             } else {
                 self.isAuthenticated = true
-                self.userId = (Auth.auth().currentUser?.uid) ?? ""// så den inte crashar om inte någon är inloggad. return empty string
-                //hämta in token här.
+                self.userId = (Auth.auth().currentUser?.uid) ?? "" // så den inte crashar om inte någon är inloggad. return empty string
+                
                 Auth.auth().currentUser?.getIDToken(completion: { token, error in
                     if let token = token {
                         print("ID Token: \(token)")
@@ -54,8 +56,8 @@ class AuthViewModel: ObservableObject {
                     }
                 })
 
-                print(self.userId)//log out user id ska bli reset till empty igen.
-            }//user id till backend lägg till i db. gör api swiftUI. func send user id to bakckend, java backend kan requesta det api använd folder name. call function.
+                print(self.userId) //log out user id ska bli reset till empty igen.
+            } //user id till backend lägg till i db. gör api swiftUI. func send user id to bakckend, java backend kan requesta det api använd folder name. call function.
         }
     }
     
@@ -71,36 +73,39 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // La till den här nya funktionen för att hämta token för API anrop
+    func getToken(completion: @escaping (String?) -> Void) {
+        Auth.auth().currentUser?.getIDToken { token, error in
+            if let error = error {
+                print("Kunde inte hämta token: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            completion(token)
+        }
+    }
+    
     func sendTokenToBackend() {
         Auth.auth().currentUser?.getIDToken { token, error in
             guard let token = token else {
-                print("Failed to get token: \(error?.localizedDescription ?? "Unknown error")")
+                print("Kunde inte få token: \(error?.localizedDescription ?? "Okänt fel")")
                 return
             }
 
             var request = URLRequest(url: URL(string: "https://8514654f-9b3f-452a-921b-b5d95dcb862b.mock.pstmn.io/auth")!)
-            request.httpMethod = "POST"//borde det inte vara post här för security, ändrat från GET.
+            request.httpMethod = "POST" //ändrat till post från GET.
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    print("Network error: \(error.localizedDescription)")
+                    print("Nätverk fel: \(error.localizedDescription)")
                     return
                 }
 
                 if let httpResponse = response as? HTTPURLResponse {
-                    print("Server responded with status: \(httpResponse.statusCode)")
+                    print("Servern svarade med status: \(httpResponse.statusCode)")
                 }
             }.resume()
         }
     }
-
-    
-    //testat api som fungerar. ta bort denna till final code.
-//    //den här retunerar user id for API
-//    func getFirebaseUserId() -> String? {
-//        return Auth.auth().currentUser?.uid
-//    }
 }
-
-
