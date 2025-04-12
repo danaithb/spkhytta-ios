@@ -10,6 +10,17 @@
 
 //.symbolRenderingMode(.hierarchical) fungerar inte på tab, så symbolerna kommer att vara fyllda när de är i tab.
 
+//TODO gör en signup sida så att backend kan få namn från frontend.
+//darkmode i kalendern.
+//lägg till bilder för login
+//lägg till färger.
+//log in button ska vara samma storlek som book hytte bytton, samma för home page button.
+//byt färg på frame runt email and password på login sidan, TEST
+//lägg till poppi fonts
+
+//darkomode i kalendern: datum = vita, info grå sektionen syns inte alls ta bort opacity. gör den grå. cirkeln behöver ny färg för darkmode. subtitle. framcolor. dagensdatum.
+//bookingview frames fropdown blir vit vit, så grå när man väljer datum.
+
 import SwiftUI
 import SwiftData
 
