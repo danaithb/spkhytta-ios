@@ -4,6 +4,9 @@
 //
 //  Created by Mariana och Abigail on 09/04/2025.
 //TODO kolla om antal personer finns med i databasen.
+//ta bort id. det genereras från backend.
+
+
 
 import Foundation
 import Firebase
@@ -34,7 +37,7 @@ class BookingAPIClient {
     }
     
     // Skicka bokningsinformation till backend med auth token
-    //- Parameters ska vi ha med antal personer här. Finns det med i databsen? dubbelkolla det.
+    //- Parameters ska vi ha med antal personer här. Finns det med i databsen? dubbelkolla det. ska läggas till.
     //   - startDate: Bokningens startdatum
     //   - endDate: Bokningens slutdatum
     //  - completion: Completion handler med Result

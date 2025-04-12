@@ -1,38 +1,36 @@
-// BookingViewModel.swift
-// Calendar
-//
-// Skapad 10/04/2025.
-//
-
+//Created by Mariana och Abigail on 23/03/2025.
+////// Updated on 09/04/2025.
 import SwiftUI
 import Firebase
 import FirebaseAuth
-import Combine
 
 class BookingViewModel: ObservableObject {
-    // Publicerade egenskaper för vy-bindning
     @Published var startDate: Date?
     @Published var endDate: Date?
     @Published var numberOfPeople: String = "Antall"
-    @Published var isProcessing = false
-    @Published var alertInfo: AlertInfo?
-    @Published var bookingSuccess = false
     
-    // Användarinformation (kan hämtas från en användartjänst)
+    // User information (in a real app, this would come from user profile)
     @Published var userName: String = "Ola Norman"
     @Published var userMobile: String = "99999999"
     @Published var userEmail: String = "ola.norman@spk.no"
     
-    // Struktur för alarmering
+    // States for handling booking process
+    @Published var isProcessing = false
+    @Published var alertInfo: AlertInfo?
+    @Published var bookingSuccess = false
+    
     struct AlertInfo {
-        var title: String
-        var message: String
-        var isShowing: Bool = true
+        let title: String
+        let message: String
     }
     
-    // Metod för att validera och bekräfta bokning
-    func confirmBooking(completion: @escaping () -> Void) {
-        // Valideringslogik
+    // Format date using the Calendar extension
+    func formatDate(_ date: Date) -> String {
+        return Calendar.dateFormatter.string(from: date)
+    }
+    
+    // Function to handle booking confirmation
+    func confirmBooking(onSuccess: @escaping () -> Void) {
         if numberOfPeople == "Antall" {
             showAlert(title: "Velg antall", message: "Vennligst velg antall personer.")
             return
@@ -43,42 +41,40 @@ class BookingViewModel: ObservableObject {
             return
         }
         
-        // Sätt slutdatum lika med startdatum om det inte är valt (för endagsbokningar)
+        // Set end date equal to start date if not selected (for single day booking)
         let end = endDate ?? start
         
         isProcessing = true
         
-        // Anropa API-klienten för att skicka bokningsförfrågan
+        // Call the API client to send booking request
         BookingAPIClient.shared.sendBookingRequest(
             startDate: start,
             endDate: end,
             numberOfPeople: Int(numberOfPeople) ?? 1
         ) { [weak self] result in
+            guard let self = self else { return }
+            
             DispatchQueue.main.async {
-                guard let self = self else { return }
                 self.isProcessing = false
                 
                 switch result {
                 case .success(let response):
-                    print("Bokning lyckades: \(response)")
+                    print("Booking succeeded: \(response)")
                     self.showAlert(
                         title: "Booking bekreftet",
                         message: "Din booking er bekreftet. Referansenummer: \(response)"
                     )
                     self.bookingSuccess = true
+                    onSuccess()
                     
                 case .failure(let error):
                     self.handleBookingError(error)
-                }
-                
-                if self.bookingSuccess {
-                    completion()
                 }
             }
         }
     }
     
-    // Hjälpmetod för att hantera bokningsfel
+    // Handle different types of booking errors
     private func handleBookingError(_ error: BookingAPIClient.BookingError) {
         switch error {
         case .invalidDates:
@@ -94,21 +90,17 @@ class BookingViewModel: ObservableObject {
         }
     }
     
-    // Visa alert hjälpmetod
-    func showAlert(title: String, message: String) {
+    // Helper function to show alerts
+    private func showAlert(title: String, message: String) {
         alertInfo = AlertInfo(title: title, message: message)
     }
     
-    // Återställ bokningsdata
+    // Reset booking data
     func resetBookingData() {
         startDate = nil
         endDate = nil
         numberOfPeople = "Antall"
         bookingSuccess = false
-    }
-    
-    // Formatera datum för visning med användning av den befintliga Calendar-tillägget
-    func formatDate(_ date: Date) -> String {
-        return Calendar.dateFormatter.string(from: date)
+        alertInfo = nil
     }
 }
