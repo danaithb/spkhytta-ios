@@ -34,7 +34,7 @@ struct CalendarGridHelpers {
         } else if isHoliday {
             return .red // röd text för helgdagar
         } else {
-            return .black // svart för vanliga dagar
+            return .primary // svart för vanliga dagar
         }
     }
 }
