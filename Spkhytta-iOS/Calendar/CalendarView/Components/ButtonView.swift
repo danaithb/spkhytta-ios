@@ -32,7 +32,7 @@ struct ButtonView: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.blue)
+                    .fill(Color.customBlue)
             )
             // BUG: Saknar klickhantering, kan inte validera datumval
             // FIX: Återaktivera onTapGesture eller omvandla till Button

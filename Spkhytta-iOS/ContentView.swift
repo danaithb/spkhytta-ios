@@ -19,7 +19,9 @@
 //lägg till poppi fonts
 
 //darkomode i kalendern: datum = vita, info grå sektionen syns inte alls ta bort opacity. gör den grå. cirkeln behöver ny färg för darkmode. subtitle. framcolor. dagensdatum.
+//.background(Color(.systemBackground)) // Anpassas automatiskt till Light/Dark
 //bookingview frames fropdown blir vit vit, så grå när man väljer datum.
+//borde det inte vara samma färg på framen på alla sidor. ta upp med Elin om att prototypen har olika på login och resten.
 
 import SwiftUI
 import SwiftData
