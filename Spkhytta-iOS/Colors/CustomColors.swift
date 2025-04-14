@@ -11,5 +11,6 @@ import SwiftUI
 extension Color {
     static let custom_blue = Color("customBlue")
     static let red_days = Color("redDays")
+    static let borders_grey = Color("borders")
 
 }

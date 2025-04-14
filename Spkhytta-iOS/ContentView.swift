@@ -22,6 +22,7 @@
 //.background(Color(.systemBackground)) // Anpassas automatiskt till Light/Dark
 //bookingview frames fropdown blir vit vit, så grå när man väljer datum.
 //borde det inte vara samma färg på framen på alla sidor. ta upp med Elin om att prototypen har olika på login och resten.
+//fixa calendar frameView, den kan vara utanför kalendern, då frame används på fera ställen i appen.
 
 import SwiftUI
 import SwiftData
