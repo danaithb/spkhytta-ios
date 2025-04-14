@@ -1,27 +1,20 @@
-//////  BookingView.swift
-////// Calendar
-//////
-////// Created by Mariana och Abigail on 23/03/2025.
-////// Updated on 09/04/2025.
-//////
-////
-////// TODO
-////// 1. lägg till så att det bara visas ett datum i mitten om personen bara bokar ett datum. --fixat
-////// 2. ska man ha med referens nummer här? får man inte det när man har bekräftat bokningen? --fixat
-////// 3. till Elin, ser det bättre ut om de datum som är nu ligger närmare om det bara ska visas ett datum? det ser nog väldigt rart ut om de ligger långt från sen blir det bara ett datum där pilen är nu. DONE
-////// 4. varför en avbryt knapp, den pilen tar dig tillbaka till kalendern och avbryter allt. FÅTT SVAR PÅ
-////// 5. vad ska vara i den tredje framen som är tom på prototype varsion 2? FÅTT SVAR OP
-////// 6. Kan menyn doppa upp. när den droppar ner så får den inte plats. FÅTT SVAR PÅ
-////
-////till gruppen,ska man kunna boka bara en dag, eller måste det vara en natt också? DONE
-////
-////lägg till error om man inte har tryckt på ett datum. DONE
-//////id ska genereras mfrån backend. så ta bort den här.
-////
+//  BookingView.swift
+//
+// Created by Mariana och Abigail on 23/03/2025.
+//
+// TODO
+//1. lägg till så att det bara visas ett datum i mitten om personen bara bokar ett datum. --fixat
+// 2. ska man ha med referens nummer här? får man inte det när man har bekräftat bokningen? --fixat
+// 3. till Elin, ser det bättre ut om de datum som är nu ligger närmare om det bara ska visas ett datum? det ser nog väldigt rart ut om de ligger långt från sen blir det bara ett datum där pilen är nu. DONE
+//4. varför en avbryt knapp, den pilen tar dig tillbaka till kalendern och avbryter allt. FÅTT SVAR PÅ
+// 5. vad ska vara i den tredje framen som är tom på prototype varsion 2? FÅTT SVAR OP
+//6. Kan menyn doppa upp. när den droppar ner så får den inte plats. FÅTT SVAR PÅ
+//till gruppen,ska man kunna boka bara en dag, eller måste det vara en natt också? DONE
+//lägg till error om man inte har tryckt på ett datum. DONE
+//id ska genereras mfrån backend. så ta bort den här.
+
 
 // BookingView.swift
-// Calendar
-//
 // Created by Mariana och Abigail on 23/03/2025.
 // Updated on 10/04/2025.
 //

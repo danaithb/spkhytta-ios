@@ -32,12 +32,12 @@ struct InfoView: View {
                 // Helgdag
                 HStack {
                     Capsule()
-                        .fill(Color.red.opacity(0.7))
+                        .fill(Color.redDays)
                         .frame(width: 25, height: 10)
 
                     Text("Helligdag")
                         .font(.subheadline)
-                        .foregroundColor(.red)//röd eller svart text?
+                        .foregroundColor(.redDays)//röd eller svart text?
                 }
             }
         }

@@ -81,9 +81,9 @@ struct LoginView: View {
                         .foregroundStyle(.white)
                     Text("Logg inn")
                 }
-                .frame(width: 150, height: 50)
+                .frame(width: 300, height: 50)
                 //.padding(.vertical, 0)
-                .background(Color.blue)
+                .background(Color.customBlue)
                 .foregroundColor(.white)
                 .cornerRadius(6)
             }

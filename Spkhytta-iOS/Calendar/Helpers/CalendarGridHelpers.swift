@@ -32,9 +32,9 @@ struct CalendarGridHelpers {
         if isUnavailable {
             return .gray // grå text för otillgängliga
         } else if isHoliday {
-            return .red // röd text för helgdagar
+            return .redDays // röd text för helgdagar
         } else {
-            return .black // svart för vanliga dagar
+            return .primary // svart för vanliga dagar
         }
     }
 }
