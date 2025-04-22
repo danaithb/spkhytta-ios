@@ -34,9 +34,11 @@
 
 
 import SwiftUI
+import SwiftData
 
-// ---------- Huvudvy för kaeledern ----------
+// ---------- Huvudvy för kalendern ----------
 struct CalendarView: View {
+    @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel = CalendarViewModel()
     @State private var showDateAlert = false
     @State private var navigationPath = NavigationPath()
@@ -58,19 +60,22 @@ struct CalendarView: View {
                     
                     CalendarGridView(viewModel: viewModel)
                 }
-            .navigationDestination(for: String.self) { destination in
-                if destination == "BookingDestination" {
-                    BookingView(startDate: $viewModel.startDate, endDate: $viewModel.endDate)
+                .navigationDestination(for: String.self) { destination in
+                    if destination == "BookingDestination" {
+                        // ✅ FIX: Skicka med modelContext till BookingView
+                        BookingView(
+                            startDate: $viewModel.startDate,
+                            endDate: $viewModel.endDate,
+                            modelContext: modelContext
+                        )
+                    }
                 }
-            }
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                 )
                 .padding(.horizontal)
-                
-                //Spacer()
                 
                 InfoView()
                 
@@ -88,8 +93,6 @@ struct CalendarView: View {
                             navigationPath.append("BookingDestination")
                         }
                     }
-               
-//                    .padding(.bottom, 20)
             }
             .task {
                 if viewModel.holidays.isEmpty {

@@ -5,13 +5,39 @@
 //  Created by Mariana och Abigail on 01/04/2025.
 //
 
+//import SwiftUI
+//import FirebaseCore
+//import FirebaseAuth
+//
+//class AppDelegate: NSObject, UIApplicationDelegate {
+//    func application(_ application: UIApplication,
+//                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+//        FirebaseApp.configure()
+//        return true
+//    }
+//}
+//
+//@main
+//struct Spkhytta_iOSApp: App {
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+//    
+//    var body: some Scene {
+//        WindowGroup {
+//            NavigationStack {  // Lägg till denna
+//           
+//                ContentView()
+//            }
+//        }
+//    }
+//
+//}
 import SwiftUI
 import FirebaseCore
-import FirebaseAuth
+import SwiftData
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
-                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FirebaseApp.configure()
         return true
     }
@@ -20,14 +46,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct Spkhytta_iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
+
     var body: some Scene {
         WindowGroup {
-            NavigationStack {  // Lägg till denna
-           
-                ContentView()
-            }
+            ContentView()
         }
+        .modelContainer(for: User.self) // ✅ krävs för SwiftData
     }
-
 }
