@@ -8,6 +8,8 @@
 
 // Deler de opp så at i sitt respektiv mappe for å gjøre koden litt mer ryddig
 
+//HomeView ska ha poäng.
+
 import SwiftUI
 
 struct Fasilitet: Identifiable {
