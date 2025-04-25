@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F66829A2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */; };
+		9F66829B2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */; };
+		9F66829C2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */; };
 		9FFD968D2D9C02B70025E7FB /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD968C2D9C02B70025E7FB /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		9FFD968F2D9C02B70025E7FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD968E2D9C02B70025E7FB /* FirebaseAuth */; };
 		9FFD96912D9C02B70025E7FB /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96902D9C02B70025E7FB /* FirebaseCore */; };
@@ -33,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FFD957B2D9BF8DE0025E7FB /* Spkhytta-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spkhytta-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD958B2D9BF8DF0025E7FB /* Spkhytta-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD95952D9BF8DF0025E7FB /* Spkhytta-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +98,7 @@
 				9FFD958E2D9BF8DF0025E7FB /* Spkhytta-iOSTests */,
 				9FFD95982D9BF8DF0025E7FB /* Spkhytta-iOSUITests */,
 				9FFD957C2D9BF8DE0025E7FB /* Products */,
+				9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -236,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F66829C2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F66829B2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F66829A2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
