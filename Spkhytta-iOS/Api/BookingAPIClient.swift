@@ -6,6 +6,13 @@
 //TODO kolla om antal personer finns med i databasen.
 //ta bort id. det genereras från backend.
 //för postman test "https://8add7b00-6637-4dd8-8388-5a6548334f69.mock.pstmn.io/api/bookings"
+//kolla med userId
+
+//lägg till en getBooking
+//får vi ett respons ID?
+
+
+
 
 import Foundation
 import Firebase
