@@ -86,7 +86,7 @@ struct ContentView: View {
                 
                 //settings
                
-                Tab("Setting", systemImage: "gear") {
+                Tab("Innstillninger", systemImage: "gear") {
                     NavigationStack {
                         SettingsView(
                             isDarkMode: $isDarkMode, isLoggedIn: $isLoggedIn, authViewModel: authViewModel
