@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                // Prfile Side
+                // Profil side
                 Text("Min side")
                     .font(.largeTitle)
                     .bold()
                     .padding(.top)
 
-                // Profil Bilder
+                // Profilbilde
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.gray.opacity(0.4), lineWidth: 1)
@@ -29,18 +31,18 @@ struct ProfileView: View {
                         .frame(width: 100, height: 100)
                 }
 
-                // Navn og  Jobb Title
+                // Dynamisk navn og "jobbtittel"
                 VStack(spacing: 4) {
-                    Text("Ola Norman")
+                    Text(authViewModel.userInfo?.name ?? "Laster navn...")
                         .font(.title2)
                         .fontWeight(.semibold)
 
-                    Text("It-Utvikler")
+                    Text("It–Utvikler")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
 
-                // Booking Seksjon
+                // Booking info (foreløpig statisk)
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Mine bookinger")
                         .font(.title3)
