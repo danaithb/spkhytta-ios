@@ -14,7 +14,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section(header: Text("App Settings")) {
+                Section(header: Text("App Instillinger")) {
                     Toggle("Dark Mode", isOn: $isDarkMode)
                 }
                 
@@ -40,4 +40,5 @@ struct SettingsView: View {
         }
     }
 }
+
 

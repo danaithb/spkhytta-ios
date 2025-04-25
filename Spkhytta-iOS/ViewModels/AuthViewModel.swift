@@ -17,7 +17,7 @@
 // send in JSON format? --fixat
 //
 //Phone number?? detta borde vara med i databasen.
-//
+//Delete email. ska bara sända token, säkerhet
 
 
 import Foundation
@@ -52,7 +52,7 @@ class AuthViewModel: ObservableObject {
                 print("No stored user found for ID: \(currentUser.uid)")
                 Task {
                     if let token = try? await currentUser.getIDToken() {
-                        _ = await loginWithBackend(token: token)
+                        _ = await verifyWithBackend(token: token)
                     }
                 }
             }
@@ -62,82 +62,80 @@ class AuthViewModel: ObservableObject {
     func login() {
         Task {
             do {
-                logout(clearAuth: false) // 🧹 rensar gammal användare innan ny inloggning
+                logout(clearAuth: false) // Rensar gammal användare innan ny inloggning
 
                 print("Attempting login with email: \(email)")
                 let result = try await Auth.auth().signIn(withEmail: email, password: password)
                 print("Firebase login successful")
-                print("FULL FIREBASE UID: \(result.user.uid)")
+                print("FIREBASE UID: \(result.user.uid)")
 
                 if let token = try? await result.user.getIDToken() {
-                    print("FULL FIREBASE TOKEN: \(token)")
+                    print("FIREBASE TOKEN: \(token)")
                     TokenManager.shared.updateToken(token)
-
-                    if await loginWithBackend(token: token) {
-                        isAuthenticated = true
-                        print("Authentication complete, isAuthenticated: \(isAuthenticated)")
+                    
+                    // Wait for backend to verify and return user data before proceeding
+                    if await verifyWithBackend(token: token) {
+                        print("Backend verification successful, user data saved")
+                        
+                        // At this point, self.user should be set by verifyWithBackend
+                        print("User data received from server: \(self.user?.name ?? "Not set")")
+                        
+                        // Now set authenticated state
+                        self.isAuthenticated = true
                     } else {
-                        print("Backend login failed - authentication not completed")
-                        errorMessage = "Could not authenticate with server. Please try again later."
+                        print("Backend verification failed - user still logged in via Firebase")
+                        // Set authenticated but notify about missing user data
+                        self.isAuthenticated = true
+                        self.errorMessage = "Connected but unable to fetch user details"
                     }
                 } else {
-                    print("Failed to get token")
-                    errorMessage = "Failed to get authentication token"
+                    print("Failed to get token, but user still authenticated via Firebase")
+                    self.isAuthenticated = true
+                    self.errorMessage = "Connected but unable to sync with server"
                 }
             } catch {
-                print("Login error: \(error.localizedDescription)")
-                errorMessage = "Login failed: \(error.localizedDescription)"
-                isAuthenticated = false
+                print("Firebase login error: \(error.localizedDescription)")
+                self.errorMessage = "Login failed: \(error.localizedDescription)"
+                self.isAuthenticated = false
             }
         }
     }
 
-    func loginWithBackend(token: String) async -> Bool {
+    func verifyWithBackend(token: String) async -> Bool {
         guard let url = URL(string: "http://127.0.0.1:5000/api/auth/login") else {
             print("Invalid URL for backend login")
             return false
         }
 
-        print("Connecting to backend at: \(url.absoluteString)")
+        print("Connecting to backend")
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.timeoutInterval = 15
 
-        let payload: [String: Any] = [
-            "firebaseToken": token,
-            "email": self.email // ✅ skickar e-post till backend så rätt användare hämtas
-        ]
-
+        let payload: [String: Any] = [:]
         guard let jsonData = try? JSONSerialization.data(withJSONObject: payload) else {
-            print("Failed to encode token payload")
+            print("Failed to encode payload")
             return false
         }
-
-        if let jsonString = String(data: jsonData, encoding: .utf8) {
-            print("Sending payload: \(jsonString)")
-        }
-
         request.httpBody = jsonData
 
         do {
+            print("Sending request to backend")
             let (data, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse else {
-                print("Backend login failed: Not an HTTP response")
+                print("Backend verification failed: Not an HTTP response")
                 return false
             }
 
-            print("Backend login response code: \(httpResponse.statusCode)")
-            print("Response headers: \(httpResponse.allHeaderFields)")
-
-            if let responseString = String(data: data, encoding: .utf8) {
-                print("Response data: \(responseString)")
-            }
+            print("Backend response code: \(httpResponse.statusCode)")
 
             if httpResponse.statusCode == 200 {
                 do {
                     let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    print("Successfully decoded auth response")
 
                     let user = User(
                         firebaseId: authResponse.firebaseUid,
@@ -146,13 +144,14 @@ class AuthViewModel: ObservableObject {
                         isAdmin: authResponse.isAdmin ?? false
                     )
 
-                    print("Saving user: \(user.name) with firebaseId: \(user.firebaseId)")
+                    print("Saving user: \(user.name)")
                     userStorage.saveUser(user)
-
-                    await MainActor.run {
-                        self.user = user
-                    }
-
+                    
+                    // Important: Update the user property immediately
+                    // This is the key part that ensures the user variable is set
+                    self.user = user
+                    print("User variable set with server data: \(user.name)")
+                    
                     return true
                 } catch {
                     print("Error decoding auth response: \(error)")
@@ -162,18 +161,18 @@ class AuthViewModel: ObservableObject {
                 if let responseString = String(data: data, encoding: .utf8) {
                     print("Error response from backend: \(responseString)")
                 }
-                print("Backend login failed: Status code \(httpResponse.statusCode)")
+                print("Backend verification failed: Status \(httpResponse.statusCode)")
                 return false
             }
         } catch {
-            print("Backend login network error: \(error)")
+            print("Backend network error: \(error)")
             return false
         }
     }
 
     func logout(clearAuth: Bool = true) {
         if let current = user {
-            userStorage.deleteUser(current) // ✅ rensar användare från storage
+            userStorage.deleteUser(current) // Rensar användare från storage
         }
 
         user = nil

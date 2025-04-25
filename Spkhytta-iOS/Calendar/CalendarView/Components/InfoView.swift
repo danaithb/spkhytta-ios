@@ -45,6 +45,6 @@ struct InfoView: View {
     }
 }
 
-#Preview {
-    InfoView()
-}
+//#Preview {
+//    InfoView()
+//}

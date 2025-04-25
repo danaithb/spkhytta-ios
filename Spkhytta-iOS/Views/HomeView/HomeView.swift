@@ -80,7 +80,7 @@ struct HomeView: View {
                     }
                 }
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.3)))
+                .background(RoundedRectangle(cornerRadius: 6).stroke(Color.gray.opacity(0.3)))
                 .frame(maxWidth: .infinity, alignment: .leading)
 
                 // 👇 Fasiliteter Section (clean layout)
@@ -127,6 +127,7 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    HomeView()
-}
+//#Preview {
+//    HomeView()
+//}
+

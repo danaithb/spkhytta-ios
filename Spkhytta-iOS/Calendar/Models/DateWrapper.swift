@@ -23,3 +23,8 @@ struct DateWrapper: Identifiable, Hashable {
         hasher.combine(id)
     } //kan göra med olika tekniker, här är biilt in, använder id som hash-key, tar id och hashar det.
 }
+
+struct DateRange {
+    var startDate: Date?
+    var endDate: Date?
+}

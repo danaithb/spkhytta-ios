@@ -32,3 +32,4 @@ class User {
         self.isAdmin = isAdmin
     }
 }
+

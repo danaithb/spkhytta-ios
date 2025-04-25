@@ -30,11 +30,6 @@
 // .badge("Här kan man lägga tex eller siffra") för att visa om det är någon uppdatering på sidan. Nil döljer badge. för att se om det är några nya uppdateringar så gör en @State variabel för unreadMessages som sen sätts till 0 när användaren loggar in på sin sida (detta kan bara göras med Tab).
 
   
-//  ContentView.swift
-//  hytte
-//
-//  Created by Mariana and Abigail on 19/02/2025.
-
 import SwiftUI
 import SwiftData
 
@@ -53,20 +48,26 @@ struct ContentView: View {
                 if !isActive && !authViewModel.isAuthenticated {
                     SplashScreenView {
                         withAnimation {
-                            isActive = true
-                            isFirstLaunch = false
-                            isLoggedIn = authViewModel.isAuthenticated
+                            self.isActive = true
+                            self.isFirstLaunch = false
                         }
                     }
                 } else if !isActive && authViewModel.isAuthenticated {
                     Color.clear
                         .onAppear {
-                            isActive = true
-                            isFirstLaunch = false
-                            isLoggedIn = true
+                            self.isActive = true
+                            self.isFirstLaunch = false
+                            self.isLoggedIn = true
                         }
-                } else if !isLoggedIn {
+                } else if !authViewModel.isAuthenticated || !isLoggedIn {
                     LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
+                        .onChange(of: authViewModel.isAuthenticated) { oldValue, newValue in
+                            print("ContentView observer: authViewModel.isAuthenticated ändrades från \(oldValue) till \(newValue)")
+                            if newValue {
+                                self.isLoggedIn = true
+                                print("ContentView: isLoggedIn satt till TRUE")
+                            }
+                        }
                 } else {
                     TabView {
                         Tab("Hjem", systemImage: "house") {
@@ -78,7 +79,7 @@ struct ContentView: View {
                         Tab("Kalender", systemImage: "calendar.circle") {
                             NavigationStack {
                                 CalendarView()
-                                    .environmentObject(authViewModel)
+                                    .environmentObject(authViewModel) // ✅ viktig rad
                             }
                         }
 
@@ -89,7 +90,7 @@ struct ContentView: View {
                             }
                         }
 
-                        Tab("Setting", systemImage: "gear") {
+                        Tab("Instillinger", systemImage: "gear") {
                             NavigationStack {
                                 SettingsView(
                                     isDarkMode: $isDarkMode,
@@ -113,12 +114,15 @@ struct ContentView: View {
                 viewModelWrapper.authViewModel = AuthViewModel(userStorage: storage)
             }
         }
+        .onChange(of: viewModelWrapper.authViewModel?.isAuthenticated) { oldValue, newValue in
+            if let newValue = newValue, !newValue && isLoggedIn {
+                isLoggedIn = false
+            }
+        }
     }
 }
 
 fileprivate class ViewModelWrapper: ObservableObject {
     @Published var authViewModel: AuthViewModel?
 }
-//#Preview {
-//    ContentView()
-//} // de här ska hänga ihop och visa
+

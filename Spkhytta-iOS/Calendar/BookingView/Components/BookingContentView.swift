@@ -69,7 +69,7 @@ struct BookingContentView: View {
         }
        .padding()
        .background(
-           RoundedRectangle(cornerRadius: 16)
+           RoundedRectangle(cornerRadius: 6)
                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
        )
        .padding(.horizontal)
@@ -95,3 +95,4 @@ struct BookingContentView: View {
 //            )
 
 // 3. Flera HStacks me undertitel - exmplet saknas helt typ
+

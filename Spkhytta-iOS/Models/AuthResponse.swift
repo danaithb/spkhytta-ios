@@ -5,15 +5,7 @@
 //  Created by Mariana och Abigail on 21/04/2025.
 //
 
-//
-//  AuthResponse.swift
-//  Spkhytta-iOS
-//
 
-//
-//  AuthResponse.swift
-//  Spkhytta-iOS
-//
 
 import Foundation
 
@@ -32,3 +24,4 @@ struct AuthResponse: Codable {
         case isAdmin
     }
 }
+

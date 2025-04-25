@@ -21,18 +21,16 @@
 
 
 
-// ---------- Kalender Grid Vy ----------
+
 import SwiftUI
 import SwiftData
 
 struct CalendarGridView: View {
-    // BUG: Tidigare behövde funktionalitet flyttas från CalendarView till en egen View
-    // FIX: Flyttade logiken till ViewModel och använder bara ObservedObject här
     @ObservedObject var viewModel: CalendarViewModel
-    
+
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 15) {
-            ForEach(viewModel.getCalendarDays()) { dateWrapper in
+            ForEach(viewModel.getCalendarDays(), id: \.self) { dateWrapper in
                 if let date = dateWrapper.date {
                     let day = viewModel.calendar.component(.day, from: date)
                     let isHoliday = viewModel.isHoliday(date: date)
@@ -41,9 +39,8 @@ struct CalendarGridView: View {
                     let isBooked = viewModel.unavailableDates.contains(viewModel.normalizeDate(date))
                     let isUnavailable = isBooked || isPastDate
                     let isInRange = viewModel.isDateInRange(date: date)
-                    
+
                     ZStack {
-                        // Bakgrundscirkel för datum
                         Circle()
                             .fill(CalendarGridHelpers.backgroundColor(
                                 isHoliday: isHoliday,
@@ -52,15 +49,13 @@ struct CalendarGridView: View {
                                 isTodaysDate: isTodaysDate
                             ))
                             .frame(width: 36, height: 36)
-                        
-                        // Blå cirkel runt dagens datum
+
                         if isTodaysDate {
                             Circle()
                                 .stroke(Color.blue.opacity(0.8), lineWidth: 2)
                                 .frame(width: 36, height: 36)
                         }
-                        
-                        // Datumtext med dynamisk färgsättning
+
                         Text("\(day)")
                             .font(.system(size: 16))
                             .fontWeight(.medium)
@@ -78,7 +73,6 @@ struct CalendarGridView: View {
                     }
                     .disabled(isUnavailable)
                 } else {
-                    // Tomma celler för kalendergrid
                     Text("")
                         .frame(width: 36, height: 36)
                 }

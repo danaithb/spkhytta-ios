@@ -23,12 +23,13 @@
 //
 ////kaelndern följer adminsidan färger på egna bokningar. grön för bekräftad, orange för pending? ide frpn produkteier. Version 2.
 //
-////add payment fine for now. but if we want more options add them to the bekreft boooking view.
-////referensenummer should it be in the book hytte? we get ref number omce the cabin is booked from backend?.
-////as soon as you log in you get userdata from backend.
-////user details will be saved by swift data and avalible even if the internet connection is poor ot gone.
-////same with my bookings. get from backend first, saved with swiftData.
-////lägg till så att det registrerar hur många personer som man bokar för. 
+//add payment fine for now. but if we want more options add them to the bekreft boooking view.
+//referensenummer should it be in the book hytte? we get ref number omce the cabin is booked from backend?.
+//as soon as you log in you get userdata from backend.
+//user details will be saved by swift data and avalible even if the internet connection is poor ot gone.
+//same with my bookings. get from backend first, saved with swiftData.
+//lägg till så att det registrerar hur många personer som man bokar för.
+//Mer space mellan månad och framen
 
 
 
@@ -39,15 +40,16 @@ import SwiftData
 // ---------- Huvudvy för kalendern ----------
 struct CalendarView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var authViewModel: AuthViewModel // ✅ tillagd
     @StateObject private var viewModel = CalendarViewModel()
     @State private var showDateAlert = false
     @State private var navigationPath = NavigationPath()
-    
+
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack(spacing: 20) {
                 HeaderView()
-                
+
                 // Kalender Grid
                 VStack(spacing: 15) {
                     MonthHeaderView(
@@ -55,37 +57,38 @@ struct CalendarView: View {
                         formatMonth: viewModel.formatMonth,
                         moveMonth: viewModel.moveMonth
                     )
-                    
+                    .padding(.bottom, 10)
+
                     DayHeaderView()
-                    
+
                     CalendarGridView(viewModel: viewModel)
                 }
                 .navigationDestination(for: String.self) { destination in
                     if destination == "BookingDestination" {
-                        // ✅ FIX: Skicka med modelContext till BookingView
                         BookingView(
                             startDate: $viewModel.startDate,
                             endDate: $viewModel.endDate,
                             modelContext: modelContext
                         )
+                        .environmentObject(authViewModel) // ✅ tillagd
                     }
                 }
                 .padding()
                 .background(
-                    RoundedRectangle(cornerRadius: 16)
+                    RoundedRectangle(cornerRadius: 6)
                         .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                 )
                 .padding(.horizontal)
-                
+
                 InfoView()
-                
+
                 // BookingView navigation implemented with NavigationLink and state
                 NavigationLink(value: "BookingDestination") {
                     EmptyView()
                 }
-                
+
                 // Book Hytte button with onTapGesture and alert
-                ButtonView(text: "Book Hytte")
+                ButtonView(text: "Book hytte")
                     .onTapGesture {
                         if viewModel.startDate == nil {
                             showDateAlert = true

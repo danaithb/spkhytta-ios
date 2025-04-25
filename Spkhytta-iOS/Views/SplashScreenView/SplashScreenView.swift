@@ -36,9 +36,9 @@ struct SplashScreenView: View {
     }
 }
 
-#Preview {
-    SplashScreenView{
-        //print("Animation Completed")
-        }
-}
+//#Preview {
+//    SplashScreenView{
+//        //print("Animation Completed")
+//        }
+//}
 

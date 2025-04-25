@@ -13,6 +13,8 @@
 //lägg till error om man inte har tryckt på ett datum. DONE
 //id ska genereras mfrån backend. så ta bort den här.
 
+//det ska inte vara april med stor A
+// överskrift. knappen ner samma position som calanderView. ska inte vara med, ligger kommenterad.
 
 import SwiftUI
 import Firebase
@@ -35,6 +37,12 @@ struct BookingView: View {
 
     var body: some View {
         VStack {
+//            Text("Book hytte")
+//                .font(.title)
+//                .fontWeight(.bold)
+//                        .padding(.top, 30)
+//                        .padding(.bottom, 10)
+            
             // Kontaktinformation
             BookingContentView(
                 title: "Kontaktinformasjon",
@@ -119,7 +127,7 @@ struct BookingView: View {
                         .frame(maxWidth: 200)
                         .background(Color.white)
                         .foregroundColor(.black)
-                        .cornerRadius(5)
+                        .cornerRadius(6)
                         .overlay(
                             RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 1)
@@ -182,3 +190,4 @@ struct BookingView: View {
         dismiss()
     }
 }
+

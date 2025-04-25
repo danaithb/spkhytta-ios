@@ -5,6 +5,13 @@
 //bytt låsen till button ikke texfield.
 //man ska kunna fortsätta att vara inloggad med sin brukare även om man stänger ner appen. inte "" varje gång.
 
+// LoginView.swift
+// booking
+//
+// Created by Mariana and Abigail on 21/02/2025.
+//bytt låsen till button ikke texfield.
+//man ska kunna fortsätta att vara inloggad med sin brukare även om man stänger ner appen. inte "" varje gång.
+
 import SwiftUI
 import Firebase
 import FirebaseAuth
@@ -13,6 +20,7 @@ import FirebaseCore
 struct LoginView: View {
     @ObservedObject var viewModel: AuthViewModel
     @Binding var isLoggedIn: Bool
+    @State private var isLoggingIn = false
     
     var body: some View {
         VStack(spacing: 20) {
@@ -62,7 +70,7 @@ struct LoginView: View {
             .padding(.horizontal)
             
             if !viewModel.errorMessage.isEmpty {
-                Text("Fyll inn e-postadresse og passord")
+                Text(viewModel.errorMessage)
                     .foregroundColor(.red)
                     .font(.caption)
             }
@@ -71,28 +79,41 @@ struct LoginView: View {
                 .frame(height: 10)
            
             Button(action: {
+                print("Login knapp tryckt")
+                isLoggingIn = true
                 viewModel.login()
-                if viewModel.isAuthenticated {
-                    isLoggedIn = true
-                }
+                // Inloggning hanteras asynkront i viewModel.login() via Task {}
             }) {
                 HStack {
-                    Image(systemName: "lock")
-                        .foregroundStyle(.white)
+                    if isLoggingIn && !viewModel.isAuthenticated {
+                        ProgressView()
+                            .tint(.white)
+                            .padding(.trailing, 5)
+                    } else {
+                        Image(systemName: "lock")
+                            .foregroundStyle(.white)
+                    }
                     Text("Logg inn")
                 }
                 .frame(width: 300, height: 50)
-                //.padding(.vertical, 0)
                 .background(Color.customBlue)
                 .foregroundColor(.white)
                 .cornerRadius(6)
             }
+            .disabled(isLoggingIn && !viewModel.isAuthenticated)
             .frame(maxWidth: .infinity, alignment: .center)
             Spacer()
         }
         .background(Color.white)
-        .onChange(of: viewModel.isAuthenticated) {
-            isLoggedIn = viewModel.isAuthenticated
+        .onChange(of: viewModel.isAuthenticated) { oldValue, newValue in
+            print("LoginView - isAuthenticated ändrat: \(oldValue) -> \(newValue)")
+            if newValue {
+                isLoggedIn = true
+                isLoggingIn = false
+            } else if !newValue && isLoggingIn {
+                // Om autentisering misslyckades
+                isLoggingIn = false
+            }
         }
     }
 }
