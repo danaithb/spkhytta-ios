@@ -98,7 +98,8 @@ struct ContentView: View {
                 
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
-            //.padding()får kalendern att bli längre från kkanten. knappen blir mindre. 
+            //.padding()får kalendern att bli längre från kkanten. knappen blir mindre.
+            .environmentObject(authViewModel)
         }
     }
 }
