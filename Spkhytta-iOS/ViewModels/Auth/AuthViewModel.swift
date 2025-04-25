@@ -27,12 +27,13 @@ class AuthViewModel: ObservableObject {
     @Published var errorMessage = ""
     @Published var isAuthenticated = false
     @Published var userId = ""
-    
+    @Published var userInfo: UserInfoDTO? = nil
+
     init() {
         // är användare redan inoggad?
         checkAuthState()
     }
-    
+
     func checkAuthState() {
         if let currentUser = Auth.auth().currentUser {
             self.isAuthenticated = true
@@ -40,28 +41,29 @@ class AuthViewModel: ObservableObject {
         }
     }
     //lägg till en guard här
+
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 self.errorMessage = error.localizedDescription
             } else {
                 self.isAuthenticated = true
-                self.userId = (Auth.auth().currentUser?.uid) ?? "" // så den inte crashar om inte någon är inloggad. return empty string
-                
+                self.userId = (Auth.auth().currentUser?.uid) ?? ""
+
                 Auth.auth().currentUser?.getIDToken(completion: { token, error in
                     if let token = token {
                         print("ID Token: \(token)")
-                        // skicka säkert till backend.
-                       //danait fjern og la til det under hellr self.sendTokenToBackend()
                         loginToBackend()
+                        self.fetchUserInfo() // setter info direkte i viewmodel
                     }
                 })
 
-                print(self.userId) //log out user id ska bli reset till empty igen.
-            } //user id till backend lägg till i db. gör api swiftUI. func send user id to bakckend, java backend kan requesta det api använd folder name. call function.
+                print(self.userId)
+            }
         }
     }
-    
+
+
     func logout() {
         do {
             try Auth.auth().signOut()
@@ -75,21 +77,22 @@ class AuthViewModel: ObservableObject {
     }
     
     // La till den här nya funktionen för att hämta token för API anrop
+
     func getToken(completion: @escaping (String?) -> Void) {
         Auth.auth().currentUser?.getIDToken { token, error in
             if let error = error {
-                print("Kunde inte hämta token: \(error.localizedDescription)")
+                print("Kunde ikke hente token: \(error.localizedDescription)")
                 completion(nil)
                 return
             }
             completion(token)
         }
     }
-    
+
     func sendTokenToBackend() {
         Auth.auth().currentUser?.getIDToken { token, error in
             guard let token = token else {
-                print("Kunde inte få token: \(error?.localizedDescription ?? "Okänt fel")")
+                print("Kunde ikke få token: \(error?.localizedDescription ?? "Ukjent feil")")
                 return
             }
 
@@ -99,16 +102,50 @@ class AuthViewModel: ObservableObject {
 
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    print("Nätverk fel: \(error.localizedDescription)")
+                    print("Nettverksfeil: \(error.localizedDescription)")
                     return
                 }
 
                 if let httpResponse = response as? HTTPURLResponse {
-                    print("Servern svarade med status: \(httpResponse.statusCode)")
+                    print("Server svarte med status: \(httpResponse.statusCode)")
                 }
             }.resume()
         }
     }
+    
+    func fetchUserInfo() {
+        getToken { token in
+            guard let token = token else {
+                print("Token mangler")
+                return
+            }
+
+            var request = URLRequest(url: URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/users/me")!)
+            request.httpMethod = "GET"
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Feil ved henting av brukerinfo: \(error.localizedDescription)")
+                    return
+                }
+
+                if let data = data {
+                    do {
+                        let userInfo = try JSONDecoder().decode(UserInfoDTO.self, from: data)
+                        DispatchQueue.main.async {
+                            self.userInfo = userInfo
+                            print("Navn: \(userInfo.name), E-post: \(userInfo.email), Poeng: \(userInfo.points)")
+                        }
+                    } catch {
+                        print("Feil ved parsing av brukerinfo: \(error.localizedDescription)")
+                    }
+                }
+            }.resume()
+        }
+    }
+
 }
+
 
 
