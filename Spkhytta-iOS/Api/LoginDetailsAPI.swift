@@ -19,6 +19,12 @@
 import Foundation
 import FirebaseAuth
 
+struct UserInfoDTO: Codable {
+    let name: String
+    let email: String
+    let points: Int
+}
+
 func loginToBackend() {
     guard let user = Auth.auth().currentUser else {
         print("Ingen bruker er logget inn")
@@ -36,12 +42,11 @@ func loginToBackend() {
             return
         }
         
-        let url = URL(string: "hfttps://test2-hyttebooker-371650344064.europe-west1.run.app/api/auth/login")!
+        let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/auth/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-
         // Body skal være tom, backend henter alt fra token
         request.httpBody = "{}".data(using: .utf8)
 
@@ -62,51 +67,4 @@ func loginToBackend() {
     }
 }
 
-func fetchUserInfo() {
-    guard let user = Auth.auth().currentUser else {
-        print("Ingen bruker er logget inn")
-        return
-    }
 
-    user.getIDToken { token, error in
-        if let error = error {
-            print("Feil ved henting av token: \(error.localizedDescription)")
-            return
-        }
-
-        guard let token = token else {
-            print("Token er nil")
-            return
-        }
-
-        let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/users/me")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Request error: \(error.localizedDescription)")
-                return
-            }
-
-            if let httpResponse = response as? HTTPURLResponse {
-                print("Status: \(httpResponse.statusCode)")
-            }
-
-            if let data = data,
-               let responseBody = try? JSONSerialization.jsonObject(with: data, options: []) {
-                print("Brukerinfo:")
-                print(responseBody)
-            } else {
-                print("Klarte ikke å parse JSON")
-            }
-        }.resume()
-    }
-}
-
-struct UserInfoDTO: Codable {
-    let name: String
-    let email: String
-    let points: Int
-}
