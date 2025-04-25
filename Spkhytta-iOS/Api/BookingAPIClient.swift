@@ -18,7 +18,7 @@ class BookingAPIClient {
     private init() {}
     
     // URL för API anrop - Ändra till riktiga backend URL:n senare
-    private let baseURL = "https://8add7b00-6637-4dd8-8388-5a6548334f69.mock.pstmn.io/api/bookings"
+    let baseURL = "https://test2-hyttebooker-371650344064.europe-west1.run.app"
     
     // Struktur för att hålla bookingdata
     struct BookingRequest: Codable {
@@ -92,7 +92,7 @@ class BookingAPIClient {
             }
             
             // Skapa URL request
-            guard let url = URL(string: "\(self.baseURL)") else {
+            guard let url = URL(string: "\(self.baseURL)/api/bookings") else {
                 completion(.failure(.unknownError))
                 return
             }
