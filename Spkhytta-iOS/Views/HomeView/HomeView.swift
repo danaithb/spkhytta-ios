@@ -24,20 +24,19 @@ struct HomeView: View {
                   "bilder13", "bilder14"]
 
     let allFasiliteter: [Fasilitet] = [
-        Fasilitet(icon: "car.fill", title: "Utsikt mot fjell"),
-        Fasilitet(icon: "waveform.path.ecg", title: "Utsikt mot elv"),
-        Fasilitet(icon: "drop", title: "Ved vannet"),
-        Fasilitet(icon: "fork.knife", title: "Kjøkken"),
-        Fasilitet(icon: "car.fill", title: "Gratis parkering"),
-        Fasilitet(icon: "wifi", title: "WiFi tilgjengelig"),
+        Fasilitet(icon:  "wifi", title: "WiFi tilgjengelig"),
         Fasilitet(icon: "tv", title: "TV"),
         Fasilitet(icon: "flame.fill", title: "Peis"),
+        Fasilitet(icon: "car.fill", title: "Gratis parkering"),
+        Fasilitet(icon: "washer", title: "Vaskemaskin"),
+        Fasilitet(icon: "figure.ice.skating", title: "Skøyter"),
+        Fasilitet(icon: "drop", title: "Ved vannet"),
+        Fasilitet(icon: "fork.knife", title: "Kjøkken"),
         Fasilitet(icon: "snow", title: "Aircondition"),
         Fasilitet(icon: "leaf", title: "Nær natur"),
         Fasilitet(icon: "bicycle", title: "Sykkelutleie"),
         Fasilitet(icon: "figure.walk", title: "Turløyper"),
         Fasilitet(icon: "bed.double", title: "Komfortable senger"),
-        Fasilitet(icon: "washer", title: "Vaskemaskin"),
         Fasilitet(icon: "lock.fill", title: "Sikker inngang"),
         Fasilitet(icon: "cup.and.saucer", title: "Kaffemaskin")
     ]
@@ -46,9 +45,18 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 32) {
+            VStack(alignment: .center, spacing: 32) {
                 
-                // 👇 Image Carousel (updated style)
+                // Hjem Title
+                HStack {
+                    Text("Hjem")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.leading)
+                    Spacer()
+                }
+
+                // Bilder Carousel (updated style)
                 TabView {
                     ForEach(images, id: \.self) { image in
                         Image(image)
@@ -64,32 +72,32 @@ struct HomeView: View {
                 .frame(height: 250)
                 .tabViewStyle(PageTabViewStyle())
 
-                // 👇 Payment Info Box
-                HStack(alignment: .top, spacing: 10) {
-                    Image(systemName: "creditcard.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(.black)
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Informasjon om priser og betalingsmåter")
-                        Text("Røde-dager: 1000kr")
-                        Text("Vanlig-dager: 100kr")
-                            .font(.body)
-                            .foregroundColor(.black)
-                    }
-                }
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.3)))
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                // 👇 Fasiliteter Section (clean layout)
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("Hva dette stedet tilbyr")
+                // Box til Informasjon om priser
+                    VStack {
+                                   HStack {
+                                       VStack(alignment: .leading, spacing: 4) {
+                                           Text("Informasjon om priser og Poeng")
+                                               .fontWeight(.bold)
+                                           Text("Røde-dager: 1000kr = 6 Poeng")
+                                           Text("Vanlig-dager: 100kr = 4 Poeng")
+                                               .font(.body)
+                                               .foregroundColor(.black)
+                                       }
+                                       
+                                   }
+                                   .padding()
+                                   .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.3)))
+                                   .frame(maxWidth: .infinity, alignment: .center) // Stretch the box to fill the width
+                                   .padding(.horizontal) // Apply padding to center
+                               }
+                
+                // Hytta tilbyr Seksjon
+                VStack(alignment: .center, spacing: 16) {
+                    Text("Hytta tilbyr")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
                         ForEach(showAll ? allFasiliteter : Array(allFasiliteter.prefix(6))) { fasilitet in
                             HStack(alignment: .center, spacing: 10) {
@@ -106,7 +114,7 @@ struct HomeView: View {
                         }
                     }
 
-                    // 👇 See more / less button
+                    // Vis færre og alle knapp
                     Button(action: {
                         withAnimation {
                             showAll.toggle()
@@ -121,8 +129,13 @@ struct HomeView: View {
                             .cornerRadius(10)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .center) //  Sikre at alt er i midten
+                
+                // Legg til en spacer for å skyve innholdet opp eller ned etter behov
+                Spacer()
             }
             .padding(.horizontal)
+            .background(Color.gray.opacity(0.1)) // Sett en dempet bakgrunn
         }
     }
 }
