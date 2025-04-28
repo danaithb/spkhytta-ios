@@ -33,7 +33,7 @@ struct ContentView: View {
     @AppStorage("isFirstLaunch") private var isFirstLaunch: Bool = true
     @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @StateObject private var authViewModel = AuthViewModel()
-    
+
     var body: some View {
         if !isActive && !authViewModel.isAuthenticated { //ordnade hierarki o mina loopar, nested var ingen bra ide. det blev rotigt.
             SplashScreenView {
@@ -53,53 +53,53 @@ struct ContentView: View {
                     isFirstLaunch = false
                     isLoggedIn = true
                 }
-            
+
         } else if !isLoggedIn {
             // bug error vill inte ha parameter.--fixed
             LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
         } else {
             TabView {
-                
+
                 // Hjem
                 Tab("Hjem", systemImage: "house") {
                     NavigationStack {
                         HomeView()
                     }
                 }
-                
+
            //Kalender
                 Tab("Kalender", systemImage: "calendar.circle") {
                     NavigationStack {
                         CalendarView()
                     }
                 }
-                
-                
+
+
                 //min sida
-                
+
                 Tab("Min Side", systemImage: "person.circle") {
                     NavigationStack {
                         ProfileView()
                     }
                 }
             //    .badge("Här kan man lägga tex eller siffra") för att visa om det är någon uppdatering på sidan. Nil döljer badge. för att se om det är några nya uppdateringar så gör en @State variabel för unreadMessages som sen sätts till 0 när användaren loggar in på sin sida (detta kan bara göras med Tab).
-                
+
                 //settings
-               
+
                 Tab("Setting", systemImage: "gear") {
                     NavigationStack {
                         SettingsView(
                             isDarkMode: $isDarkMode, isLoggedIn: $isLoggedIn, authViewModel: authViewModel
                             )
-                        
+
                     }
-                     
+
                 }
-                
+
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
             //.padding()får kalendern att bli längre från kkanten. knappen blir mindre.
-            .environmentObject(authViewModel)
+
         }
     }
 }
@@ -109,4 +109,4 @@ struct ContentView: View {
 } // de här ska hänga ihop och visa splashview sen direkta till login.
 
 
-
+~
