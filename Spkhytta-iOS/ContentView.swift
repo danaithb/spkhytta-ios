@@ -109,4 +109,4 @@ struct ContentView: View {
 } // de här ska hänga ihop och visa splashview sen direkta till login.
 
 
-~
+
