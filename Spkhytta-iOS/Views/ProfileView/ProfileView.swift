@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-
+    @State private var userInfo: UserInfo?
 
     var body: some View {
         ScrollView {
@@ -31,14 +31,23 @@ struct ProfileView: View {
                         .frame(width: 100, height: 100)
                 }
 
-                // Navn og  Jobb Title
-                VStack(spacing: 4) {
-                    Text("Ola Norman")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                // Navn, epost og poeng (dynamisk)
+                if let user = userInfo {
+                    VStack(spacing: 4) {
+                        Text(user.name)
+                            .font(.title2)
+                            .fontWeight(.semibold)
 
-                    Text("It-Utvikler")
-                        .font(.subheadline)
+                        Text(user.email)
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+
+                        Text("Poeng: \(user.points)")
+                            .font(.headline)
+                            .padding(.top, 4)
+                    }
+                } else {
+                    Text("Laster brukerinfo...")
                         .foregroundColor(.gray)
                 }
 
@@ -78,6 +87,13 @@ struct ProfileView: View {
                 .padding(.horizontal)
             }
             .padding()
+        }
+        .onAppear {
+            UserAPIClient.shared.fetchUserInfo { info in
+                DispatchQueue.main.async {
+                    self.userInfo = info
+                }
+            }
         }
     }
 }
