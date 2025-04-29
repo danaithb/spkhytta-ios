@@ -26,35 +26,35 @@ import FirebaseAuth
 // ---------- Bokningsvy ----------
 struct BookingView: View {
     @StateObject private var viewModel = BookingViewModel()
+    @State private var userInfo: UserInfo?
     @Binding var startDate: Date?
     @Binding var endDate: Date?
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack {
-            // ---------- Kontaktinformation ----------
-            BookingContentView(
-                title: "Kontaktinformasjon",
-                contents: [
-                    HStack {
-                        Text("Navn:")
-                            .fontWeight(.bold)
-                        Text(viewModel.userName)
-                    },
-                    
-                    HStack {
-                        Text("Mobil:")
-                            .fontWeight(.bold)
-                        Text(viewModel.userMobile)
-                    },
-                    HStack {
-                        Text("E-postadresse:")
-                            .fontWeight(.bold)
-                        Text(viewModel.userEmail)
-                    }
-                ]
-            )
-            .padding(.top, 30)
+            VStack {
+                // ---------- Kontaktinformasjon ----------
+                BookingContentView(
+                    title: "Kontaktinformasjon",
+                    contents: [
+                        HStack {
+                            Text("Navn:")
+                                .fontWeight(.bold)
+                            Text(userInfo?.name ?? "Laster...")
+                        },
+                        HStack {
+                            Text("Mobil:")
+                                .fontWeight(.bold)
+                            Text("999 99 999")
+                        },
+                        HStack {
+                            Text("E-postadresse:")
+                                .fontWeight(.bold)
+                            Text(userInfo?.email ?? "Laster...")
+                        }
+                    ]
+                )
+                .padding(.top, 30)
             
             // ---------- Valda datum ----------
             if endDate != nil && startDate != nil {
@@ -165,12 +165,19 @@ struct BookingView: View {
             }
         )
         .disabled(viewModel.isProcessing)
-    }
-    
-    private func resetAndDismiss() {
-        startDate = nil
-        endDate = nil
-        viewModel.resetBookingData()
-        dismiss()
-    }
-}
+               .onAppear {
+                   UserAPIClient.shared.fetchUserInfo { info in
+                       DispatchQueue.main.async {
+                           self.userInfo = info
+                       }
+                   }
+               }
+           }
+
+           private func resetAndDismiss() {
+               startDate = nil
+               endDate = nil
+               viewModel.resetBookingData()
+               dismiss()
+           }
+       }
