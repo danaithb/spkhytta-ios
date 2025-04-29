@@ -27,12 +27,12 @@ class AuthViewModel: ObservableObject {
     @Published var errorMessage = ""
     @Published var isAuthenticated = false
     @Published var userId = ""
-    
+
     init() {
         // är användare redan inoggad?
         checkAuthState()
     }
-    
+
     func checkAuthState() {
         if let currentUser = Auth.auth().currentUser {
             self.isAuthenticated = true
@@ -47,12 +47,13 @@ class AuthViewModel: ObservableObject {
             } else {
                 self.isAuthenticated = true
                 self.userId = (Auth.auth().currentUser?.uid) ?? "" // så den inte crashar om inte någon är inloggad. return empty string
-                
+
                 Auth.auth().currentUser?.getIDToken(completion: { token, error in
                     if let token = token {
                         print("ID Token: \(token)")
                         // skicka säkert till backend.
                         self.sendTokenToBackend()
+
                     }
                 })
 
@@ -60,7 +61,7 @@ class AuthViewModel: ObservableObject {
             } //user id till backend lägg till i db. gör api swiftUI. func send user id to bakckend, java backend kan requesta det api använd folder name. call function.
         }
     }
-    
+
     func logout() {
         do {
             try Auth.auth().signOut()
@@ -72,7 +73,7 @@ class AuthViewModel: ObservableObject {
             self.errorMessage = "Error signing out"
         }
     }
-    
+
     // La till den här nya funktionen för att hämta token för API anrop
     func getToken(completion: @escaping (String?) -> Void) {
         Auth.auth().currentUser?.getIDToken { token, error in
@@ -84,7 +85,7 @@ class AuthViewModel: ObservableObject {
             completion(token)
         }
     }
-    
+
     func sendTokenToBackend() {
         Auth.auth().currentUser?.getIDToken { token, error in
             guard let token = token else {
@@ -92,7 +93,7 @@ class AuthViewModel: ObservableObject {
                 return
             }
 
-            var request = URLRequest(url: URL(string: "https://8514654f-9b3f-452a-921b-b5d95dcb862b.mock.pstmn.io/auth")!)
+            var request = URLRequest(url: URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/auth/login")!)
             request.httpMethod = "POST" //ändrat till post från GET.
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 
