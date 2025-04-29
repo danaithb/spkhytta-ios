@@ -21,7 +21,7 @@ struct ProfileView: View {
 
                 // Profil Bilder
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 6)
                         .stroke(Color.gray.opacity(0.4), lineWidth: 1)
                         .frame(width: 180, height: 180)
 
@@ -80,7 +80,7 @@ struct ProfileView: View {
                     }
                     .padding()
                     .background(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.gray.opacity(0.5))
                     )
                 }

@@ -125,7 +125,7 @@ struct HomeView: View {
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.custom_blue)
-                            .cornerRadius(10)
+                            .cornerRadius(12)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center) //  Sikre at alt er i midten
