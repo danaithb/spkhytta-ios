@@ -15,7 +15,7 @@ class BookingViewModel: ObservableObject {
     
     // User information (in a real app, this would come from user profile)
     @Published var userName: String = "Ola Norman"
-    @Published var userMobile: String = "99999999"
+    //@Published var userMobile: String = "99999999"
     @Published var userEmail: String = "ola.norman@spk.no"
     
     // States for handling booking process

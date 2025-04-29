@@ -42,11 +42,12 @@ struct BookingView: View {
                                 .fontWeight(.bold)
                             Text(userInfo?.name ?? "Laster...")
                         },
-                        HStack {
-                            Text("Mobil:")
-                                .fontWeight(.bold)
-                            Text("999 99 999")
-                        },
+//                        HStack {
+//                            Text("Mobil:")
+//                                .fontWeight(.bold)
+//                            Text("999 99 999")
+//                        },
+                        
                         HStack {
                             Text("E-postadresse:")
                                 .fontWeight(.bold)
