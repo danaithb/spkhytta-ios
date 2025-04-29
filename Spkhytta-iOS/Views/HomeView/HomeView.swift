@@ -49,7 +49,7 @@ struct HomeView: View {
                 // Hjem Title
                 HStack {
                     Text("Hjem")
-                        .font(.largeTitle)
+                        .font(.custom("Poppins-SemiBold", size: 24))
                         .fontWeight(.bold)
                         .padding(.leading)
                     Spacer()
