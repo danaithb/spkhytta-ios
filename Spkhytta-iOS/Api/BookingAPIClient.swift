@@ -3,10 +3,11 @@
 //  BookingApp
 //
 //  Created by Mariana och Abigail on 09/04/2025.
-//TODO kolla om antal personer finns med i databasen.
-//ta bort id. det genereras från backend.
-
-
+//
+// TODO
+// kolla om antal personer finns med i databasen.
+// ta bort id. det genereras från backend.
+//
 
 import Foundation
 import Firebase
@@ -22,10 +23,10 @@ class BookingAPIClient {
     
     // Struktur för att hålla bookingdata
     struct BookingRequest: Codable {
+        let cabinId: Int
         let startDate: String
         let endDate: String
-        //let userId: String
-        let numberOfPeople: Int
+        let guestCount: Int
     }
     
     enum BookingError: Error {
@@ -37,11 +38,13 @@ class BookingAPIClient {
     }
     
     // Skicka bokningsinformation till backend med auth token
-    //- Parameters ska vi ha med antal personer här. Finns det med i databsen? dubbelkolla det. ska läggas till.
+    // - Parameters
     //   - startDate: Bokningens startdatum
     //   - endDate: Bokningens slutdatum
-    //  - completion: Completion handler med Result
+    //   - numberOfPeople: Antall personer som skal være med i bookingen
+    //   - completion: Completion handler med Result
     func sendBookingRequest(
+        cabinId: Int,
         startDate: Date,
         endDate: Date,
         numberOfPeople: Int = 1,
@@ -72,27 +75,30 @@ class BookingAPIClient {
                 return
             }
             
-            // Formatera datumen för API req
-            let dateFormatter = ISO8601DateFormatter()
+            // Formatera datumen för API req (yyyy-MM-dd)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
             let startDateString = dateFormatter.string(from: startDate)
             let endDateString = dateFormatter.string(from: endDate)
             
             // Skapa bokningsdata
             let bookingData = BookingRequest(
+                cabinId: cabinId,
                 startDate: startDateString,
                 endDate: endDateString,
-                //userId: currentUser.uid,
-                numberOfPeople: numberOfPeople
+                guestCount: numberOfPeople
             )
             
             // Konvertera bokningsdata till JSON
             guard let jsonData = try? JSONEncoder().encode(bookingData) else {
+                print("Kunne ikke encode bookingData.")
                 completion(.failure(.unknownError))
                 return
             }
             
             // Skapa URL request
-            guard let url = URL(string: "\(self.baseURL)") else {
+            guard let url = URL(string: self.baseURL) else {
+                print("Ugyldig URL.")
                 completion(.failure(.unknownError))
                 return
             }
@@ -103,6 +109,8 @@ class BookingAPIClient {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             request.httpBody = jsonData
             
+            print("[BookingAPIClient] Sender booking til backend...")
+            
             // Skicka requesten
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -112,6 +120,7 @@ class BookingAPIClient {
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
+                    print("Ukjent feil: ingen HTTP-respons")
                     completion(.failure(.unknownError))
                     return
                 }
@@ -119,17 +128,16 @@ class BookingAPIClient {
                 // Kolla respons statuskod
                 switch httpResponse.statusCode {
                 case 200...299:
-                    // Lyckad respons
                     if let data = data, let responseBody = String(data: data, encoding: .utf8) {
+                        print("[BookingAPIClient] Suksess! Respons: \(responseBody)")
                         completion(.success(responseBody))
                     } else {
-                        // Generera ett fake boknings-ID för testing
-                        let referenceNumber = "SPK-\(Int.random(in: 10000...99999))"
-                        completion(.success(referenceNumber))
+                        print("[BookingAPIClient] Suksess, men ingen lesbar respons")
+                        completion(.success("Booking registrert"))
                     }
                     
                 default:
-                    // Hantera fel respons
+                    print("Feilstatus fra backend: \(httpResponse.statusCode)")
                     completion(.failure(.serverError(httpResponse.statusCode)))
                 }
             }.resume()
