@@ -19,9 +19,8 @@ struct Fasilitet: Identifiable {
 struct HomeView: View {
     @State private var showAll = false
 
-    let images = ["bilder11", "bilder2", "bilder3", "bilder4", "bilder5", "bilder6",
-                  "bilder7", "bilder8", "bilder9", "bilder10", "bilder1", "bilder12",
-                  "bilder13", "bilder14"]
+    let images = ["hytteBilde", "hytteBilde2", "hytteBilde", "hytteBilde4", "hytteBilde5", "hytteBilde6",
+                  "hytteBilde7", "hytteBilde8", "hytteBilde9", "hytteBilde10"]
 
     let allFasiliteter: [Fasilitet] = [
         Fasilitet(icon:  "wifi", title: "WiFi tilgjengelig"),
@@ -41,7 +40,7 @@ struct HomeView: View {
         Fasilitet(icon: "cup.and.saucer", title: "Kaffemaskin")
     ]
 
-    let columns = [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)]
+    let columns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
 
     var body: some View {
         ScrollView {
@@ -92,7 +91,7 @@ struct HomeView: View {
                                }
                 
                 // Hytta tilbyr Seksjon
-                VStack(alignment: .center, spacing: 16) {
+                VStack(alignment: .center, spacing: 22) {
                     Text("Hytta tilbyr")
                         .font(.title2)
                         .fontWeight(.bold)
@@ -122,10 +121,10 @@ struct HomeView: View {
                     }) {
                         Text(showAll ? "Vis færre fasiliteter" : "Se alle fasiliteter")
                             .font(.body)
-                            .foregroundColor(Color.blue)
+                            .foregroundColor(Color.white)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.gray.opacity(0.15))
+                            .background(Color.custom_blue)
                             .cornerRadius(10)
                     }
                 }
