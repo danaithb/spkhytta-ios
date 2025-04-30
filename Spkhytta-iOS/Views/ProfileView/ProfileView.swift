@@ -77,9 +77,9 @@ struct ProfileView: View {
                                         .fontWeight(.semibold)
 
                                     HStack(spacing: 8) {
-                                        Text(booking.status)
+                                        Text(localizedStatus(booking.status))
                                         Circle()
-                                            .fill(booking.status.lowercased() == "bekreftet" ? Color.green : Color.orange)
+                                            .fill(localizedStatus(booking.status) == "Bekreftet" ? Color.green : Color.orange)
                                             .frame(width: 14, height: 14)
                                     }
                                 }
@@ -110,6 +110,19 @@ struct ProfileView: View {
                     self.bookings = summaries
                 }
             }
+        }
+    }
+    
+    private func localizedStatus(_ status: String) -> String {
+        switch status.lowercased() {
+        case "confirmed":
+            return "Bekreftet"
+        case "pending":
+            return "Venter på trekning"
+        case "canceled":
+            return "Kansellert"
+        default:
+            return status
         }
     }
 }
