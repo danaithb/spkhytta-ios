@@ -27,6 +27,7 @@ class BookingAPIClient {
         let startDate: String
         let endDate: String
         let guestCount: Int
+        let businessTrip: Bool
     }
     
     enum BookingError: Error {
@@ -86,7 +87,8 @@ class BookingAPIClient {
                 cabinId: cabinId,
                 startDate: startDateString,
                 endDate: endDateString,
-                guestCount: numberOfPeople
+                guestCount: numberOfPeople,
+                businessTrip: true //har jobb tur midlertidig
             )
             
             // Konvertera bokningsdata till JSON
