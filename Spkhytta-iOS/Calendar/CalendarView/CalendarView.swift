@@ -92,9 +92,13 @@ struct CalendarView: View {
 //                    .padding(.bottom, 20)
             }
             .task {
+                print("Henter tilgjengelighet for:", Calendar.monthOnlyFormatter.string(from: viewModel.currentMonth))
+
                 if viewModel.holidays.isEmpty {
                     await viewModel.loadHolidays()
                 }
+                let monthString = Calendar.monthOnlyFormatter.string(from: viewModel.currentMonth)
+                viewModel.loadBackendUnavailableDates(forMonth: monthString, cabinId: 1)
             }
             .alert("Error", isPresented: $viewModel.showAlert) {
                 Button("OK", role: .cancel) { }

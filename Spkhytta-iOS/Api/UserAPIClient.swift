@@ -66,4 +66,46 @@ class UserAPIClient {
             }.resume()
         }
     }
+    
+    func fetchBookingSummaries(completion: @escaping ([BookingSummary]) -> Void) {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("[UserAPIClient] Ikke logget inn.")
+            completion([])
+            return
+        }
+
+        currentUser.getIDToken { token, error in
+            guard let token = token else {
+                print("[UserAPIClient] Kunne ikke hente token:", error?.localizedDescription ?? "")
+                completion([])
+                return
+            }
+
+            guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/users/me/bookings/summary") else {
+                completion([])
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let data = data {
+                    do {
+                        let bookings = try JSONDecoder().decode([BookingSummary].self, from: data)
+                        print("[UserAPIClient] Fant \(bookings.count) bookinger.")
+                        completion(bookings)
+                    } catch {
+                        print("[UserAPIClient] Feil ved parsing:", error)
+                        completion([])
+                    }
+                } else {
+                    print("[UserAPIClient] Ingen data: \(error?.localizedDescription ?? "")")
+                    completion([])
+                }
+            }.resume()
+        }
+    }
+
 }
