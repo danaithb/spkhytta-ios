@@ -27,7 +27,7 @@ class CalendarViewModel: ObservableObject {
     }()
 
     
-    //Metoder
+    // Metoder
     
     func loadBackendUnavailableDates(forMonth month: String, cabinId: Int) {
         guard let user = Auth.auth().currentUser else { return }
