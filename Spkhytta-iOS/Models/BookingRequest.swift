@@ -11,5 +11,6 @@ struct BookingRequest: Codable {
     let cabinId: Int
     let startDate: String
     let endDate: String
-    let guestCount: Int
+    let numberOfGuests: Int
+    let businessTrip: Bool
 }

@@ -21,15 +21,6 @@ class BookingAPIClient {
     // URL för API anrop - Ändra till riktiga backend URL:n senare
     private let baseURL = "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/bookings"
     
-    // Struktur för att hålla bookingdata
-    struct BookingRequest: Codable {
-        let cabinId: Int
-        let startDate: String
-        let endDate: String
-        let guestCount: Int
-        let businessTrip: Bool
-    }
-    
     enum BookingError: Error {
         case invalidDates
         case authenticationError
@@ -87,10 +78,16 @@ class BookingAPIClient {
                 cabinId: cabinId,
                 startDate: startDateString,
                 endDate: endDateString,
-                guestCount: numberOfPeople,
-                businessTrip: true //har jobb tur midlertidig
+                numberOfGuests: numberOfPeople,
+                businessTrip: true
             )
-            
+
+            // Debug-print booking JSON før du sender den
+            if let json = try? JSONEncoder().encode(bookingData),
+               let jsonString = String(data: json, encoding: .utf8) {
+                print("[DEBUG] Booking JSON som sendes: \(jsonString)")
+            }
+
             // Konvertera bokningsdata till JSON
             guard let jsonData = try? JSONEncoder().encode(bookingData) else {
                 print("Kunne ikke encode bookingData.")
