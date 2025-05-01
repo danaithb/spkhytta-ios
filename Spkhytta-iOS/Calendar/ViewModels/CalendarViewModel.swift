@@ -6,6 +6,7 @@
 
 import Foundation
 import SwiftUI
+import FirebaseAuth
 
 class CalendarViewModel: ObservableObject {
     //Publicerade egenskaper
@@ -15,6 +16,7 @@ class CalendarViewModel: ObservableObject {
     @Published var holidays: [PublicHolidayModel] = []
     @Published var showAlert: Bool = false
     @Published var alertMessage: String = ""
+    @Published var backendUnavailableDates: Set<Date> = []
     
     //Egenskaper
     let calendar: Calendar = {
@@ -23,17 +25,53 @@ class CalendarViewModel: ObservableObject {
         calendar.timeZone = TimeZone(identifier: "UTC")!
         return calendar
     }()
-    
-    var unavailableDates: Set<Date> {
-        let dates = [
-            calendar.date(from: DateComponents(year: 2025, month: 3, day: 14))!,
-            calendar.date(from: DateComponents(year: 2025, month: 3, day: 20))!,
-            calendar.date(from: DateComponents(year: 2025, month: 4, day: 16))!
-        ]
-        return Set(dates.map { normalizeDate($0) })
-    }
+
     
     //Metoder
+    
+    func loadBackendUnavailableDates(forMonth month: String, cabinId: Int) {
+        guard let user = Auth.auth().currentUser else { return }
+
+        user.getIDToken { token, error in
+            guard let token = token else { return }
+
+            guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/calendar/availability") else {
+                print("Ugyldig URL")
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+            let body: [String: Any] = [
+                "month": month,
+                "cabinId": cabinId
+            ]
+
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+
+            URLSession.shared.dataTask(with: request) { data, _, _ in
+                guard let data = data else { return }
+                do {
+                    let result = try JSONDecoder().decode([DayAvailability].self, from: data)
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+                    let dates = result
+                        .filter { $0.status == "booked" }
+                        .compactMap { formatter.date(from: $0.date) }
+
+                    DispatchQueue.main.async {
+                        self.backendUnavailableDates = Set(dates.map(self.normalizeDate))
+                    }
+                } catch {
+                    print("Feil ved parsing: \(error)")
+                }
+            }.resume()
+        }
+    }
     
     // Normalize date för jämföroing
     func normalizeDate(_ date: Date) -> Date {
@@ -56,11 +94,14 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
-    // Gå till nästa eller föregående månad
+    // Gå til neste eller forrige måned
     func moveMonth(by value: Int) {
         if canMoveMonth(by: value) {
             currentMonth = calendar.date(byAdding: .month, value: value, to: currentMonth) ?? currentMonth
             print("Moved to \(formatMonth(date: currentMonth))")
+            
+            let monthString = Calendar.monthOnlyFormatter.string(from: currentMonth)
+            loadBackendUnavailableDates(forMonth: monthString, cabinId: 1)
         }
     }
     
@@ -134,7 +175,7 @@ class CalendarViewModel: ObservableObject {
     private func isRangeValid(start: Date, end: Date) -> Bool {
         var currentDate = start
         while currentDate <= end {
-            if unavailableDates.contains(normalizeDate(currentDate)) {
+            if backendUnavailableDates.contains(normalizeDate(currentDate)) {
                 return false
             }
             currentDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
@@ -201,4 +242,12 @@ class CalendarViewModel: ObservableObject {
             return normalizeDate(holiday.date) == normalizedDate
         }
     }
+}
+
+extension Calendar {
+    static let monthOnlyFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        return formatter
+    }()
 }

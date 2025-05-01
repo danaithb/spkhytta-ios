@@ -22,6 +22,7 @@ class BookingViewModel: ObservableObject {
     @Published var isProcessing = false
     @Published var alertInfo: AlertInfo?
     @Published var bookingSuccess = false
+    @Published var unavailableDates: [String] = []
     
     struct AlertInfo {
         let title: String
@@ -33,6 +34,45 @@ class BookingViewModel: ObservableObject {
         return Calendar.dateFormatter.string(from: date)
     }
     
+    func loadAvailability(forMonth month: String, cabinId: Int) {
+        guard let user = Auth.auth().currentUser else { return }
+
+        user.getIDToken { token, error in
+            if let token = token {
+                guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/calendar/availability") else {
+                    print("Ugyldig URL for kalender")
+                    return
+                }
+
+                var request = URLRequest(url: url)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+                let body: [String: Any] = [
+                    "month": month,     // f.eks. "2025-05"
+                    "cabinId": cabinId
+                ]
+
+                request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+
+                URLSession.shared.dataTask(with: request) { data, _, _ in
+                    guard let data = data else { return }
+                    do {
+                        let result = try JSONDecoder().decode([DayAvailability].self, from: data)
+                        DispatchQueue.main.async {
+                            self.unavailableDates = result
+                                .filter { $0.status == "booked" }
+                                .map { $0.date }
+                        }
+                    } catch {
+                        print("Feil ved parsing: \(error)")
+                    }
+                }.resume()
+            }
+        }
+    }
+
     // Funksjon for å bekrefte booking
     func confirmBooking(onSuccess: @escaping () -> Void) {
         if numberOfPeople == "Antall" {

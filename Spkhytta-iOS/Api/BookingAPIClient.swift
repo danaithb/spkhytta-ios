@@ -139,6 +139,39 @@ class BookingAPIClient {
                     print("Feilstatus fra backend: \(httpResponse.statusCode)")
                     completion(.failure(.serverError(httpResponse.statusCode)))
                 }
+                
+                func fetchAvailabilityForMonth(month: String, cabinId: Int, token: String, completion: @escaping ([DayAvailability]) -> Void) {
+                    guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/calendar/availability") else {
+                        print("Ugyldig URL for kalender")
+                        return
+                    }
+
+                    var request = URLRequest(url: url)
+                    request.httpMethod = "POST"
+                    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+                    let body: [String: Any] = [
+                        "month": month,         // eks: "2025-05"
+                        "cabinId": cabinId      // eks: 1
+                    ]
+
+                    request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        guard let data = data else {
+                            print("Ingen data")
+                            return
+                        }
+                        do {
+                            let result = try JSONDecoder().decode([DayAvailability].self, from: data)
+                            completion(result)
+                        } catch {
+                            print("Feil ved decoding: \(error)")
+                        }
+                    }.resume()
+                }
+
             }.resume()
         }
     }
