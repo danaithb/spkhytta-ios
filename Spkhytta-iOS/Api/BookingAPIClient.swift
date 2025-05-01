@@ -79,7 +79,7 @@ class BookingAPIClient {
                 startDate: startDateString,
                 endDate: endDateString,
                 numberOfGuests: numberOfPeople,
-                businessTrip: true
+                businessTrip: false
             )
 
             // Debug-print booking JSON før du sender den
