@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F66829A2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */; };
+		9F66829B2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */; };
+		9F66829C2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */; };
 		9FFD968D2D9C02B70025E7FB /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD968C2D9C02B70025E7FB /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		9FFD968F2D9C02B70025E7FB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD968E2D9C02B70025E7FB /* FirebaseAuth */; };
 		9FFD96912D9C02B70025E7FB /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96902D9C02B70025E7FB /* FirebaseCore */; };
 		9FFD96932D9C02B70025E7FB /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96922D9C02B70025E7FB /* FirebaseCrashlytics */; };
 		9FFD96952D9C02B70025E7FB /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96942D9C02B70025E7FB /* FirebaseMessaging */; };
 		9FFD96972D9C02B70025E7FB /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9FFD96962D9C02B70025E7FB /* FirebaseStorage */; };
-		EF0676032DC0F528007CC870 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF0676022DC0F528007CC870 /* GoogleService-Info.plist */; };
-		EF0676042DC0F528007CC870 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF0676022DC0F528007CC870 /* GoogleService-Info.plist */; };
-		EF0676052DC0F528007CC870 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF0676022DC0F528007CC870 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,28 +36,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9FFD957B2D9BF8DE0025E7FB /* Spkhytta-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Spkhytta-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD958B2D9BF8DF0025E7FB /* Spkhytta-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD95952D9BF8DF0025E7FB /* Spkhytta-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Spkhytta-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF0676022DC0F528007CC870 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		EF06762E2DC126CD007CC870 /* Exceptions for "Spkhytta-iOS" folder in "Spkhytta-iOS" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 9FFD957A2D9BF8DE0025E7FB /* Spkhytta-iOS */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9FFD957D2D9BF8DE0025E7FB /* Spkhytta-iOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				EF06762E2DC126CD007CC870 /* Exceptions for "Spkhytta-iOS" folder in "Spkhytta-iOS" target */,
-			);
 			path = "Spkhytta-iOS";
 			sourceTree = "<group>";
 		};
@@ -111,7 +98,7 @@
 				9FFD958E2D9BF8DF0025E7FB /* Spkhytta-iOSTests */,
 				9FFD95982D9BF8DF0025E7FB /* Spkhytta-iOSUITests */,
 				9FFD957C2D9BF8DE0025E7FB /* Products */,
-				EF0676022DC0F528007CC870 /* GoogleService-Info.plist */,
+				9F6682992DBBC2FA0096B30D /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -254,7 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0676032DC0F528007CC870 /* GoogleService-Info.plist in Resources */,
+				9F66829C2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0676042DC0F528007CC870 /* GoogleService-Info.plist in Resources */,
+				9F66829B2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0676052DC0F528007CC870 /* GoogleService-Info.plist in Resources */,
+				9F66829A2DBBC2FA0096B30D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,8 +430,6 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Spkhytta-iOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Spkhytta-iOS/Info.plist";
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -473,8 +458,6 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Spkhytta-iOS/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Spkhytta-iOS/Info.plist";
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
