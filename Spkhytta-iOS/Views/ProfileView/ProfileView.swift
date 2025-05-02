@@ -15,7 +15,7 @@ struct ProfileView: View {
             VStack(spacing: 16) {
                 // Prfile Side
                 Text("Min side")
-                    .font(.custom("Poppins-SemiBold", size: 24))
+                    .font(.title)
                     .bold()
                     .padding(.top)
 

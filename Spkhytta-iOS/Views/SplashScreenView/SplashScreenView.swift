@@ -18,10 +18,11 @@ struct SplashScreenView: View {
             HStack(spacing: 0) {
                Text("HYTTE")
                     .foregroundColor(.white)
-                    .font(.custom("Poppins-Regular", size: 40))
+                    .font(.largeTitle)
                 Text("PORTALEN")
                      .foregroundColor(.white)
-                     .font(.custom("Poppins-SemiBold", size: 40))
+                     .font(.largeTitle)
+                     .fontWeight(.bold)
                 }
             
             .onAppear {

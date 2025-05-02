@@ -12,7 +12,7 @@ struct InfoView: View {
         // Tillgänglighet förklaring
         VStack(spacing: 20) {
             Text("Tilgjengelighet")
-                .font(.custom("Poppins-SemiBold", size: 24))
+                .font(.subheadline)
                 //.fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .center)
 

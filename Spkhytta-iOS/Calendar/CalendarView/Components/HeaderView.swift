@@ -11,8 +11,8 @@ struct HeaderView: View {
     var body: some View {
         // Titel
         Text("Kalenderoversikt")
-            .font(.custom("Poppins-SemiBold", size: 24))
-            //.fontWeight(.bold)
+            .font(.title)
+            .fontWeight(.bold)
             .padding(.top, 40)
             //.padding(.bottom, 15)
 
