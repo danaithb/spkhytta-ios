@@ -39,7 +39,7 @@ class BookingViewModel: ObservableObject {
 
         user.getIDToken { token, error in
             if let token = token {
-                guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/calendar/availability") else {
+                guard let url = URL(string: "https://hytteportalen-307333592311.europe-west1.run.app/api/calendar/availability") else {
                     print("Ugyldig URL for kalender")
                     return
                 }

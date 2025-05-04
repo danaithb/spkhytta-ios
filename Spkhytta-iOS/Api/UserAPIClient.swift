@@ -27,7 +27,7 @@ class UserAPIClient {
                 return
             }
 
-            guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/users/me") else {
+            guard let url = URL(string: "https://hytteportalen-307333592311.europe-west1.run.app/api/users/me") else {
                 print("[UserAPIClient] Ugyldig URL.")
                 completion(nil)
                 return
@@ -81,7 +81,7 @@ class UserAPIClient {
                 return
             }
 
-            guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/users/me/bookings/summary") else {
+            guard let url = URL(string: "https://hytteportalen-307333592311.europe-west1.run.app/api/users/me/bookings/summary") else {
                 completion([])
                 return
             }
