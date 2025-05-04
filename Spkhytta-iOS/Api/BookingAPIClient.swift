@@ -19,13 +19,13 @@ class BookingAPIClient {
     private init() {}
     
     // URL för API anrop - Ändra till riktiga backend URL:n senare
-    private let baseURL = "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/bookings"
+    private let baseURL = "https://hytteportalen-307333592311.europe-west1.run.app/api/bookings"
     
     enum BookingError: Error {
         case invalidDates
         case authenticationError
         case networkError(Error)
-        case serverError(Int)
+        case serverError(String)
         case unknownError
     }
     
@@ -79,7 +79,7 @@ class BookingAPIClient {
                 startDate: startDateString,
                 endDate: endDateString,
                 numberOfGuests: numberOfPeople,
-                businessTrip: false
+                businessTrip: true //må manuelt velge her, for nå
             )
 
             // Debug-print booking JSON før du sender den
@@ -136,12 +136,16 @@ class BookingAPIClient {
                     }
                     
                 default:
-                    print("Feilstatus fra backend: \(httpResponse.statusCode)")
-                    completion(.failure(.serverError(httpResponse.statusCode)))
+                    if let data = data, let backendMessage = String(data: data, encoding: .utf8) {
+                        print("Feil fra backend: \(backendMessage)")
+                        completion(.failure(.serverError(backendMessage)))
+                    } else {
+                        completion(.failure(.serverError("Ukjent serverfeil")))
+                    }
                 }
                 
                 func fetchAvailabilityForMonth(month: String, cabinId: Int, token: String, completion: @escaping ([DayAvailability]) -> Void) {
-                    guard let url = URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/calendar/availability") else {
+                    guard let url = URL(string: "https://hytteportalen-307333592311.europe-west1.run.app/api/calendar/availability") else {
                         print("Ugyldig URL for kalender")
                         return
                     }
