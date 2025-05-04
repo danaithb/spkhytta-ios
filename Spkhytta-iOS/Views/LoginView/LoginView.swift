@@ -62,7 +62,7 @@ struct LoginView: View {
             .padding(.horizontal)
             
             if !viewModel.errorMessage.isEmpty {
-                Text("Fyll inn e-postadresse og passord")
+                Text("Fyll inn riktig e-postadresse og passord")
                     .foregroundColor(.red)
                     .font(.caption)
             }
