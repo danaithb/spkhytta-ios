@@ -31,7 +31,7 @@ struct ButtonView: View {
             .frame(maxWidth: .infinity)
             .padding()
             .background(
-                RoundedRectangle(cornerRadius: 10)
+                RoundedRectangle(cornerRadius: 12)
                     .fill(Color.customBlue)
             )
             // BUG: Saknar klickhantering, kan inte validera datumval

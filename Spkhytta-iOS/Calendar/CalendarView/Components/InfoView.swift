@@ -12,8 +12,8 @@ struct InfoView: View {
         // Tillgänglighet förklaring
         VStack(spacing: 20) {
             Text("Tilgjengelighet")
-                .font(.title3)
-                .fontWeight(.bold)
+                .font(.subheadline)
+                //.fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .center)
 
             HStack(spacing: 30) {

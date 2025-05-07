@@ -16,13 +16,13 @@ struct ProfileView: View {
             VStack(spacing: 16) {
                 // Prfile Side
                 Text("Min side")
-                    .font(.largeTitle)
+                    .font(.title)
                     .bold()
                     .padding(.top)
 
                 // Profil Bilder
                 ZStack {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 6)
                         .stroke(Color.gray.opacity(0.4), lineWidth: 1)
                         .frame(width: 180, height: 180)
 
@@ -92,6 +92,7 @@ struct ProfileView: View {
                             )
                         }
                     }
+
                 }
                 .padding(.horizontal)
 

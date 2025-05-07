@@ -69,7 +69,7 @@ struct BookingContentView: View {
         }
        .padding()
        .background(
-           RoundedRectangle(cornerRadius: 16)
+           RoundedRectangle(cornerRadius: 12)
                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
        )
        .padding(.horizontal)

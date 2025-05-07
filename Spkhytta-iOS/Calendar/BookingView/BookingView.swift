@@ -33,7 +33,7 @@ struct BookingView: View {
     
     var body: some View {
             VStack {
-                // ---------- Kontaktinformasjon ----------
+                // ---------- Kontaktinformasjon  ----------
                 BookingContentView(
                     title: "Kontaktinformasjon",
                     contents: [
@@ -42,11 +42,12 @@ struct BookingView: View {
                                 .fontWeight(.bold)
                             Text(userInfo?.name ?? "Laster...")
                         },
-                        HStack {
-                            Text("Mobil:")
-                                .fontWeight(.bold)
-                            Text("999 99 999")
-                        },
+//                        HStack {
+//                            Text("Mobil:")
+//                                .fontWeight(.bold)
+//                            Text("999 99 999")
+//                        },
+                        
                         HStack {
                             Text("E-postadresse:")
                                 .fontWeight(.bold)
@@ -118,7 +119,7 @@ struct BookingView: View {
                         .foregroundColor(.black)
                         .cornerRadius(5)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 5)
+                            RoundedRectangle(cornerRadius: 6)
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 1)
                         )
                     }
