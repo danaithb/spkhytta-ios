@@ -33,7 +33,7 @@ struct BookingView: View {
     
     var body: some View {
             VStack {
-                // ---------- Kontaktinformasjon ----------
+                // ---------- Kontaktinformasjon  ----------
                 BookingContentView(
                     title: "Kontaktinformasjon",
                     contents: [
