@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @State private var userInfo: UserInfo?
+    @State private var bookings: [BookingSummary] = []
 
     var body: some View {
         ScrollView {
@@ -57,34 +58,44 @@ struct ProfileView: View {
                         .font(.title3)
                         .fontWeight(.semibold)
 
-                    VStack(alignment: .leading, spacing: 16) {
-                        HStack {
-                            Text("**Dato:** 03–06-2025")
-                            Spacer()
-                            Text("**Antall personer:** 4")
-                        }
+                    if bookings.isEmpty {
+                        Text("Ingen bookinger funnet.")
+                            .foregroundColor(.gray)
+                    } else {
+                        ForEach(bookings) { booking in
+                            VStack(alignment: .leading, spacing: 16) {
+                                HStack {
+                                    Text("**Hytte:** \(booking.cabinName)")
+                                    Text("**Dato:** \(booking.startDate) – \(booking.endDate)")
+                                    Spacer()
+                                    Text("**Pris:** \(Int(booking.price)) kr")
+                                }
 
-                        VStack(spacing: 8) {
-                            Text("Status på booking:")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
+                                VStack(spacing: 8) {
+                                    Text("Status på booking:")
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
 
-                            HStack(spacing: 8) {
-                                Text("Bekreftet")
-                                Circle()
-                                    .fill(Color.green)
-                                    .frame(width: 14, height: 14)
+                                    HStack(spacing: 8) {
+                                        Text(localizedStatus(booking.status))
+                                        Circle()
+                                            .fill(localizedStatus(booking.status) == "Bekreftet" ? Color.green : Color.orange)
+                                            .frame(width: 14, height: 14)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity, alignment: .center)
                             }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray.opacity(0.5))
+                            )
                         }
-                        .frame(maxWidth: .infinity, alignment: .center)
                     }
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color.gray.opacity(0.5))
-                    )
+
                 }
                 .padding(.horizontal)
+
             }
             .padding()
         }
@@ -94,6 +105,25 @@ struct ProfileView: View {
                     self.userInfo = info
                 }
             }
+
+            UserAPIClient.shared.fetchBookingSummaries { summaries in
+                DispatchQueue.main.async {
+                    self.bookings = summaries
+                }
+            }
+        }
+    }
+    
+    private func localizedStatus(_ status: String) -> String {
+        switch status.lowercased() {
+        case "confirmed":
+            return "Bekreftet"
+        case "pending":
+            return "Venter på trekning"
+        case "canceled":
+            return "Kansellert"
+        default:
+            return status
         }
     }
 }

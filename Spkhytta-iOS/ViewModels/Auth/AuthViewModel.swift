@@ -93,7 +93,7 @@ class AuthViewModel: ObservableObject {
                 return
             }
 
-            var request = URLRequest(url: URL(string: "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/auth/login")!)
+            var request = URLRequest(url: URL(string: "https://hytteportalen-307333592311.europe-west1.run.app/api/auth/login")!)
             request.httpMethod = "POST" //ändrat till post från GET.
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
 

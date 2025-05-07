@@ -38,7 +38,7 @@ struct CalendarGridView: View {
                     let isHoliday = viewModel.isHoliday(date: date)
                     let isTodaysDate = viewModel.calendar.isDate(date, inSameDayAs: Date())
                     let isPastDate = date < viewModel.normalizeDate(Date()) && !isTodaysDate
-                    let isBooked = viewModel.unavailableDates.contains(viewModel.normalizeDate(date))
+                    let isBooked = viewModel.backendUnavailableDates.contains(viewModel.normalizeDate(date))
                     let isUnavailable = isBooked || isPastDate
                     let isInRange = viewModel.isDateInRange(date: date)
                     

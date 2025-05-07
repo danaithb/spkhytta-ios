@@ -3,10 +3,11 @@
 //  BookingApp
 //
 //  Created by Mariana och Abigail on 09/04/2025.
-//TODO kolla om antal personer finns med i databasen.
-//ta bort id. det genereras från backend.
-
-
+//
+// TODO
+// kolla om antal personer finns med i databasen.
+// ta bort id. det genereras från backend.
+//
 
 import Foundation
 import Firebase
@@ -18,30 +19,24 @@ class BookingAPIClient {
     private init() {}
     
     // URL för API anrop - Ändra till riktiga backend URL:n senare
-    private let baseURL = "https://test2-hyttebooker-371650344064.europe-west1.run.app/api/bookings"
-    
-    // Struktur för att hålla bookingdata
-    struct BookingRequest: Codable {
-        let startDate: String
-        let endDate: String
-        //let userId: String
-        let numberOfPeople: Int
-    }
+    private let baseURL = "https://hytteportalen-307333592311.europe-west1.run.app/api/bookings"
     
     enum BookingError: Error {
         case invalidDates
         case authenticationError
         case networkError(Error)
-        case serverError(Int)
+        case serverError(String)
         case unknownError
     }
     
     // Skicka bokningsinformation till backend med auth token
-    //- Parameters ska vi ha med antal personer här. Finns det med i databsen? dubbelkolla det. ska läggas till.
+    // - Parameters
     //   - startDate: Bokningens startdatum
     //   - endDate: Bokningens slutdatum
-    //  - completion: Completion handler med Result
+    //   - numberOfPeople: Antall personer som skal være med i bookingen
+    //   - completion: Completion handler med Result
     func sendBookingRequest(
+        cabinId: Int,
         startDate: Date,
         endDate: Date,
         numberOfPeople: Int = 1,
@@ -72,27 +67,37 @@ class BookingAPIClient {
                 return
             }
             
-            // Formatera datumen för API req
-            let dateFormatter = ISO8601DateFormatter()
+            // Formatera datumen för API req (yyyy-MM-dd)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
             let startDateString = dateFormatter.string(from: startDate)
             let endDateString = dateFormatter.string(from: endDate)
             
             // Skapa bokningsdata
             let bookingData = BookingRequest(
+                cabinId: cabinId,
                 startDate: startDateString,
                 endDate: endDateString,
-                //userId: currentUser.uid,
-                numberOfPeople: numberOfPeople
+                numberOfGuests: numberOfPeople,
+                businessTrip: true //må manuelt velge her, for nå
             )
-            
+
+            // Debug-print booking JSON før du sender den
+            if let json = try? JSONEncoder().encode(bookingData),
+               let jsonString = String(data: json, encoding: .utf8) {
+                print("[DEBUG] Booking JSON som sendes: \(jsonString)")
+            }
+
             // Konvertera bokningsdata till JSON
             guard let jsonData = try? JSONEncoder().encode(bookingData) else {
+                print("Kunne ikke encode bookingData.")
                 completion(.failure(.unknownError))
                 return
             }
             
             // Skapa URL request
-            guard let url = URL(string: "\(self.baseURL)") else {
+            guard let url = URL(string: self.baseURL) else {
+                print("Ugyldig URL.")
                 completion(.failure(.unknownError))
                 return
             }
@@ -103,6 +108,8 @@ class BookingAPIClient {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             request.httpBody = jsonData
             
+            print("[BookingAPIClient] Sender booking til backend...")
+            
             // Skicka requesten
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
@@ -112,6 +119,7 @@ class BookingAPIClient {
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
+                    print("Ukjent feil: ingen HTTP-respons")
                     completion(.failure(.unknownError))
                     return
                 }
@@ -119,19 +127,55 @@ class BookingAPIClient {
                 // Kolla respons statuskod
                 switch httpResponse.statusCode {
                 case 200...299:
-                    // Lyckad respons
                     if let data = data, let responseBody = String(data: data, encoding: .utf8) {
+                        print("[BookingAPIClient] Suksess! Respons: \(responseBody)")
                         completion(.success(responseBody))
                     } else {
-                        // Generera ett fake boknings-ID för testing
-                        let referenceNumber = "SPK-\(Int.random(in: 10000...99999))"
-                        completion(.success(referenceNumber))
+                        print("[BookingAPIClient] Suksess, men ingen lesbar respons")
+                        completion(.success("Booking registrert"))
                     }
                     
                 default:
-                    // Hantera fel respons
-                    completion(.failure(.serverError(httpResponse.statusCode)))
+                    if let data = data, let backendMessage = String(data: data, encoding: .utf8) {
+                        print("Feil fra backend: \(backendMessage)")
+                        completion(.failure(.serverError(backendMessage)))
+                    } else {
+                        completion(.failure(.serverError("Ukjent serverfeil")))
+                    }
                 }
+                
+                func fetchAvailabilityForMonth(month: String, cabinId: Int, token: String, completion: @escaping ([DayAvailability]) -> Void) {
+                    guard let url = URL(string: "https://hytteportalen-307333592311.europe-west1.run.app/api/calendar/availability") else {
+                        print("Ugyldig URL for kalender")
+                        return
+                    }
+
+                    var request = URLRequest(url: url)
+                    request.httpMethod = "POST"
+                    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+                    let body: [String: Any] = [
+                        "month": month,         // eks: "2025-05"
+                        "cabinId": cabinId      // eks: 1
+                    ]
+
+                    request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+
+                    URLSession.shared.dataTask(with: request) { data, response, error in
+                        guard let data = data else {
+                            print("Ingen data")
+                            return
+                        }
+                        do {
+                            let result = try JSONDecoder().decode([DayAvailability].self, from: data)
+                            completion(result)
+                        } catch {
+                            print("Feil ved decoding: \(error)")
+                        }
+                    }.resume()
+                }
+
             }.resume()
         }
     }
