@@ -128,20 +128,21 @@ struct BookingView: View {
                 ]
             )
             //--------Jobb eller Privat RadioButtons
-            Text("Hvilken sammenheng önsker du ta hytta i bruk?")
+            Text("Hvilken sammenheng ønsker du ta hytta i bruk?")
                     .font(.subheadline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal)
                     .padding(.top)
                 
-                HStack(spacing: 10) {
+                HStack(spacing: 20) {
                     RadioButton(
-                        title: "jobb",
+                        title: "Jobb",
                         isSelected: bookingPurpose == "Jobb",
                         onTap: {
                             bookingPurpose = "Jobb"
                         }
                     )
+                    .padding(.trailing, 50)
                     RadioButton(
                         title: "Privat",
                         isSelected: bookingPurpose == "Privat",
@@ -151,6 +152,8 @@ struct BookingView: View {
                     )
                 }
                 .padding(.horizontal)
+                .padding(.top, 5)
+                .padding(.bottom, 10)
             
             // Bekräfta bokning knapp
             if viewModel.isProcessing {

@@ -16,6 +16,7 @@ struct RadioButton: View {
         HStack {
             Image(systemName: isSelected ? "largecircle.fill.circle" : "circle")
                 .foregroundColor(.blue)
+                .font(.system(size: 20))
             Text(title)
                 .foregroundColor(.black)
         }
@@ -23,10 +24,7 @@ struct RadioButton: View {
         .padding(.vertical, 8)
         .background(Color.white)
         .cornerRadius(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.black, lineWidth: 1)
-        )
+        
         .onTapGesture {
             onTap()
         }
