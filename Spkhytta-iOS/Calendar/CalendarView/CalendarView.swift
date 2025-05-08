@@ -82,7 +82,8 @@ struct CalendarView: View {
                 // Book Hytte button with onTapGesture and alert
                 ButtonView(text: "Book Hytte")
                     .onTapGesture {
-                        if viewModel.startDate == nil {
+                        if viewModel.startDate == nil || viewModel.endDate == nil ||
+                            Calendar.current.isDate(viewModel.startDate ?? Date(), inSameDayAs: viewModel.endDate ?? Date()) {
                             showDateAlert = true
                         } else {
                             navigationPath.append("BookingDestination")
@@ -110,7 +111,7 @@ struct CalendarView: View {
                     showDateAlert = false
                 }
             } message: {
-                Text("Du må velge minst én dato for å kunne booke hytten.")
+                Text("Du må velge minst én natt for å kunne booke hytten.")
             }
         }
     }
