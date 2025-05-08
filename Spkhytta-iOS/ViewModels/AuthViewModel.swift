@@ -16,6 +16,8 @@
 // send auth och personal detaljer om vem som bokar in header, resten ska skickas i body.
 // send in JSON format? --fixat
 
+//här kan man logga in om användaren finns i fireabase. men får 500 från servern då den inte finns i databasen.
+
 import SwiftUI
 import Firebase
 import FirebaseAuth

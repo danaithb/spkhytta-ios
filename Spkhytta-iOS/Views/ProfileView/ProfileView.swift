@@ -66,12 +66,13 @@ struct ProfileView: View {
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
                                     Text("**Hytte:** \(booking.cabinName)")
-                                    Text("**Dato:** \(booking.startDate) – \(booking.endDate)")
+                                   
                                     Spacer()
                                     Text("**Pris:** \(Int(booking.price)) kr")
                                 }
 
                                 VStack(spacing: 8) {
+                                    Text("**Dato:** \(booking.startDate) – \(booking.endDate)")
                                     Text("Status på booking:")
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
