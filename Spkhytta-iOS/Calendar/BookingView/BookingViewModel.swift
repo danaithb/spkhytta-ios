@@ -12,6 +12,7 @@ class BookingViewModel: ObservableObject {
     @Published var startDate: Date?
     @Published var endDate: Date?
     @Published var numberOfPeople: String = "Antall"
+    @Published var bookingPurpose: String? = nil //remove den hrä om det blir problem. jobb syfte
     
     // Brukerinformasjon (hardkodet foreløpig)
     @Published var userName: String = "Ola Norman"
@@ -147,6 +148,7 @@ class BookingViewModel: ObservableObject {
         startDate = nil
         endDate = nil
         numberOfPeople = "Antall"
+        bookingPurpose = nil //bookingsytfe
         bookingSuccess = false
         alertInfo = nil
     }

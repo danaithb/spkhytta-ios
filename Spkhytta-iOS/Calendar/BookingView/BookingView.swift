@@ -27,6 +27,7 @@ import FirebaseAuth
 struct BookingView: View {
     @StateObject private var viewModel = BookingViewModel()
     @State private var userInfo: UserInfo?
+    @State private var bookingPurpose: String? = nil //stratar utan default
     @Binding var startDate: Date?
     @Binding var endDate: Date?
     @Environment(\.dismiss) private var dismiss
@@ -126,7 +127,30 @@ struct BookingView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                 ]
             )
-            Spacer()
+            //--------Jobb eller Privat RadioButtons
+            Text("Hvilken sammenheng önsker du ta hytta i bruk?")
+                    .font(.subheadline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    .padding(.top)
+                
+                HStack(spacing: 10) {
+                    RadioButton(
+                        title: "jobb",
+                        isSelected: bookingPurpose == "Jobb",
+                        onTap: {
+                            bookingPurpose = "Jobb"
+                        }
+                    )
+                    RadioButton(
+                        title: "Privat",
+                        isSelected: bookingPurpose == "Privat",
+                        onTap: {
+                            bookingPurpose = "Privat"
+                        }
+                    )
+                }
+                .padding(.horizontal)
             
             // Bekräfta bokning knapp
             if viewModel.isProcessing {
@@ -141,6 +165,7 @@ struct BookingView: View {
                     // Transfer the bound dates to the view model
                     viewModel.startDate = startDate
                     viewModel.endDate = endDate
+                    viewModel.bookingPurpose = bookingPurpose
                     
                     viewModel.confirmBooking {
                         resetAndDismiss()
