@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var userInfo: UserInfo?
-    @State private var bookings: [BookingSummary] = []
+    @StateObject private var viewModel = ProfileViewModel()
 
     var body: some View {
         ScrollView {
@@ -33,7 +32,7 @@ struct ProfileView: View {
                 }
 
                 // Navn, epost og poeng (dynamisk)
-                if let user = userInfo {
+                if let user = viewModel.userInfo {
                     VStack(spacing: 4) {
                         Text(user.name)
                             .font(.title2)
@@ -58,11 +57,11 @@ struct ProfileView: View {
                         .font(.title3)
                         .fontWeight(.semibold)
 
-                    if bookings.isEmpty {
+                    if viewModel.bookings.isEmpty {
                         Text("Ingen bookinger funnet.")
                             .foregroundColor(.gray)
                     } else {
-                        ForEach(bookings) { booking in
+                        ForEach(viewModel.bookings) { booking in
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
                                     Text("**Hytte:** \(booking.cabinName)")
@@ -78,9 +77,9 @@ struct ProfileView: View {
                                         .fontWeight(.semibold)
 
                                     HStack(spacing: 8) {
-                                        Text(localizedStatus(booking.status))
+                                        Text(viewModel.localizedStatus(booking.status))
                                         Circle()
-                                            .fill(localizedStatus(booking.status) == "Bekreftet" ? Color.green : Color.orange)
+                                            .fill(viewModel.localizedStatus(booking.status) == "Bekreftet" ? Color.green : Color.orange)
                                             .frame(width: 14, height: 14)
                                     }
                                 }
@@ -101,30 +100,7 @@ struct ProfileView: View {
             .padding()
         }
         .onAppear {
-            UserAPIClient.shared.fetchUserInfo { info in
-                DispatchQueue.main.async {
-                    self.userInfo = info
-                }
-            }
-
-            UserAPIClient.shared.fetchBookingSummaries { summaries in
-                DispatchQueue.main.async {
-                    self.bookings = summaries
-                }
-            }
-        }
-    }
-    
-    private func localizedStatus(_ status: String) -> String {
-        switch status.lowercased() {
-        case "confirmed":
-            return "Bekreftet"
-        case "pending":
-            return "Venter på trekning"
-        case "canceled":
-            return "Kansellert"
-        default:
-            return status
+            viewModel.fetchData()
         }
     }
 }

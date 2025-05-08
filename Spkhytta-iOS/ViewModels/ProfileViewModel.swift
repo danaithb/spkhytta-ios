@@ -6,13 +6,43 @@
 //
 
 import SwiftUI
+import Combine
 
-struct ProfileViewModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class ProfileViewModel: ObservableObject {
+    @Published var userInfo: UserInfo?
+    @Published var bookings: [BookingSummary] = []
+    
+    func fetchData() {
+        fetchUserInfo()
+        fetchBookings()
     }
-}
-
-#Preview {
-    ProfileViewModel()
+    
+    private func fetchUserInfo() {
+        UserAPIClient.shared.fetchUserInfo { [weak self] info in
+            DispatchQueue.main.async {
+                self?.userInfo = info
+            }
+        }
+    }
+    
+    private func fetchBookings() {
+        UserAPIClient.shared.fetchBookingSummaries { [weak self] summaries in
+            DispatchQueue.main.async {
+                self?.bookings = summaries
+            }
+        }
+    }
+    
+    func localizedStatus(_ status: String) -> String {
+        switch status.lowercased() {
+        case "confirmed":
+            return "Bekreftet"
+        case "pending":
+            return "Venter på trekning"
+        case "canceled":
+            return "Kansellert"
+        default:
+            return status
+        }
+    }
 }
