@@ -79,7 +79,18 @@ struct ProfileView: View {
                                     HStack(spacing: 8) {
                                         Text(localizedStatus(booking.status))
                                         Circle()
-                                            .fill(localizedStatus(booking.status) == "Bekreftet" ? Color.green : Color.orange)
+                                            .fill({
+                                                switch booking.status.lowercased() {
+                                                case "confirmed":
+                                                    return Color.green
+                                                case "cancelled":
+                                                    return Color.red
+                                                case "pending":
+                                                    return Color.orange
+                                                default:
+                                                    return Color.gray
+                                                }
+                                            }())
                                             .frame(width: 14, height: 14)
                                     }
                                 }
@@ -120,7 +131,7 @@ struct ProfileView: View {
             return "Bekreftet"
         case "pending":
             return "Venter på trekning"
-        case "canceled":
+        case "cancelled":
             return "Kansellert"
         default:
             return status
