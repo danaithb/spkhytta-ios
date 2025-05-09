@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
-    @State private var bookings: [BookingSummary] = []
-    @State private var userInfo: UserInfo?
 
     var body: some View {
         ScrollView {
