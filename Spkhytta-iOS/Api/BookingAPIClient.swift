@@ -40,6 +40,7 @@ class BookingAPIClient {
         startDate: Date,
         endDate: Date,
         numberOfPeople: Int = 1,
+        bookingPurpose: String? = nil, //Bookingsyfte
         completion: @escaping (Result<String, BookingError>) -> Void
     ) {
         // Kolla om datumen är giltiga
@@ -79,7 +80,7 @@ class BookingAPIClient {
                 startDate: startDateString,
                 endDate: endDateString,
                 numberOfGuests: numberOfPeople,
-                businessTrip: true //må manuelt velge her, for nå
+                businessTrip: bookingPurpose == "Jobb" //må manuelt velge her, for nå LAGT TILL =="Jobb"
             )
 
             // Debug-print booking JSON før du sender den

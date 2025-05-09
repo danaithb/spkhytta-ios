@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var userInfo: UserInfo?
-    @State private var bookings: [BookingSummary] = []
+    @StateObject private var viewModel = ProfileViewModel()
 
     var body: some View {
         ScrollView {
@@ -33,7 +32,7 @@ struct ProfileView: View {
                 }
 
                 // Navn, epost og poeng (dynamisk)
-                if let user = userInfo {
+                if let user = viewModel.userInfo {
                     VStack(spacing: 4) {
                         Text(user.name)
                             .font(.title2)
@@ -58,26 +57,27 @@ struct ProfileView: View {
                         .font(.title3)
                         .fontWeight(.semibold)
 
-                    if bookings.isEmpty {
+                    if viewModel.bookings.isEmpty {
                         Text("Ingen bookinger funnet.")
                             .foregroundColor(.gray)
                     } else {
-                        ForEach(bookings) { booking in
+                        ForEach(viewModel.bookings) { booking in
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack {
                                     Text("**Hytte:** \(booking.cabinName)")
-                                    Text("**Dato:** \(booking.startDate) – \(booking.endDate)")
+                                   
                                     Spacer()
                                     Text("**Pris:** \(Int(booking.price)) kr")
                                 }
 
                                 VStack(spacing: 8) {
+                                    Text("**Dato:** \(booking.startDate) – \(booking.endDate)")
                                     Text("Status på booking:")
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
 
                                     HStack(spacing: 8) {
-                                        Text(localizedStatus(booking.status))
+                                        Text(viewModel.localizedStatus(booking.status))
                                         Circle()
                                             .fill({
                                                 switch booking.status.lowercased() {

@@ -10,131 +10,133 @@
 
 import SwiftUI
 
-struct Fasilitet: Identifiable {
-    let id = UUID()
-    let icon: String
-    let title: String
-}
-
 struct HomeView: View {
-    @State private var showAll = false
-
-    let images = ["hytteBilde", "hytteBilde2", "hytteBilde", "hytteBilde4", "hytteBilde5", "hytteBilde6",
-                  "hytteBilde7", "hytteBilde8", "hytteBilde9", "hytteBilde10"]
-
-    let allFasiliteter: [Fasilitet] = [
-        Fasilitet(icon:  "wifi", title: "WiFi tilgjengelig"),
-        Fasilitet(icon: "tv", title: "TV"),
-        Fasilitet(icon: "flame.fill", title: "Peis"),
-        Fasilitet(icon: "car.fill", title: "Gratis parkering"),
-        Fasilitet(icon: "washer", title: "Vaskemaskin"),
-        Fasilitet(icon: "figure.ice.skating", title: "Skøyter"),
-        Fasilitet(icon: "drop", title: "Ved vannet"),
-        Fasilitet(icon: "fork.knife", title: "Kjøkken"),
-        Fasilitet(icon: "snow", title: "Aircondition"),
-        Fasilitet(icon: "leaf", title: "Nær natur"),
-        Fasilitet(icon: "bicycle", title: "Sykkelutleie"),
-        Fasilitet(icon: "figure.walk", title: "Turløyper"),
-        Fasilitet(icon: "bed.double", title: "Komfortable senger"),
-        Fasilitet(icon: "lock.fill", title: "Sikker inngang"),
-        Fasilitet(icon: "cup.and.saucer", title: "Kaffemaskin")
-    ]
-
-    let columns = [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)]
-
+    @StateObject private var viewModel = HomeViewModel()
+    
     var body: some View {
         ScrollView {
-            VStack(alignment: .center, spacing: 32) {
+            VStack(spacing: 20) {
+                // Utforsk tittel
+                Text("Utforsk")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top)
                 
-                // Hjem Title
-                HStack {
-                    Text("Hjem")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                        .padding(.leading)
-                    Spacer()
-                }
-
-                // Bilder Carousel (updated style)
+                // Bilder Carousel
                 TabView {
-                    ForEach(images, id: \.self) { image in
-                        Image(image)
+                    ForEach(0..<viewModel.images.count, id: \.self) { index in
+                        Image(viewModel.images[index])
                             .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: .infinity)
+                            .scaledToFill()
                             .frame(height: 250)
-                            .background(Color.black.opacity(0.05))
-                            .cornerRadius(16)
-                            .padding(.horizontal)
+                            .clipped()
+                            .cornerRadius(10)
+                            .padding(.horizontal, 25)
                     }
                 }
-                .frame(height: 250)
-                .tabViewStyle(PageTabViewStyle())
-
-                // Box til Informasjon om priser
-                    VStack {
-                                   HStack {
-                                       VStack(alignment: .leading, spacing: 4) {
-                                           Text("Informasjon om priser og Poeng")
-                                               .fontWeight(.bold)
-                                           Text("Røde-dager: 1000kr = 6 Poeng")
-                                           Text("Vanlig-dager: 100kr = 4 Poeng")
-                                               .font(.body)
-                                               .foregroundColor(.black)
-                                       }
-                                       
-                                   }
-                                   .padding()
-                                   .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.3)))
-                                   .frame(maxWidth: .infinity, alignment: .center) // Stretch the box to fill the width
-                                   .padding(.horizontal) // Apply padding to center
-                               }
+                .padding(.horizontal, 15)
+                .frame(height: 270)
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 
-                // Hytta tilbyr Seksjon
-                VStack(alignment: .center, spacing: 22) {
+                // Informasjon om priser
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Informasjon om priser")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 4)
+                    
+                    Text("Røde dager: \(viewModel.rodeDagerPris) = \(viewModel.rodeDagerPoeng)")
+                        .font(.body)
+                    
+                    Text("Vanlig dager: \(viewModel.vanligDagerPris) = \(viewModel.vanligDagerPoeng)")
+                        .font(.body)
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.white)
+                .cornerRadius(8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
+                .padding(.horizontal)
+                
+                // Hytta tilbyr seksjon
+                VStack(alignment: .leading, spacing: 16) {
                     Text("Hytta tilbyr")
-                        .font(.title2)
+                        .font(.headline)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .center)
                     
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 12) {
-                        ForEach(showAll ? allFasiliteter : Array(allFasiliteter.prefix(6))) { fasilitet in
-                            HStack(alignment: .center, spacing: 10) {
-                                Image(systemName: fasilitet.icon)
-                                    .frame(width: 20, height: 20)
-                                    .foregroundColor(.primary)
-
-                                Text(fasilitet.title)
-                                    .font(.body)
-                                    .foregroundColor(.primary)
-                                    .lineLimit(1)
-                                    .minimumScaleFactor(0.9)
+                    // Visar bara de första faciliteterna om showAll är false
+                    if !viewModel.showAll {
+                        // Visa bara 4 faciliteter (2 rader med 2 faciliteter)
+                        HStack {
+                            VStack(alignment: .leading, spacing: 20) {
+                                facilitetView(icon: "wifi", text: "WiFi")
+                                facilitetView(icon: "flame.fill", text: "Peis")
+                            }
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .leading, spacing: 20) {
+                                facilitetView(icon: "tv", text: "TV")
+                                facilitetView(icon: "car.fill", text: "Gratis\nparkering")
                             }
                         }
-                    }
-
-                    // Vis færre og alle knapp
-                    Button(action: {
-                        withAnimation {
-                            showAll.toggle()
+                        .padding(.horizontal)
+                    } else {
+                        // Visa alla 8 faciliteter när showAll är true
+                        HStack {
+                            VStack(alignment: .leading, spacing: 20) {
+                                facilitetView(icon: "wifi", text: "WiFi")
+                                facilitetView(icon: "flame.fill", text: "Peis")
+                                facilitetView(icon: "doc.text.image", text: "Vaskema-\nskin")
+                                facilitetView(icon: "drop.fill", text: "Ved vannet")
+                            }
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .leading, spacing: 20) {
+                                facilitetView(icon: "tv", text: "TV")
+                                facilitetView(icon: "car.fill", text: "Gratis\nparkering")
+                                facilitetView(icon: "figure.skating", text: "Skøyter")
+                                facilitetView(icon: "fork.knife", text: "Kjøkken")
+                            }
                         }
-                    }) {
-                        Text(showAll ? "Vis færre fasiliteter" : "Se alle fasiliteter")
-                            .font(.body)
-                            .foregroundColor(Color.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.custom_blue)
-                            .cornerRadius(12)
+                        .padding(.horizontal)
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .center) //  Sikre at alt er i midten
+                .padding()
+                .background(Color.white)
+                .cornerRadius(8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
+                .padding(.horizontal)
                 
-                // Legg til en spacer for å skyve innholdet opp eller ned etter behov
-                Spacer()
+                // Använd ButtonView för knappen
+                ButtonView(text: viewModel.showAll ? "Vis færre fasiliteter" : "Se alle fasiliteter")
+                    .onTapGesture {
+                        withAnimation {
+                            viewModel.toggleShowAll()
+                        }
+                    }
+                
+                // Extra space i botten så att innehållet inte täcks av tabbar
+                Spacer().frame(height: 70)
             }
-            .padding(.horizontal)
-            .background(Color.gray.opacity(0.1)) // Sett en dempet bakgrunn
+        }
+    }
+    
+    func facilitetView(icon: String, text: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.title3)
+                .frame(width: 24, height: 24)
+            Text(text)
+                .font(.body)
         }
     }
 }

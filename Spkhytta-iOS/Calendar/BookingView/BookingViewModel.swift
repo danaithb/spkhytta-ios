@@ -12,6 +12,7 @@ class BookingViewModel: ObservableObject {
     @Published var startDate: Date?
     @Published var endDate: Date?
     @Published var numberOfPeople: String = "Antall"
+    @Published var bookingPurpose: String? = "Privat" //remove den här om det blir problem. jobb syfte
     
     // Brukerinformasjon (hardkodet foreløpig)
     @Published var userName: String = "Ola Norman"
@@ -97,7 +98,8 @@ class BookingViewModel: ObservableObject {
             cabinId: cabinId,
             startDate: start,
             endDate: end,
-            numberOfPeople: guests
+            numberOfPeople: guests,
+            bookingPurpose: bookingPurpose
         ) { [weak self] result in
             guard let self = self else { return }
             
@@ -147,6 +149,7 @@ class BookingViewModel: ObservableObject {
         startDate = nil
         endDate = nil
         numberOfPeople = "Antall"
+        bookingPurpose = nil //bookingsytfe
         bookingSuccess = false
         alertInfo = nil
     }

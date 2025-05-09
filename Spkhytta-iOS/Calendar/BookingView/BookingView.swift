@@ -27,6 +27,7 @@ import FirebaseAuth
 struct BookingView: View {
     @StateObject private var viewModel = BookingViewModel()
     @State private var userInfo: UserInfo?
+    @State private var bookingPurpose: String? = nil //stratar utan default
     @Binding var startDate: Date?
     @Binding var endDate: Date?
     @Environment(\.dismiss) private var dismiss
@@ -126,7 +127,33 @@ struct BookingView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                 ]
             )
-            Spacer()
+            //--------Jobb eller Privat RadioButtons
+            Text("Hvilken sammenheng ønsker du ta hytta i bruk?")
+                    .font(.subheadline)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.horizontal)
+                    .padding(.top)
+                
+                HStack(spacing: 20) {
+                    RadioButton(
+                        title: "Jobb",
+                        isSelected: bookingPurpose == "Jobb",
+                        onTap: {
+                            bookingPurpose = "Jobb"
+                        }
+                    )
+                    .padding(.trailing, 50)
+                    RadioButton(
+                        title: "Privat",
+                        isSelected: bookingPurpose == "Privat",
+                        onTap: {
+                            bookingPurpose = "Privat"
+                        }
+                    )
+                }
+                .padding(.horizontal)
+                .padding(.top, 5)
+                .padding(.bottom, 10)
             
             // Bekräfta bokning knapp
             if viewModel.isProcessing {
@@ -141,6 +168,7 @@ struct BookingView: View {
                     // Transfer the bound dates to the view model
                     viewModel.startDate = startDate
                     viewModel.endDate = endDate
+                    viewModel.bookingPurpose = bookingPurpose
                     
                     viewModel.confirmBooking {
                         resetAndDismiss()
