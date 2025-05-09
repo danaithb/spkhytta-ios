@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @StateObject private var viewModel = ProfileViewModel()
+    @State private var bookings: [BookingSummary] = []
+    @State private var userInfo: UserInfo?
 
     var body: some View {
         ScrollView {
@@ -111,17 +113,7 @@ struct ProfileView: View {
             .padding()
         }
         .onAppear {
-            UserAPIClient.shared.fetchUserInfo { info in
-                DispatchQueue.main.async {
-                    self.userInfo = info
-                }
-            }
-
-            UserAPIClient.shared.fetchBookingSummaries { summaries in
-                DispatchQueue.main.async {
-                    self.bookings = summaries
-                }
-            }
+            viewModel.fetchData()
         }
     }
     
