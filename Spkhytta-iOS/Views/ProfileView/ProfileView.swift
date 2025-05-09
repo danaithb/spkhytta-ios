@@ -79,7 +79,18 @@ struct ProfileView: View {
                                     HStack(spacing: 8) {
                                         Text(viewModel.localizedStatus(booking.status))
                                         Circle()
-                                            .fill(viewModel.localizedStatus(booking.status) == "Bekreftet" ? Color.green : Color.orange)
+                                            .fill({
+                                                switch booking.status.lowercased() {
+                                                case "confirmed":
+                                                    return Color.green
+                                                case "cancelled":
+                                                    return Color.red
+                                                case "pending":
+                                                    return Color.orange
+                                                default:
+                                                    return Color.gray
+                                                }
+                                            }())
                                             .frame(width: 14, height: 14)
                                     }
                                 }
@@ -100,7 +111,30 @@ struct ProfileView: View {
             .padding()
         }
         .onAppear {
-            viewModel.fetchData()
+            UserAPIClient.shared.fetchUserInfo { info in
+                DispatchQueue.main.async {
+                    self.userInfo = info
+                }
+            }
+
+            UserAPIClient.shared.fetchBookingSummaries { summaries in
+                DispatchQueue.main.async {
+                    self.bookings = summaries
+                }
+            }
+        }
+    }
+    
+    private func localizedStatus(_ status: String) -> String {
+        switch status.lowercased() {
+        case "confirmed":
+            return "Bekreftet"
+        case "pending":
+            return "Venter på trekning"
+        case "cancelled":
+            return "Kansellert"
+        default:
+            return status
         }
     }
 }
