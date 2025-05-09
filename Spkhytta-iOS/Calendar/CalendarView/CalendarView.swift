@@ -29,7 +29,7 @@
 ////user details will be saved by swift data and avalible even if the internet connection is poor ot gone.
 ////same with my bookings. get from backend first, saved with swiftData.
 ////lägg till så att det registrerar hur många personer som man bokar för. 
-
+// om 12 är bokad är den röd om man försöker boka efter, det datumet. om man försöker boka tex den 8e som är innan den 12e så ska den 12e bli i bokningsbar färg.
 
 
 
