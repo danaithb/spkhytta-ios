@@ -17,10 +17,12 @@ struct HomeView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Utforsk tittel
-                Text("Utforsk")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top)
+//                Text("Utforsk")
+//                    .font(.largeTitle)
+//                    .fontWeight(.bold)
+//                    .padding(.top)
+                // Utan subtitle
+                HeaderView(title: "Utforsk")
                 
                 // Bilder Carousel
                 TabView {

@@ -14,10 +14,12 @@ struct ProfileView: View {
         ScrollView {
             VStack(spacing: 16) {
                 // Prfile Side
-                Text("Min side")
-                    .font(.title)
-                    .bold()
-                    .padding(.top)
+//                Text("Min side")
+//                    .font(.title)
+//                    .bold()
+//                    .padding(.top)
+                // Utan subtitle
+                HeaderView(title: "Min Side")
 
                 // Profil Bilder
                 ZStack {
