@@ -18,7 +18,7 @@ struct MonthHeaderView: View {
             Button(action: { moveMonth(-1) }) {
                 Image(systemName: "chevron.left")
                     .font(.title2)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
             }
 
             Spacer()
@@ -32,7 +32,7 @@ struct MonthHeaderView: View {
             Button(action: { moveMonth(1) }) {
                 Image(systemName: "chevron.right")
                     .font(.title2)
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
             }
         }
         .padding(.horizontal)
