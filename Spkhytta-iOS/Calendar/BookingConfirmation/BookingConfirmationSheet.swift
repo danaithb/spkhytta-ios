@@ -17,7 +17,7 @@ import SwiftUI
 
 struct BookingConfirmationSheet: View {
     let bookingReference: String
-    let onDone: () -> Void  // ✅ Callback istället för dismiss
+    let onDone: () -> Void  //istället för duissmiss
 
     var body: some View {
         VStack(spacing: 0) {
