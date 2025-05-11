@@ -37,7 +37,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal, 15)
-                .frame(height: 270)
+                .frame(height: 225)
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 
                 // Informasjon om priser
@@ -125,9 +125,8 @@ struct HomeView: View {
                             viewModel.toggleShowAll()
                         }
                     }
+                    .padding(.bottom, 30)
                 
-                // Extra space i botten så att innehållet inte täcks av tabbar
-                Spacer().frame(height: 70)
             }
         }
     }

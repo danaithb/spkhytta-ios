@@ -12,8 +12,8 @@ struct ProfileView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                // Prfile Side
+            VStack(spacing: 20) {
+                // Profile Side
 //                Text("Min side")
 //                    .font(.title)
 //                    .bold()
@@ -114,19 +114,6 @@ struct ProfileView: View {
         }
         .onAppear {
             viewModel.fetchData()
-        }
-    }
-    
-    private func localizedStatus(_ status: String) -> String {
-        switch status.lowercased() {
-        case "confirmed":
-            return "Bekreftet"
-        case "pending":
-            return "Venter på trekning"
-        case "cancelled":
-            return "Kansellert"
-        default:
-            return status
         }
     }
 }
