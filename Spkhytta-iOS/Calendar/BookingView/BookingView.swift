@@ -23,42 +23,35 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 
-// ---------- Bokningsvy ----------
 struct BookingView: View {
     @StateObject private var viewModel = BookingViewModel()
     @State private var userInfo: UserInfo?
-    @State private var bookingPurpose: String? = nil //stratar utan default
+    @State private var bookingPurpose: String? = "Privat"
     @Binding var startDate: Date?
     @Binding var endDate: Date?
     @Environment(\.dismiss) private var dismiss
-    
+
+    @State private var showBookingConfirmationSheet = false
+
     var body: some View {
-            VStack {
-                // ---------- Kontaktinformasjon  ----------
-                BookingContentView(
-                    title: "Kontaktinformasjon",
-                    contents: [
-                        HStack {
-                            Text("Navn:")
-                                .fontWeight(.bold)
-                            Text(userInfo?.name ?? "Laster...")
-                        },
-//                        HStack {
-//                            Text("Mobil:")
-//                                .fontWeight(.bold)
-//                            Text("999 99 999")
-//                        },
-                        
-                        HStack {
-                            Text("E-postadresse:")
-                                .fontWeight(.bold)
-                            Text(userInfo?.email ?? "Laster...")
-                        }
-                    ]
-                )
-                .padding(.top, 30)
-            
-            // ---------- Valda datum ----------
+        VStack {
+            BookingContentView(
+                title: "Kontaktinformasjon",
+                contents: [
+                    HStack {
+                        Text("Navn:")
+                            .fontWeight(.bold)
+                        Text(userInfo?.name ?? "Laster...")
+                    },
+                    HStack {
+                        Text("E-postadresse:")
+                            .fontWeight(.bold)
+                        Text(userInfo?.email ?? "Laster...")
+                    }
+                ]
+            )
+            .padding(.top, 30)
+
             if endDate != nil && startDate != nil {
                 BookingContentView(
                     title: "Valgt dato",
@@ -66,7 +59,6 @@ struct BookingView: View {
                     contents: [
                         HStack {
                             Spacer()
-                            
                             if let start = startDate {
                                 Text("\(start, formatter: Calendar.dateFormatter)")
                                     .padding(.trailing, 10)
@@ -80,9 +72,7 @@ struct BookingView: View {
                         }
                     ]
                 )
-            }
-            else if endDate == nil && startDate != nil {
-                // För ett-dags booking, centrerat
+            } else if endDate == nil && startDate != nil {
                 BookingContentView(
                     title: "Valgt dato",
                     subtitle: "Dine valgte datoer",
@@ -96,8 +86,7 @@ struct BookingView: View {
                     ]
                 )
             }
-            
-            // ---------- Antal personer ----------
+
             BookingContentView(
                 title: "Antall personer",
                 subtitle: "Hvor mange ønsker du ta med",
@@ -127,86 +116,84 @@ struct BookingView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                 ]
             )
-            //--------Jobb eller Privat RadioButtons
+
             Text("Hvilken sammenheng ønsker du ta hytta i bruk?")
-                    .font(.subheadline)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.horizontal)
-                    .padding(.top)
-                
-                HStack(spacing: 20) {
-                    RadioButton(
-                        title: "Jobb",
-                        isSelected: bookingPurpose == "Jobb",
-                        onTap: {
-                            bookingPurpose = "Jobb"
-                        }
-                    )
-                    .padding(.trailing, 50)
-                    RadioButton(
-                        title: "Privat",
-                        isSelected: bookingPurpose == "Privat",
-                        onTap: {
-                            bookingPurpose = "Privat"
-                        }
-                    )
-                }
+                .font(.subheadline)
+                .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
-                .padding(.top, 5)
-                .padding(.bottom, 10)
-            
-            // Bekräfta bokning knapp
+                .padding(.top)
+
+            HStack(spacing: 20) {
+                RadioButton(
+                    title: "Jobb",
+                    isSelected: bookingPurpose == "Jobb",
+                    onTap: {
+                        bookingPurpose = "Jobb"
+                    }
+                )
+                .padding(.trailing, 50)
+
+                RadioButton(
+                    title: "Privat",
+                    isSelected: bookingPurpose == "Privat",
+                    onTap: {
+                        bookingPurpose = "Privat"
+                    }
+                )
+            }
+            .padding(.horizontal)
+            .padding(.top, 5)
+            .padding(.bottom, 10)
+
             if viewModel.isProcessing {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                     .padding()
             } else {
-                ButtonView(
-                    text: "Bekreft Booking"
-                )
-                .onTapGesture {
-                    // Transfer the bound dates to the view model
-                    viewModel.startDate = startDate
-                    viewModel.endDate = endDate
-                    viewModel.bookingPurpose = bookingPurpose
-                    
-                    viewModel.confirmBooking {
-                        resetAndDismiss()
+                ButtonView(text: "Bekreft Booking")
+                    .onTapGesture {
+                        viewModel.startDate = startDate
+                        viewModel.endDate = endDate
+                        viewModel.bookingPurpose = bookingPurpose
+
+                        viewModel.confirmBooking {
+                            // Fördröj visning för att undvika krock
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                showBookingConfirmationSheet = true
+                            }
+                        }
                     }
-                }
             }
         }
         .font(.subheadline)
-        .padding(.bottom, 20) // Bra höjd för att man ska kunna trycka med tummen på knappen.
-        .alert(
-            viewModel.alertInfo?.title ?? "",
-            isPresented: .constant(viewModel.alertInfo != nil),
-            actions: {
-                Button("OK") {
-                    if viewModel.bookingSuccess {
-                        resetAndDismiss()
-                    }
-                    viewModel.alertInfo = nil
-                }
-            },
-            message: {
-                Text(viewModel.alertInfo?.message ?? "")
-            }
-        )
+        .padding(.bottom, 20)
         .disabled(viewModel.isProcessing)
-               .onAppear {
-                   UserAPIClient.shared.fetchUserInfo { info in
-                       DispatchQueue.main.async {
-                           self.userInfo = info
-                       }
-                   }
-               }
-           }
+        .onAppear {
+            UserAPIClient.shared.fetchUserInfo { info in
+                DispatchQueue.main.async {
+                    self.userInfo = info
+                }
+            }
+        }
+        .sheet(isPresented: $showBookingConfirmationSheet) {
+            BookingConfirmationSheet(
+                bookingReference: viewModel.bookingReference,
+                onDone: {
+                    showBookingConfirmationSheet = false
+                    resetAndDismiss()
+                }
+            )
+        }
+    }
 
-           private func resetAndDismiss() {
-               startDate = nil
-               endDate = nil
-               viewModel.resetBookingData()
-               dismiss()
-           }
-       }
+    private func resetAndDismiss() {
+        startDate = nil
+        endDate = nil
+        viewModel.resetBookingData()
+        dismiss()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            dismiss()
+        }
+    }
+}

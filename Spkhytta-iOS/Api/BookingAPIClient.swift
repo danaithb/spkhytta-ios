@@ -18,8 +18,11 @@ class BookingAPIClient {
     
     private init() {}
     
+//    //TA BORT SEN
+    private let baseURL = "http://127.0.0.1:5000/api/bookings"
+    
     // URL för API anrop - Ändra till riktiga backend URL:n senare
-    private let baseURL = "https://hytteportalen-307333592311.europe-west1.run.app/api/bookings"
+//    private let baseURL = "https://hytteportalen-307333592311.europe-west1.run.app/api/bookings"
     
     enum BookingError: Error {
         case invalidDates
