@@ -1,6 +1,6 @@
 //
 //  ProfileView.swift
-//  hytte
+//  Spkhytta-iOS
 //
 //  Created by Mariana and Abigail on 24/02/2025....
 //
@@ -24,7 +24,7 @@ struct ProfileView: View {
                 // Profil Bilder
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                        .stroke(Color.customGrey, lineWidth: 1)
                         .frame(width: 180, height: 180)
 
                     Image(systemName: "person.circle.fill")
@@ -101,7 +101,7 @@ struct ProfileView: View {
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.5))
+                                    .stroke(Color.gray)
                             )
                         }
                     }

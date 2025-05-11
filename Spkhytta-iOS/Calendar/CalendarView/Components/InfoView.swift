@@ -20,13 +20,13 @@ struct InfoView: View {
                 // Otillgänlig
                 HStack {
                     Capsule()
-                        .fill(Color.gray.opacity(0.8))
+                        .fill(Color.customGrey)
                         .frame(width: 25, height: 10)
 
                     Text("Ikke tilgjengelig")
                         .font(.subheadline)
-                        .foregroundColor(.black)
-                        .opacity(0.6)//helt svart om den röda ska svart?
+                        .foregroundColor(Color.customGrey)
+                    //helt svart om den röda ska svart?
                 }
 
                 // Helgdag

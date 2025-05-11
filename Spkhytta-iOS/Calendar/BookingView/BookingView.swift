@@ -105,12 +105,12 @@ struct BookingView: View {
                         }
                         .padding()
                         .frame(maxWidth: 200)
-                        .background(Color.white)
+                        .background(Color(.systemBackground))
                         .foregroundColor(.black)
                         .cornerRadius(5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 6)
-                                .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                                .stroke(Color.customGrey, lineWidth: 1)
                         )
                     }
                     .frame(maxWidth: .infinity, alignment: .center)

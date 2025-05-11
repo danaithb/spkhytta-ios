@@ -14,4 +14,6 @@ extension Color {
     static let bordersGrey = Color("customBordersGrey")
     static let confirmedGreen = Color("customConfirmedGreen")
     static let pendingYellow = Color("customPendingYellow")
+    static let bookedGrey = Color("customBookedGrey")
+    static let lightBlue = Color("customMarkedBlue")
 }

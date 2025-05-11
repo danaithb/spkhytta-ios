@@ -55,11 +55,11 @@ struct HomeView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
+                .background(Color(.systemBackground))
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        .stroke(Color.customGrey, lineWidth: 1)
                 )
                 .padding(.horizontal)
                 
@@ -110,11 +110,11 @@ struct HomeView: View {
                     }
                 }
                 .padding()
-                .background(Color.white)
+                .background(Color(.systemBackground))
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        .stroke(Color.customGrey, lineWidth: 1)
                 )
                 .padding(.horizontal)
                 

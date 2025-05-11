@@ -56,7 +56,7 @@ struct CalendarGridView: View {
                         // Blå cirkel runt dagens datum
                         if isTodaysDate {
                             Circle()
-                                .stroke(Color.blue.opacity(0.8), lineWidth: 2)
+                                .stroke(Color.customBlue, lineWidth: 2)
                                 .frame(width: 36, height: 36)
                         }
                         

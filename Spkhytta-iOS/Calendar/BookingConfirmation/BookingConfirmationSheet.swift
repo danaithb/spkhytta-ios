@@ -29,7 +29,7 @@ struct BookingConfirmationSheet: View {
 
             VStack(spacing: 0) {
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                    .stroke(Color.customGrey, lineWidth: 1)
                     .frame(height: UIScreen.main.bounds.height * 0.4)
                     .overlay(
                         VStack(spacing: 20) {

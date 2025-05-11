@@ -22,7 +22,7 @@ struct RadioButton: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color.white)
+        .background(Color(.systemBackground))
         .cornerRadius(10)
         
         .onTapGesture {
