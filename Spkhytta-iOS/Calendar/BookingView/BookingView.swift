@@ -204,7 +204,7 @@ struct BookingView: View {
         startDate = nil
         endDate = nil
         viewModel.resetBookingData()
-        dismiss()
+        //dismiss()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             dismiss()
