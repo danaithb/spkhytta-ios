@@ -47,6 +47,17 @@ struct ProfileView: View {
                         Text("Poeng: \(user.points)")
                             .font(.headline)
                             .padding(.top, 4)
+                        
+                        if let quarantineDate = viewModel.parsedQuarantineDate() {
+                            Text("Karantene til: \(quarantineDate.formatted(.dateTime.day().month(.wide).year()))")
+                                .font(.subheadline)
+                                .foregroundColor(.customRedDays)
+                        } else {
+                            Text("Ingen karantene")
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.gray)
+                        }
                     }
                 } else {
                     Text("Laster brukerinfo...")

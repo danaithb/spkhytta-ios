@@ -11,4 +11,5 @@ struct UserInfo: Codable {
     let name: String
     let email: String
     let points: Int
+    let quarantineEndDate: String?
 }

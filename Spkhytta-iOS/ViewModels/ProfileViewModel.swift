@@ -45,4 +45,12 @@ class ProfileViewModel: ObservableObject {
             return status
         }
     }
+    
+    func parsedQuarantineDate() -> Date? {
+        guard let dateString = userInfo?.quarantineEndDate else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.date(from: dateString)
+    }
+
 }
