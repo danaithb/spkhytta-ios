@@ -13,7 +13,7 @@ struct SplashScreenView: View {
     
     var body: some View {
         ZStack {
-            Color.blue.opacity(0.8)
+            Color.customBlue
                 .ignoresSafeArea()
             HStack(spacing: 0) {
                Text("HYTTE")

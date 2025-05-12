@@ -1,6 +1,6 @@
 //
 //  ProfileView.swift
-//  hytte
+//  Spkhytta-iOS
 //
 //  Created by Mariana and Abigail on 24/02/2025....
 //
@@ -12,17 +12,19 @@ struct ProfileView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                // Prfile Side
-                Text("Min side")
-                    .font(.title)
-                    .bold()
-                    .padding(.top)
+            VStack(spacing: 20) {
+                // Profile Side
+//                Text("Min side")
+//                    .font(.title)
+//                    .bold()
+//                    .padding(.top)
+                // Utan subtitle
+                HeaderView(title: "Min Side")
 
                 // Profil Bilder
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.gray.opacity(0.4), lineWidth: 1)
+                        .stroke(Color.customGrey, lineWidth: 1)
                         .frame(width: 180, height: 180)
 
                     Image(systemName: "person.circle.fill")
@@ -99,7 +101,7 @@ struct ProfileView: View {
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray.opacity(0.5))
+                                    .stroke(Color.gray)
                             )
                         }
                     }
@@ -112,19 +114,6 @@ struct ProfileView: View {
         }
         .onAppear {
             viewModel.fetchData()
-        }
-    }
-    
-    private func localizedStatus(_ status: String) -> String {
-        switch status.lowercased() {
-        case "confirmed":
-            return "Bekreftet"
-        case "pending":
-            return "Venter på trekning"
-        case "cancelled":
-            return "Kansellert"
-        default:
-            return status
         }
     }
 }

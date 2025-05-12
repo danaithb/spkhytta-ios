@@ -17,10 +17,12 @@ struct HomeView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Utforsk tittel
-                Text("Utforsk")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top)
+//                Text("Utforsk")
+//                    .font(.largeTitle)
+//                    .fontWeight(.bold)
+//                    .padding(.top)
+                // Utan subtitle
+                HeaderView(title: "Utforsk")
                 
                 // Bilder Carousel
                 TabView {
@@ -35,7 +37,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal, 15)
-                .frame(height: 270)
+                .frame(height: 225)
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 
                 // Informasjon om priser
@@ -53,11 +55,11 @@ struct HomeView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
+                .background(Color(.systemBackground))
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        .stroke(Color.customGrey, lineWidth: 1)
                 )
                 .padding(.horizontal)
                 
@@ -108,11 +110,11 @@ struct HomeView: View {
                     }
                 }
                 .padding()
-                .background(Color.white)
+                .background(Color(.systemBackground))
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                        .stroke(Color.customGrey, lineWidth: 1)
                 )
                 .padding(.horizontal)
                 
@@ -123,9 +125,8 @@ struct HomeView: View {
                             viewModel.toggleShowAll()
                         }
                     }
+                    .padding(.bottom, 30)
                 
-                // Extra space i botten så att innehållet inte täcks av tabbar
-                Spacer().frame(height: 70)
             }
         }
     }

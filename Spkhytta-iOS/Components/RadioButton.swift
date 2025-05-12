@@ -18,11 +18,11 @@ struct RadioButton: View {
                 .foregroundColor(.blue)
                 .font(.system(size: 20))
             Text(title)
-                .foregroundColor(.black)
+                .foregroundColor(.primary)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(Color.white)
+        .background(Color(.systemBackground))
         .cornerRadius(10)
         
         .onTapGesture {

@@ -70,7 +70,7 @@ struct BookingContentView: View {
        .padding()
        .background(
            RoundedRectangle(cornerRadius: 12)
-               .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+            .stroke(Color.customGrey, lineWidth: 1)
        )
        .padding(.horizontal)
        .padding(.bottom, 10) // xtra padding nere ger finare space mella views

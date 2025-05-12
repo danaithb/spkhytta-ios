@@ -44,7 +44,10 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             VStack(spacing: 20) {
-                HeaderView()
+                HeaderView(
+                    title: "Kalenderoversikt",
+                    subtitle: "Velg dato du ønsker å booke"
+                )
                 
                 // Kalender Grid
                 VStack(spacing: 15) {
@@ -66,7 +69,7 @@ struct CalendarView: View {
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 6)
-                        .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                        .stroke(Color.customGrey, lineWidth: 1)
                 )
                 .padding(.horizontal)
                 

@@ -19,9 +19,9 @@ struct CalendarGridHelpers {
     static func backgroundColor(isHoliday: Bool, isUnavailable: Bool, isSelected: Bool,
                              isTodaysDate: Bool) -> Color {
         if isSelected {
-            return .blue.opacity(0.3) // valda datum
+            return Color.lightBlue  // valda datum
         } else if isUnavailable {
-            return Color.gray.opacity(0.2) // otillgängliga datum
+            return Color.bookedGrey // otillgängliga datum
         } else {
             return Color.clear // tillgängliga datum
         }
