@@ -1,11 +1,8 @@
 # hytteportalen-app
 
-#spkhytta-iOS
+## spkhytta-iOS
 spkhytta-iOS is an app managaing company cabin bookings. The application provides a user-friendly interface for reserving a cabin, viewing booking details, and receving digital recepits. The application also integrates with the Nager.Date API for holiday awareness, and Firebase is used for authentication and data managment. 
 
-
-/*
-Kandidat nummer -
 
 1. Requiments:
 - Xcode Version 16.2
@@ -43,4 +40,3 @@ Try cleaning the build folder(Shift + Cmd +K) and rebuilding the app.
 - Firebase for authetication and backend services
 - Nager.Date API for holiday data.
 
-*/
