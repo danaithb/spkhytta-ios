@@ -48,29 +48,44 @@ struct HomeView: View {
                 .frame(height: 225)
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                 
-                // Informasjon om priser
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Informasjon om priser")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .padding(.bottom, 4)
-                    
-                    Text("Røde dager: \(viewModel.rodeDagerPris) = \(viewModel.rodeDagerPoeng)")
-                        .font(.body)
-                    
-                    Text("Vanlig dager: \(viewModel.vanligDagerPris) = \(viewModel.vanligDagerPoeng)")
-                        .font(.body)
-                }
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(.systemBackground))
-                .cornerRadius(8)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
+
+                // Regler for Privat og Jobb tur
+                VStack(alignment: .center, spacing: 10) {
+                    VStack(spacing: 10) {
+                        Text("Informasjon om priser og karantene")
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Privat tur")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Per natt: 500kr, 3 poeng, karantene i 60 dager")
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Jobb tur")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .padding(.top, 6)
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Per natt: 0 kroner og 0 poeng, ingen karantene")
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8)
                         .stroke(Color.customGrey, lineWidth: 1)
-                )
-                .padding(.horizontal)
-                
+                    )
+                    .padding(.horizontal)
+                }
+
                 // Hytta tilbyr seksjon
                 VStack(alignment: .leading, spacing: 16) {
                     Text("Hytta tilbyr")
