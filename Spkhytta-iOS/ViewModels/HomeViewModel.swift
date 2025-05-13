@@ -2,12 +2,10 @@
 //  HomeViewModel.swift
 //  Spkhytta-iOS
 //
-//  Created by Jana Carlsson on 08/05/2025.
-//
+//  Created by Mariana and Abigail on 08/05/2025.
 
 import SwiftUI
 
-// Förenklad struktur utan UUID
 struct HyttaFasilitet {
     let icon: String
     let title: String
@@ -33,9 +31,9 @@ class HomeViewModel: ObservableObject {
     
     // Priser och poäng
     let rodeDagerPris = "1000kr"
-    let rodeDagerPoeng = "4 poeng"
-    let vanligDagerPris = "100kr"
-    let vanligDagerPoeng = "2 poeng"
+    let rodeDagerPoeng = "3 poeng"
+    let vanligDagerPris = "500kr"
+    let vanligDagerPoeng = "3 poeng"
     
     // Funktion för att visa/dölja fler faciliteter
     func toggleShowAll() {

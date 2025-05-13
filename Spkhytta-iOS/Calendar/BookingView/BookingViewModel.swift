@@ -1,9 +1,7 @@
 
 //BookingViewModel
 //Created by Mariana och Abigail on 23/03/2025.
-// TODO:
-//Ska vi ha med en alert som visar bokningsreferansen, om inte ta bort den som är på rad 67
-//ändra så att start dato kommer först. så end date. så antal personer.
+
 import SwiftUI
 import Firebase
 import FirebaseAuth

@@ -8,7 +8,7 @@
 import Foundation
 
 
-// min wrapper struct för att ge varje cell en unik id
+// vår wrapper struct för att ge varje cell en unik id
 //hashing ger mer unikt reultat än mapping. kan använda date string etc som key.
 struct DateWrapper: Identifiable, Hashable {
     let id = UUID()

@@ -2,21 +2,6 @@
 //  BookingApp
 //
 //  Created by Mariana and Abigail on 21/02/2025.
-//
-
-// TODO
-// 1. hämta in en access token från Firebase --fixat
-// 2. sänd en bearer token till backend i header. detta ska inte göras i den här filen utan en API kall --fixat
-// 3. backend verifierar att det är rätt användare
-// 4. ska vi spara token till andra dekar av appen? --fixat med getToken
-// 5. lägg till guard på login
-
-// till danial. bör vi tex ha en auth manager för api request? ska lägga överallt när man gör kall till backend för att verifiera. --fixat
-
-// send auth och personal detaljer om vem som bokar in header, resten ska skickas i body.
-// send in JSON format? --fixat
-
-//här kan man logga in om användaren finns i fireabase. men får 500 från servern då den inte finns i databasen.
 
 import SwiftUI
 import Firebase

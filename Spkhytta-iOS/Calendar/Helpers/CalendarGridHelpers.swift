@@ -3,11 +3,6 @@
 //
 // Created by Mariana och Abigail 23/03/2025
 
-// TODO
-// 1. bättre färger för olika tillstånd i kalendern
-// 2. lägg till färg för egna bokningar, grön för bekräftad, orange för pending?
-// 3. olika färg på passerade datum vs bokade datum, ser likadana ut nu
-//4. ändra till de färger Elon bestämy sig för.
 
 import SwiftUI
 

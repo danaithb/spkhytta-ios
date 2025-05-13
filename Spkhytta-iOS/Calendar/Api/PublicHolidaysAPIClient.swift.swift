@@ -2,13 +2,7 @@
 // PublicHolidaysAPIClient.swift
 
 // Created by Mariana och Abigail on 05/02/2025.
-//
-//ÄNDRA GLBALA KONSTANTER
-// TODO
-// 1. Optimera nätverksprestanda för dåliga anslutningar
-// 2. Lägg till caching av helgdagar för att minska API-anrop
-// 3. Implementera felhantering med mer specifika felmeddelanden
-// 4. Hantera timeout och återförsök
+
 
 
 import Foundation

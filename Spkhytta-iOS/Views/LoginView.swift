@@ -2,8 +2,7 @@
 // booking
 //
 // Created by Mariana and Abigail on 21/02/2025.
-//bytt låsen till button ikke texfield.
-//man ska kunna fortsätta att vara inloggad med sin brukare även om man stänger ner appen. inte "" varje gång.
+
 
 import SwiftUI
 import Firebase

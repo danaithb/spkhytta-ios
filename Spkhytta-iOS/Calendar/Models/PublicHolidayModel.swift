@@ -12,7 +12,7 @@ struct PublicHolidayModel: Identifiable, Codable, Hashable {
     let localName: String
     let name: String
     let countryCode: String
-    let fixed: Bool // om samma datu varje rå.
+    let fixed: Bool // om samma datu varje år.
     let global: Bool
     let counties: [String]
     let launchYear: Int?

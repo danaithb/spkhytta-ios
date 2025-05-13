@@ -10,16 +10,24 @@ struct SettingsView: View {
     @Binding var isDarkMode: Bool
     @Binding var isLoggedIn: Bool
     var authViewModel: AuthViewModel
-    
+
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            Text("Innstillinger")
+                .font(.system(size: 28, weight: .bold))
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.top, 16)
+                .padding(.bottom, 20)
+
             List {
-                Section(header: Text("App Settings")) {
+                Section(header:
+                    Text("App-innstillinger")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                ) {
                     Toggle("Dark Mode", isOn: $isDarkMode)
                 }
-                
-                //filtrerings settings här
-                //logg ut.
+
                 Section(header: Text("Konto")) {
                     Button("Logg ut") {
                         authViewModel.logout()
@@ -28,16 +36,8 @@ struct SettingsView: View {
                     .foregroundColor(.red)
                 }
             }
-            //byt den här till version två. den ska vara vanlig navigationTitle enligt iOS standard. inte med inline som är sekundär överskrift.
-            //The .inline option shows small titles, which are useful for secondary, tertiary, or subsequent views in your navigation stack.
-            //https://www.hackingwithswift.com/articles/216/complete-guide-to-navigationview-in-swiftui
             .listStyle(.insetGrouped)
-                        .background(Color(.systemGroupedBackground))
-                        .navigationTitle("Innstillinger")
-                        .navigationBarTitleDisplayMode(.automatic)
-                
-            
         }
+        .background(Color(.systemGroupedBackground))
     }
 }
-

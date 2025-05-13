@@ -3,14 +3,6 @@
 //  Spkhytta-iOS
 //
 //  Created by Jana Carlsson on 10/05/2025.
-//
-//
-//  BookinConfiramtionSheet.swift
-//  Spkhytta-iOS
-//
-//  Created by Jana Carlsson on 04/05/2025.
-//
-//här ska referens nummer bort
 
 
 import SwiftUI
@@ -38,9 +30,9 @@ struct BookingConfirmationSheet: View {
                                 .fontWeight(.bold)
                                 .padding(.top, 40)
 
-                            Text("Referansenummer: \(bookingReference)")
-                                .font(.body)
-                                .fontWeight(.medium)
+//                            Text("Referansenummer: \(bookingReference)")
+//                                .font(.body)
+//                                .fontWeight(.medium)
 
                             Text("Se \"Mine side\" for status på booking.")
                                 .font(.body)
@@ -64,7 +56,7 @@ struct BookingConfirmationSheet: View {
             Spacer()
 
             Button(action: {
-                onDone()  // ✅ Kör callback till BookingView
+                onDone()  //Kör callback till BookingView
             }) {
                 Text("Ferdig")
                     .frame(maxWidth: .infinity)

@@ -5,21 +5,8 @@
 //
 // BUG: Problem med dagens datum som blev otillgängligt fast det inte var bokat.
 // Jämförelserna med unavailableDates fungerade inte som tänkt eftersom
-// tidszoner ställer till det, ibland är 14:e mars den 13:e på kvällen.
+// tidszoner ställer till det, ibland är 14:e mars den 13:e på kvällen. FIXED
 //
-// FIX: Normaliserar alla datum vid jämförelse och använder contains(normalizedDate)
-// istället för Calendar.current.isDate som jag testade först, som också krånglade
-// #drivesMeCraaaaazy varför måste datum vara så krångliga??
-
-// TODO
-// 1. Optimera calendar grid drawing för bättre prestanda
-// 2. Lägg till stöd för att markera bokade datum som är egna bokningar
-// 3. Förbättra visuell indikering för helgdagar
-// 4. Lägga till animation vid val av datumintervall
-// 5. Refaktorera till separat vy för varje kalendercell
-// 6. Implementera caching för förbättrad prestanda när man byter månad
-
-
 
 // ---------- Kalender Grid Vy ----------
 import SwiftUI
