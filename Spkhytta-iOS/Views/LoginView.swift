@@ -16,7 +16,7 @@ struct LoginView: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Image("spk-logo-dark")
+                Image("logo-darkmode")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 140)
