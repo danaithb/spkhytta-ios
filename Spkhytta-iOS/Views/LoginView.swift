@@ -15,23 +15,23 @@ struct LoginView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            HStack {
-                Image("logo-darkmode")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 140)
-                    .padding(.leading, 16)
-                Spacer()
-            }
-            .padding(.top, 40)
+//            HStack {
+//                Image("logo-darkmode")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 140)
+//                    .padding(.leading, 16)
+//                Spacer()
+//            }
+//            .padding(.top, 40)
             
             Spacer()
-                .frame(height: 80) // ner med bilden
+                .frame(height: 280) // ner med bilden
             
             Image("logo-lightmode")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 200)
+                .frame(width: 150)
             
             Spacer()
                 .frame(height: 5) // utrymmet efter bilden. mini nu.
