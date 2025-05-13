@@ -30,10 +30,10 @@ class HomeViewModel: ObservableObject {
     ]
     
     // Priser och poäng
-    let rodeDagerPris = "1000kr"
-    let rodeDagerPoeng = "3 poeng"
-    let vanligDagerPris = "500kr"
-    let vanligDagerPoeng = "3 poeng"
+    let workDaysPrice = "0 kr"
+    let workDaysPoints = "0 poeng"
+    let regularDays = "500 kr"
+    let regularDaysPoints = "3 poeng"
     
     // Funktion för att visa/dölja fler faciliteter
     func toggleShowAll() {
