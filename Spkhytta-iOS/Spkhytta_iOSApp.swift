@@ -23,11 +23,8 @@ struct Spkhytta_iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {  // Lägg till denna
-           
-                ContentView()
-            }
+            // Ta bort den yttre NavigationStack
+            ContentView()
         }
     }
-
 }

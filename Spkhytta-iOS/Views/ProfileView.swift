@@ -13,15 +13,15 @@ struct ProfileView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Profile Side
-//                Text("Min side")
-//                    .font(.title)
-//                    .bold()
-//                    .padding(.top)
-                // Utan subtitle
-                HeaderView(title: "Min Side")
 
-                // Profil Bilder
+                VStack(spacing: 4) {
+                    Text("Min Side")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, 12)
+                }
+
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
                         .stroke(Color.customGrey, lineWidth: 1)
@@ -33,7 +33,6 @@ struct ProfileView: View {
                         .frame(width: 100, height: 100)
                 }
 
-                // Navn, epost og poeng (dynamisk)
                 if let user = viewModel.userInfo {
                     VStack(spacing: 4) {
                         Text(user.name)
@@ -64,7 +63,6 @@ struct ProfileView: View {
                         .foregroundColor(.gray)
                 }
 
-                // Booking Seksjon
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Mine bookinger")
                         .font(.title3)
@@ -116,10 +114,8 @@ struct ProfileView: View {
                             )
                         }
                     }
-
                 }
                 .padding(.horizontal)
-
             }
             .padding()
         }

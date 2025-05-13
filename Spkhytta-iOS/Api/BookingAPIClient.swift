@@ -3,11 +3,6 @@
 //  BookingApp
 //
 //  Created by Mariana och Abigail on 09/04/2025.
-//
-// TODO
-// kolla om antal personer finns med i databasen.
-// ta bort id. det genereras från backend.
-//
 
 import Foundation
 import Firebase
@@ -193,8 +188,8 @@ class BookingAPIClient {
         // Simulera nätverks fördröjning
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) {
             // Generera en fake bokningsreferens
-            let referenceNumber = "SPK-\(Int.random(in: 10000...99999))"
-            completion(.success(referenceNumber))
+//            let referenceNumber = "SPK-\(Int.random(in: 10000...99999))"
+//            completion(.success(referenceNumber))
         }
     }
 }

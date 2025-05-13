@@ -9,10 +9,6 @@
 //backend kan hämta röda dagar översikten.
 
 
-// TODO
-// 1. Spara helgdagar i lokal databas efter första hämtningen
-// 2. Implementera kontroll om helgdagar finns i databasen innan API-anrop
-// 3. Flytta helgdagshämtning till backend
 
 import Foundation
 // ---------- API-endpoints för helgdagar ----------

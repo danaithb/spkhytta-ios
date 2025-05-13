@@ -6,7 +6,7 @@
 import Foundation
 import SwiftUI
 
-// min wraper struct för att skapa en återanvändbar innehållsvy med olik titel o innehåll
+//vår wraper struct för att skapa en återanvändbar innehållsvy med olik titel o innehåll
 struct BookingContentView: View {
     let title: String
     let subtitle: String?
@@ -44,8 +44,6 @@ struct BookingContentView: View {
             }
         )
     }
-    
-    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {

@@ -2,7 +2,7 @@
 //  ProfileViewModel.swift
 //  Spkhytta-iOS
 //
-//  Created by Jana Carlsson on 08/05/2025.
+//  Created by Mariana and Abigail on 08/05/2025.
 //
 
 import SwiftUI
