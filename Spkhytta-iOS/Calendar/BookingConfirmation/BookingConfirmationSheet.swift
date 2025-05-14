@@ -43,7 +43,7 @@ struct BookingConfirmationSheet: View {
                                 .font(.body)
                                 .fontWeight(.medium)
 
-                            Text("Takk for at du valgte å booke Støyva!")
+                            Text("Takk for at du valgte å booke med Hytteportalen!")
                                 .font(.body)
                                 .padding(.horizontal, 20)
                                 .multilineTextAlignment(.center)
