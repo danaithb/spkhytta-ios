@@ -1,8 +1,8 @@
 //
 //  BookingAPIClient.swift
 //  BookingApp
-//
-//  Created by Mariana och Abigail on 09/04/2025.
+//Kilde: tidiger eksamen i PG5602
+//Created by Mariana och Abigail on 09/04/2025.
 
 import Foundation
 import Firebase

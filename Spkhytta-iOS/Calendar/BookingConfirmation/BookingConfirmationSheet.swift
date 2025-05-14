@@ -30,10 +30,6 @@ struct BookingConfirmationSheet: View {
                                 .fontWeight(.bold)
                                 .padding(.top, 40)
 
-//                            Text("Referansenummer: \(bookingReference)")
-//                                .font(.body)
-//                                .fontWeight(.medium)
-
                             Text("Se \"Mine side\" for status på booking.")
                                 .font(.body)
                                 .padding(.horizontal, 20)

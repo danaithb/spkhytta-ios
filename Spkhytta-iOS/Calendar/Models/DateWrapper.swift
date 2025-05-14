@@ -10,7 +10,7 @@ import Foundation
 struct DateWrapper: Identifiable, Hashable {
     let id = UUID()
     let date: Date?
-    //hvis datoer er like, eller ike
+    //hvis datoer er like, eller ikke, hjelp fra Mohammad Data Ingenjør
     static func == (lhs: DateWrapper, rhs: DateWrapper) -> Bool {
         return lhs.id == rhs.id
      }

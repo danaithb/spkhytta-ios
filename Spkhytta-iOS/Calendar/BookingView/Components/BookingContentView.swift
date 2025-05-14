@@ -12,8 +12,7 @@ struct BookingContentView: View {
     let subtitle: String?
     let content: AnyView
     
-    // initialsiering med undertittel å enkel Text som innehåll
-    // bra för enkle texter som status etc når man vill slippa skapa egen text-thing
+    // initialsiering med undertittel
     init(title: String, subtitle: String? = nil, content: String) {
         self.title = title
         self.subtitle = subtitle
@@ -44,14 +43,13 @@ struct BookingContentView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            // huvud-tittel centrerad øverst
             Text(title)
                 .font(.title3)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .center)
             
             // vallgfri undertitel, visas bara om den finns
-            // bruker optional chaning för att slippa massa if-satser i anropet
+            // bruker optional chaning för att slippe massa if-satser i anropet
             if let subtitle = subtitle {
                 Text(subtitle)
                     .frame(maxWidth: .infinity, alignment: .center)
