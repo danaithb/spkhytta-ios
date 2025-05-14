@@ -1,3 +1,4 @@
+//
 // CalendarGridHelpers.swift
 //  Calendar
 //
@@ -8,28 +9,27 @@ import SwiftUI
 
 // ---------- Hjälpfunktioner ----------
 struct CalendarGridHelpers {
-    // BUG: Samma färg på passerade och bokade datum
-    // FIX: Separata färger för passerade och bokade datum
+    
     
     static func backgroundColor(isHoliday: Bool, isUnavailable: Bool, isSelected: Bool,
                              isTodaysDate: Bool) -> Color {
         if isSelected {
-            return Color.lightBlue  // valda datum
+            return Color.lightBlue
         } else if isUnavailable {
-            return Color.bookedGrey // otillgängliga datum
+            return Color.bookedGrey
         } else {
-            return Color.clear // tillgängliga datum
+            return Color.clear
         }
     }
 
     static func textColor(isHoliday: Bool, isUnavailable: Bool, isTodaysDate: Bool,
                        isSelected: Bool) -> Color {
         if isUnavailable {
-            return .gray // grå text för otillgängliga
+            return .gray
         } else if isHoliday {
-            return .redDays // röd text för helgdagar
+            return .redDays
         } else {
-            return .primary // svart för vanliga dagar
+            return .primary
         }
     }
 }

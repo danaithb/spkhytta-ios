@@ -9,7 +9,6 @@ import SwiftUI
 
 struct InfoView: View {
     var body: some View {
-        // Tillgänglighet förklaring
         VStack(spacing: 20) {
             Text("Tilgjengelighet")
                 .font(.subheadline)
@@ -17,7 +16,6 @@ struct InfoView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
 
             HStack(spacing: 30) {
-                // Otillgänlig
                 HStack {
                     Capsule()
                         .fill(Color.customGrey)
@@ -26,10 +24,9 @@ struct InfoView: View {
                     Text("Ikke tilgjengelig")
                         .font(.subheadline)
                         .foregroundColor(Color.customGrey)
-                    //helt svart om den röda ska svart?
-                }
+                 }
 
-                // Helgdag
+                // Helligdag
                 HStack {
                     Capsule()
                         .fill(Color.redDays)

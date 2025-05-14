@@ -28,7 +28,7 @@ struct HeaderView: View {
             if let subtitle = subtitle {
                 Text(subtitle)
                     .font(.subheadline)
-                    .foregroundColor(.black) // kansje ha secondary som färg här?
+                    .foregroundColor(.black)
                     .padding(.bottom, 10)
             }
         }
@@ -37,16 +37,12 @@ struct HeaderView: View {
 
 #Preview {
     VStack(spacing: 30) {
-        // Med subtitle
         HeaderView(
             title: "Kalenderoversikt",
             subtitle: "Velg dato du ønsker å booke"
         )
-        
-        // Utan subtitle
         HeaderView(title: "Endast titel")
         
-        // Annan exempel
         HeaderView(
             title: "Min Kalender",
             subtitle: "Håll koll på dina bokningar"

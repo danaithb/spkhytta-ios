@@ -1,7 +1,6 @@
+//
 //SettingsView.swift
 //Created by Mariana and Abigail on 24/02/2025
-//filterings setting ska kunna visa vilken hytte man vill se i future versioner.
-//darkomdelight mode--- klart
 //NavStack iOS 16 minimu krav.
 
 import SwiftUI

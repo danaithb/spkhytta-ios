@@ -1,3 +1,4 @@
+//
 //  AuthViewModel.swift
 //  BookingApp
 //
@@ -16,8 +17,7 @@ class AuthViewModel: ObservableObject {
     @Published var userId = ""
 
     init() {
-        // är användare redan inoggad?
-        checkAuthState()
+       checkAuthState()
     }
 
     func checkAuthState() {
@@ -26,26 +26,25 @@ class AuthViewModel: ObservableObject {
             self.userId = currentUser.uid
         }
     }
-    //lägg till en guard här
+   
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 self.errorMessage = error.localizedDescription
             } else {
                 self.isAuthenticated = true
-                self.userId = (Auth.auth().currentUser?.uid) ?? "" // så den inte crashar om inte någon är inloggad. return empty string
+                self.userId = (Auth.auth().currentUser?.uid) ?? ""
 
                 Auth.auth().currentUser?.getIDToken(completion: { token, error in
                     if let token = token {
                         print("ID Token: \(token)")
-                        // skicka säkert till backend.
                         self.sendTokenToBackend()
 
                     }
                 })
 
-                print(self.userId) //log out user id ska bli reset till empty igen.
-            } //user id till backend lägg till i db. gör api swiftUI. func send user id to bakckend, java backend kan requesta det api använd folder name. call function.
+                print(self.userId) //bruker empty
+            }
         }
     }
 

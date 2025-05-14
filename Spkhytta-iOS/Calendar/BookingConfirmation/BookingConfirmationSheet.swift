@@ -2,14 +2,14 @@
 //  BookingConfirmationSheet.swift
 //  Spkhytta-iOS
 //
-//  Created by Jana Carlsson on 10/05/2025.
+//  Created by Mariana and Abigail on 10/05/2025.
 
 
 import SwiftUI
 
 struct BookingConfirmationSheet: View {
     let bookingReference: String
-    let onDone: () -> Void  //istället för duissmiss
+    let onDone: () -> Void  //istendenfor duissmiss
 
     var body: some View {
         VStack(spacing: 0) {
@@ -56,7 +56,7 @@ struct BookingConfirmationSheet: View {
             Spacer()
 
             Button(action: {
-                onDone()  //Kör callback till BookingView
+                onDone()  //callback til BookingView, hjelp fra Danial på SPK.
             }) {
                 Text("Ferdig")
                     .frame(maxWidth: .infinity)

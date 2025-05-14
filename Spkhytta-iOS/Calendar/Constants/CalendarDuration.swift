@@ -2,13 +2,11 @@
 //  Calendar.swift
 //  booking
 //
-//  Created by Jana Carlsson on 18/02/2025.
+//  Created by Mariana  on 18/02/2025.
 
 import Foundation
 import SwiftUI
 
-//här kan det vara att jag måste anpassa för UTC, är det bäst att göra det här eller i kalender koden?
-// Konstanter för kalendern
 struct CalendarConstants {
     static let dayName = ["Man", "Tir", "Ons", "Tor", "Fre", "Lør", "Søn"]
     
@@ -17,6 +15,6 @@ struct CalendarConstants {
    static let currentMonth: Int = Calendar.current.component(.month, from: Date())
     
     static let minDate = Calendar.current.date(from: DateComponents(year: currentYear, month: currentMonth, day: 1))!
-    // Om jag vill ha årte nu, ocg extra år plus +9 = 10åt i kalendern. Om jag vill ha fler månader kan jag lägga till +11 och då får jag ett år.
-    static let maxDate = Calendar.current.date(from: DateComponents(year: currentYear, month: (currentMonth+3)%12, day: 1))! //mod tar tillbaka i range 1-12, (11 + 2) % 12 = 13 % 12 = 1, detta tar oss allstå tillbaka till 1. --NOTE-- viktigt att det går över 12 därför +2. +5 om du viöl ha fem månader. 
+    // Om vi vill ha år te nå, og extra år plus +9 = 10år i kalendern. Om vi vil ha flere månter kan vi legge til +11 och då får vi ett år.
+    static let maxDate = Calendar.current.date(from: DateComponents(year: currentYear, month: (currentMonth+3)%12, day: 1))! //mod tar tillbake i range 1-12, (11 + 2) % 12 = 13 % 12 = 1,
 }

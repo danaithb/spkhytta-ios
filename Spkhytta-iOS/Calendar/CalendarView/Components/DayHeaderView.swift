@@ -9,7 +9,6 @@ import SwiftUI
 
 struct DayHeaderView: View {
     //let dayNames: [String]
-    
     var body: some View {
         HStack(spacing: 0) {
             ForEach(CalendarConstants.dayName, id: \.self) { day in

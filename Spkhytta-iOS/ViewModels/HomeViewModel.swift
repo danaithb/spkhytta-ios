@@ -14,10 +14,8 @@ struct HyttaFasilitet {
 class HomeViewModel: ObservableObject {
     @Published var showAll = false
     
-    // Bilderna som visas i karusellen
     let images = ["hytteBilde", "hytteBilde2", "hytteBilde3", "hytteBilde4", "hytteBilde5"]
     
-    // Lista på faciliteter som ska visas
     let allFasiliteter = [
         HyttaFasilitet(icon: "wifi", title: "WiFi"),
         HyttaFasilitet(icon: "tv", title: "TV"),
@@ -29,13 +27,13 @@ class HomeViewModel: ObservableObject {
         HyttaFasilitet(icon: "fork.knife", title: "Kjøkken")
     ]
     
-    // Priser och poäng
+    // Priser og poäng
     let workDaysPrice = "0 kr"
     let workDaysPoints = "0 poeng"
     let regularDays = "500 kr"
     let regularDaysPoints = "3 poeng"
     
-    // Funktion för att visa/dölja fler faciliteter
+    //vise, skjule
     func toggleShowAll() {
         showAll.toggle()
     }

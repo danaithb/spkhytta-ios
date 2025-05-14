@@ -1,3 +1,4 @@
+//
 //  BookingView.swift
 //
 // Created by Mariana och Abigail on 23/03/2025.
@@ -151,7 +152,7 @@ struct BookingView: View {
         .font(.subheadline)
         .padding(.bottom, 20)
         .disabled(viewModel.isProcessing)
-        .navigationBarBackButtonHidden(true) // Döljer den automatiska "Back"-knappen
+        .navigationBarBackButtonHidden(true)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {

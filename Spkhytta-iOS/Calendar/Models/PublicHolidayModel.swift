@@ -1,3 +1,4 @@
+//
 //PublicHolidayModel.swift
 //
 //  Created by Mariana och Abigail on 27/12/2025.
@@ -7,12 +8,12 @@
 import Foundation
 
 struct PublicHolidayModel: Identifiable, Codable, Hashable {
-    var id: UUID // Unique identifier
+    var id: UUID
     let date: Date
     let localName: String
     let name: String
     let countryCode: String
-    let fixed: Bool // om samma datu varje år.
+    let fixed: Bool
     let global: Bool
     let counties: [String]
     let launchYear: Int?

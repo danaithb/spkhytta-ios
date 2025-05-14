@@ -6,32 +6,29 @@
 import Foundation
 import SwiftUI
 
-//vår wraper struct för att skapa en återanvändbar innehållsvy med olik titel o innehåll
+//wraper struct
 struct BookingContentView: View {
     let title: String
     let subtitle: String?
     let content: AnyView
     
-    
-    
-    // initialsiering med undertitel å enkel Text som innehåll
-    // bra för enkla texter som status etc när man vill slippa skapa egen text-grej
+    // initialsiering med undertittel å enkel Text som innehåll
+    // bra för enkle texter som status etc når man vill slippa skapa egen text-thing
     init(title: String, subtitle: String? = nil, content: String) {
         self.title = title
         self.subtitle = subtitle
         self.content = AnyView(Text(content))
     }
     
-    // initialsiering med undertitel och valfri view
-    // funkar med alla types av visuella kompoents, enkelt med bildr osv
+    // initialsiering med undertittel og valfri view
+    // virker med alla types av visuella kompoents, enkelt med bilder osv
     init(title: String, subtitle: String? = nil, content: some View) {
         self.title = title
         self.subtitle = subtitle
         self.content = AnyView(content)
     }
     
-    // initialsiering med undertitel och flera views som array
-    // smidig när man vill stapla flera grejjer under samma titel
+    // initialsiering med undertittel och flere views som array
     init(title: String, subtitle: String? = nil, contents: [some View]) {
         self.title = title
         self.subtitle = subtitle
@@ -47,23 +44,19 @@ struct BookingContentView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            // huvud-titeL centrerad överst
+            // huvud-tittel centrerad øverst
             Text(title)
                 .font(.title3)
                 .fontWeight(.bold)
                 .frame(maxWidth: .infinity, alignment: .center)
             
-            // vallfri undertitel, visas bara om den finns
-            // anvönder optional chaning för att slippa massa if-satser i anropet
+            // vallgfri undertitel, visas bara om den finns
+            // bruker optional chaning för att slippa massa if-satser i anropet
             if let subtitle = subtitle {
                 Text(subtitle)
                     .frame(maxWidth: .infinity, alignment: .center)
             }
-            
-            // huvud-innehållet här visas
-            // använder AnyView för å ta vilken typ som helst, sllipper krångel
             content
-                
         }
        .padding()
        .background(
@@ -71,25 +64,6 @@ struct BookingContentView: View {
             .stroke(Color.customGrey, lineWidth: 1)
        )
        .padding(.horizontal)
-       .padding(.bottom, 10) // xtra padding nere ger finare space mella views
+       .padding(.bottom, 10)
     }
 }
-
-
-// Exempler på användning:
-// 1. enkl text med undertitel
-//            BookingContentView(
-//                title: "Account Status",
-//                subtitle: "Last updated today",
-//                content: "Active"
-//            )
-
-// 2. en view med undertitel
-//            BookingContentView(
-//                title: "Favorite Icon",
-//                subtitle: "Tap to change",
-//                content: Image(systemName: "star.fill")
-//                    .foregroundColor(.yellow)
-//            )
-
-// 3. Flera HStacks me undertitel - exmplet saknas helt typ
