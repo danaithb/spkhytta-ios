@@ -60,7 +60,7 @@ class AuthViewModel: ObservableObject {
         }
     }
 
-    // La till den här nya funktionen för att hämta token för API anrop
+    //hente token för API anrop hjelp fram Mohammad Data ingenjør
     func getToken(completion: @escaping (String?) -> Void) {
         Auth.auth().currentUser?.getIDToken { token, error in
             if let error = error {

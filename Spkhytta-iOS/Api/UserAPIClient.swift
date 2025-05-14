@@ -1,7 +1,7 @@
 //
 //  UserAPIClient.swift
 //  Spkhytta-iOS
-//
+//  Kilde: tidiger eksamen i PG5602
 //  Created by Danait Hadra on 29/04/2025.
 //
 

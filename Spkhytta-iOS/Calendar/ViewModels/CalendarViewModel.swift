@@ -25,7 +25,7 @@ class CalendarViewModel: ObservableObject {
         return calendar
     }()
 
-    //laster dager fra backend som er opptatt
+    //laster dager fra backend som er opptatt, hjelp fra Mohammad Data ingenjør
     func loadBackendUnavailableDates(forMonth month: String, cabinId: Int) {
         guard let user = Auth.auth().currentUser else { return }
 

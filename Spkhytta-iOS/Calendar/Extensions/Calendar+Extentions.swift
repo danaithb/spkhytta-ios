@@ -1,7 +1,7 @@
 //
 //  Calendar+Extensions.swift
 //  booking
-//
+//  Kilde: tidiger eksamen i PG5602
 //  Created by Created by Mariana och Abigail on 03/02/2025. Fått hjelp av Danial på SPK
 
 

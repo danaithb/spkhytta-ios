@@ -24,7 +24,7 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
-    
+    //hjelp fra Mohammad Data Ingenjør
     private func fetchBookings() {
         UserAPIClient.shared.fetchBookingSummaries { [weak self] summaries in
             DispatchQueue.main.async {
