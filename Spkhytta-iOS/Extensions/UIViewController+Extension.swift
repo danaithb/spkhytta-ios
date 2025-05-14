@@ -2,8 +2,8 @@
 //  UIViewController+Extension.swift
 //  Spkhytta-iOS
 //
-//  Created by Jana Carlsson on 30/04/2025.
-//Här har vi fått hjälp av spk att modifiera tilbake så att den behåller sin Swipe funktion. Hade i en framtida version så hade vi lagt till språk setttings för att undgå att hårdkoda den med "tilbake"
+//  Created by Mariana and Abigail on 30/04/2025.
+//fått hjelp av Danial på spk å modifiere "tilbake" så att den fortsatt har sin Swipe funksjon. I en framtide verssjon så hade vi lagt til språk setttings för att undgå att hårdkoda den med "tilbake"
 import UIKit
 
 extension UINavigationController {

@@ -13,10 +13,10 @@ class BookingAPIClient {
     
     private init() {}
     
-//    //TA BORT SEN
+//    //Testet med egen server innen backend på plass
 //    private let baseURL = "http://127.0.0.1:5000/api/bookings"
     
-    // URL för API anrop - Ändra till riktiga backend URL:n senare
+    //URL for API
     private let baseURL = "https://hytteportalen-307333592311.europe-west1.run.app/api/bookings"
     
     enum BookingError: Error {
@@ -41,19 +41,19 @@ class BookingAPIClient {
         bookingPurpose: String? = nil, //Bookingsyfte
         completion: @escaping (Result<String, BookingError>) -> Void
     ) {
-        // Kolla om datumen är giltiga
+        //Valid dato
         guard startDate <= endDate else {
             completion(.failure(.invalidDates))
             return
         }
         
-        // Kolla om användaren är inloggad
+        //logged in eller ikke
         guard let currentUser = Auth.auth().currentUser else {
             completion(.failure(.authenticationError))
             return
         }
         
-        // Hämta ID token
+        //id-token
         currentUser.getIDToken { token, error in
             if let error = error {
                 print("Kunde inte hämta token: \(error.localizedDescription)")
@@ -66,13 +66,13 @@ class BookingAPIClient {
                 return
             }
             
-            // Formatera datumen för API req (yyyy-MM-dd)
+            //dato
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let startDateString = dateFormatter.string(from: startDate)
             let endDateString = dateFormatter.string(from: endDate)
             
-            // Skapa bokningsdata
+            // Skape bokningsdata
             let bookingData = BookingRequest(
                 cabinId: cabinId,
                 startDate: startDateString,
@@ -94,7 +94,7 @@ class BookingAPIClient {
                 return
             }
             
-            // Skapa URL request
+            //URL request
             guard let url = URL(string: self.baseURL) else {
                 print("Ugyldig URL.")
                 completion(.failure(.unknownError))
@@ -109,7 +109,7 @@ class BookingAPIClient {
             
             print("[BookingAPIClient] Sender booking til backend...")
             
-            // Skicka requesten
+            //sende requesten
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("Nätverk error: \(error.localizedDescription)")
@@ -123,7 +123,7 @@ class BookingAPIClient {
                     return
                 }
                 
-                // Kolla respons statuskod
+                //statuskode
                 switch httpResponse.statusCode {
                 case 200...299:
                     if let data = data, let responseBody = String(data: data, encoding: .utf8) {
@@ -179,13 +179,13 @@ class BookingAPIClient {
         }
     }
     
-    // För testing utan en backend
+    //testing uten backend
     func mockBookingRequest(
         startDate: Date,
         endDate: Date,
         completion: @escaping (Result<String, BookingError>) -> Void
     ) {
-        // Simulera nätverks fördröjning
+        //utsette
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.5) {
             // Generera en fake bokningsreferens
 //            let referenceNumber = "SPK-\(Int.random(in: 10000...99999))"

@@ -2,7 +2,7 @@
 //  CustomColors.swift
 //  Spkhytta-iOS
 //
-//  Created by Jana Carlsson on 13/04/2025.
+//  Created by Mariana and Abigail on 13/04/2025.
 //
 
 import Foundation

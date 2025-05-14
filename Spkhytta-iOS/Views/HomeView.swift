@@ -93,9 +93,9 @@ struct HomeView: View {
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .center)
                     
-                    // Visar bara de första faciliteterna om showAll är false
+                    //false = færre
                     if !viewModel.showAll {
-                        // Visa bara 4 faciliteter (2 rader med 2 faciliteter)
+                        
                         HStack {
                             VStack(alignment: .leading, spacing: 20) {
                                 facilitetView(icon: "wifi", text: "WiFi")
@@ -111,7 +111,7 @@ struct HomeView: View {
                         }
                         .padding(.horizontal)
                     } else {
-                        // Visa alla 8 faciliteter när showAll är true
+                        //true = flere
                         HStack {
                             VStack(alignment: .leading, spacing: 20) {
                                 facilitetView(icon: "wifi", text: "WiFi")

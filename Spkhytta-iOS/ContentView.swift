@@ -1,10 +1,8 @@
+//
 //  ContentView.swift
 //  hytte
 //
 //  Created by Mariana and Abigail on 19/02/2025.
-//Lagt till Tab eftersom .tabItem kommer bli deprecated. Fråga Danial vad man bör ha här. Tab måste vara Swift 5.9 eller senare. Om vi ska ha Tab: clean build projektet och radera derived data(tab ligger kommenterad).
-//.symbolRenderingMode(.hierarchical) fungerar inte på tab, så symbolerna kommer att vara fyllda när de är i tab.
-
 
 import SwiftUI
 import SwiftData
@@ -17,18 +15,16 @@ struct ContentView: View {
     @StateObject private var authViewModel = AuthViewModel()
 
     var body: some View {
-        if !isActive && !authViewModel.isAuthenticated { //ordnade hierarki o mina loopar, nested var ingen bra ide. det blev rotigt.
+        if !isActive && !authViewModel.isAuthenticated {
             SplashScreenView {
                 withAnimation {
                     isActive = true
                     isFirstLaunch = false
-                    // är användare auth i fb koll
-                    //--måste ämdra något här så att den visas även om användare är auth. splash sla visas oavsett.
                     isLoggedIn = authViewModel.isAuthenticated
                 }
             }
         } else if !isActive && authViewModel.isAuthenticated {
-            // Om användaren redan är autentiserad, hoppa över splash och sätt status direkt
+            // Om användaren allrede är autentiserad
             Color.clear
                 .onAppear {
                     isActive = true
@@ -37,8 +33,7 @@ struct ContentView: View {
                 }
 
         } else if !isLoggedIn {
-            // bug error vill inte ha parameter.--fixed
-            LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
+           LoginView(viewModel: authViewModel, isLoggedIn: $isLoggedIn)
         } else {
             TabView {
                 
@@ -63,7 +58,6 @@ struct ContentView: View {
                         ProfileView()
                     }
                 }
-                //    .badge("Här kan man lägga tex eller siffra") för att visa om det är någon uppdatering på sidan. Nil döljer badge. för att se om det är några nya uppdateringar så gör en @State variabel för unreadMessages som sen sätts till 0 när användaren loggar in på sin sida (detta kan bara göras med Tab).
                 
                 //settings
                 Tab("Innstillninger", systemImage: "gear") {
@@ -75,14 +69,13 @@ struct ContentView: View {
                 }
             }
             .preferredColorScheme(isDarkMode ? .dark : .light)
-            //.padding()får kalendern att bli längre från kkanten. knappen blir mindre.
-        }
+         }
     }
 }
 
 #Preview {
     ContentView()
-} // de här ska hänga ihop och visa splashview sen direkta till login.
+}
 
 
 

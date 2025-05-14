@@ -1,3 +1,4 @@
+//
 //CalendarViewModel.swift
 
 //Created by Mariana och Abigail on 12/03/2025
@@ -8,7 +9,6 @@ import SwiftUI
 import FirebaseAuth
 
 class CalendarViewModel: ObservableObject {
-    // Publicerade egenskaper
     @Published var currentMonth: Date = Date()
     @Published var startDate: Date?
     @Published var endDate: Date?
@@ -17,15 +17,15 @@ class CalendarViewModel: ObservableObject {
     @Published var alertMessage: String = ""
     @Published var backendUnavailableDates: Set<Date> = []
     
-    // Kalenderinställningar
+    // Kalender settings
     let calendar: Calendar = {
         var calendar = Calendar.current
-        calendar.firstWeekday = 2 // Starta veckan på måndag
+        calendar.firstWeekday = 2 //mandags start
         calendar.timeZone = TimeZone(identifier: "UTC")!
         return calendar
     }()
 
-    // Ladda otillgängliga datum från backend
+    //laster dager fra backend som er opptatt
     func loadBackendUnavailableDates(forMonth month: String, cabinId: Int) {
         guard let user = Auth.auth().currentUser else { return }
 
@@ -70,13 +70,13 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
-    // Normalisera datum för jämförelse
+    // Normalisere, sammenligne
     func normalizeDate(_ date: Date) -> Date {
         let components = calendar.dateComponents([.year, .month, .day], from: date)
         return calendar.date(from: components)!
     }
     
-    // Ladda röda dagar
+    //röde dager
     func loadHolidays() async {
         do {
             let fetchedHolidays = try await PublicHolidaysAPIClient.shared.fetchPublicHolidays()
@@ -92,7 +92,7 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
-    // Gå till nästa eller föregående månad
+    //sjekker hvis mulig bytte måned
     func moveMonth(by value: Int) {
         if canMoveMonth(by: value) {
             currentMonth = calendar.date(byAdding: .month, value: value, to: currentMonth) ?? currentMonth
@@ -103,7 +103,7 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
-    // Kontrollera om det är tillåtet att navigera till ny månad
+    //Se hvis mulig og navigere til ny måned
     private func canMoveMonth(by value: Int) -> Bool {
         guard let newDate = calendar.date(byAdding: .month, value: value, to: currentMonth),
               let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: newDate))
@@ -116,12 +116,12 @@ class CalendarViewModel: ObservableObject {
             : startOfMonth <= CalendarConstants.maxDate
     }
     
-    // Formatera datum till månad och år
+    //Formater datum til månte og år
     func formatMonth(date: Date) -> String {
         return Calendar.monthYearFormatter.string(from: date)
     }
     
-    // Kontrollera om datumvalet är giltigt
+    // Kontroller om datumvalet er giltigt
     func validateDateSelection() -> Bool {
         if startDate == nil {
             alertMessage = "Vänligen välj ett datum."
@@ -138,7 +138,7 @@ class CalendarViewModel: ObservableObject {
         return true
     }
     
-    // Hantera val av datum
+    //Hantere val av dato
     func handleDateSelection(date: Date) {
         let normalizedDate = normalizeDate(date)
         
@@ -169,7 +169,7 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
-    // Validera att alla datum i spannet är tillgängliga
+    //Se hvis tilgjengelig dato
     private func isRangeValid(start: Date, end: Date) -> Bool {
         var currentDate = start
         while currentDate <= end {
@@ -181,38 +181,38 @@ class CalendarViewModel: ObservableObject {
         return true
     }
     
-    // Hämta alla dagar som ska visas i kalendern
+    //alle dager
     func getCalendarDays() -> [DateWrapper] {
         var days = [DateWrapper]()
         
-        // Hämta månadens startdatum
+        //startdato
         let components = calendar.dateComponents([.year, .month], from: currentMonth)
         guard let startOfMonth = calendar.date(from: components) else {
             return days
         }
         
-        // Hämta antal dagar i månaden
+        // Henter antal dagar i måneden
         guard let range = calendar.range(of: .day, in: .month, for: startOfMonth) else {
             return days
         }
         
-        // Beräkna vilken veckodag månaden startar på
+        //Beregner hvilken ukedag månten startar på
         let firstDayOfMonth = calendar.component(.weekday, from: startOfMonth)
         let firstWeekdayIndex = (firstDayOfMonth - calendar.firstWeekday + 7) % 7
         
-        // Lägg till tomma celler i början
+        //Lägg til tomme celler i starten
         for _ in 0..<firstWeekdayIndex {
             days.append(DateWrapper(date: nil))
         }
         
-        // Lägg till faktiska dagar i månaden
+        //Legg till faktiske dager i månten
         for day in 1...range.count {
             if let date = calendar.date(byAdding: .day, value: day - 1, to: startOfMonth) {
                 days.append(DateWrapper(date: date))
             }
         }
         
-        // Lägg till tomma celler för att fylla upp rutnäet
+        //Lägg till tomme celler för att fylla upp rutnettet
         let totalCells = 6 * 7
         let newCells = totalCells - days.count
         for _ in 0..<max(0, newCells) {
@@ -222,7 +222,7 @@ class CalendarViewModel: ObservableObject {
         return days
     }
     
-    // Lägg till denna funtion om den saknas
+    //Legg till denna funktion om den savnes
     func isDateInRange(date: Date) -> Bool {
         let normalizedDate = normalizeDate(date)
         
@@ -234,17 +234,16 @@ class CalendarViewModel: ObservableObject {
         return false
     }
     
-    // Kontrollera om ett datum är en helgdag
+    //Kontrollera hvis ett dato er en helligdag
     func isHoliday(date: Date) -> Bool {
         let normalizedDate = normalizeDate(date)
         return holidays.contains { holiday in
-            // Om holiday.date inte är optional behöver vi inte avpaketa den
             return normalizeDate(holiday.date) == normalizedDate
         }
     }
 }
 
-// Formatter för månad utan dag
+//Formatter för månad utan dag, fått hjelp av Danial på SPK
 extension Calendar {
     static let monthOnlyFormatter: DateFormatter = {
         let formatter = DateFormatter()

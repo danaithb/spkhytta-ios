@@ -1,20 +1,15 @@
+//
 //  CalendarGridView.swift
 //  Calendar
 //
 //  Created by Mariana och Abigail on 18/03/2025.
-//
-// BUG: Problem med dagens datum som blev otillgängligt fast det inte var bokat.
-// Jämförelserna med unavailableDates fungerade inte som tänkt eftersom
-// tidszoner ställer till det, ibland är 14:e mars den 13:e på kvällen. FIXED
-//
+
 
 // ---------- Kalender Grid Vy ----------
 import SwiftUI
 import SwiftData
 
 struct CalendarGridView: View {
-    // BUG: Tidigare behövde funktionalitet flyttas från CalendarView till en egen View
-    // FIX: Flyttade logiken till ViewModel och använder bara ObservedObject här
     @ObservedObject var viewModel: CalendarViewModel
     
     var body: some View {
@@ -30,7 +25,6 @@ struct CalendarGridView: View {
                     let isInRange = viewModel.isDateInRange(date: date)
                     
                     ZStack {
-                        // Bakgrundscirkel för datum
                         Circle()
                             .fill(CalendarGridHelpers.backgroundColor(
                                 isHoliday: isHoliday,
@@ -40,14 +34,14 @@ struct CalendarGridView: View {
                             ))
                             .frame(width: 36, height: 36)
                         
-                        // Blå cirkel runt dagens datum
+                        
                         if isTodaysDate {
                             Circle()
                                 .stroke(Color.customBlue, lineWidth: 2)
                                 .frame(width: 36, height: 36)
                         }
                         
-                        // Datumtext med dynamisk färgsättning
+                        // Datotext
                         Text("\(day)")
                             .font(.system(size: 16))
                             .fontWeight(.medium)

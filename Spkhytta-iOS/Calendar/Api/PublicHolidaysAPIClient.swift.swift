@@ -12,33 +12,32 @@ class PublicHolidaysAPIClient {
     static let shared = PublicHolidaysAPIClient()
     private init() {}
     
-    // Hämtar helgdagar för ett givet år och landskod
+    //Henter
     func fetchPublicHolidays(
         year: Int = Calendar.current.component(.year, from: Date()),
         countryCode: String = "NO"
     ) async throws -> [PublicHolidayModel] {
-        // Konstruera URL:en
+        //URL:en
         guard let url = PublicHolidaysAPIEndpoints.publicHolidaysUrl(year: year, countryCode: countryCode) else {
             throw URLError(.badURL)
         }
         
-        // Utför nätverksförfrågan
+       
         let (data, response) = try await URLSession.shared.data(from: url)
         
-        // Validera svaret
+        // Validere
         guard let httpResponse = response as? HTTPURLResponse,
               (200...299).contains(httpResponse.statusCode) else {
             throw URLError(.badServerResponse)
         }
         
-        // BUG: Datumhantering kan vara fel om TimeZone saknas
-        // FIX: Lagt till explicit UTC tidszon för att säkerställa korrekt datumhantering
+        // BUG: Datohenting kan vara feil om TimeZone saknas
+        // FIX: Lagt till UTC tidszon för att säkerställa korrekt datumhantering, hjelp fra Swift json time value local time zone og Danial på SPK.
         
-        // Avkoda JSON till en array av Holiday-objekt
         let decoder = JSONDecoder()
         let holidays = try decoder.decode([Holiday].self, from: data)
         
-        // Konvertera Holiday-objekt till PublicHolidayModel-objekt
+        //konverter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")

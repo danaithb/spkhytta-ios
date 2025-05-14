@@ -1,4 +1,4 @@
-
+//
 //BookingViewModel
 //Created by Mariana och Abigail on 23/03/2025.
 
